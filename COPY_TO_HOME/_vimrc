@@ -284,3 +284,9 @@ let g:Tex_ViewRule_dvi = 'dviout.bat -GS=0'
 if filereadable($HOME."/local.vim")
 	exe "so $HOME"."/local.vim"
 endif
+"
+" ****************** delimitMate settings ********************
+" For python doc string (triple quotes), see
+" https://github.com/Raimondi/delimitMate/issues/55
+au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+
