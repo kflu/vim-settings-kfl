@@ -1,0 +1,286 @@
+" ###################################################################
+" # vimrc file
+" # by Kefei Lu
+" # modified from the default vimrc file.
+" # Updated: 2009.10.18
+" ###################################################################
+"
+" To use it, copy it to
+"     for Unix and OS/2:  ~/.vimrc
+"          for Amiga:  s:.vimrc
+"  for MS-DOS and Win32:  $VIM\_vimrc
+"        for OpenVMS:  sys$login:.vimrc
+
+" When started as "evim", evim.vim will already have done these settings.
+
+" *********** EXAMPLE SETTINGS ******************************************
+try
+    call pathogen#runtime_append_all_bundles()
+catch /^Vim\%((\a\+)\)\=:E117/	" catch error E123
+endtry
+
+if v:progname =~? "evim"
+  finish
+endif
+set nocompatible
+
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+
+if has("vms")
+  set nobackup        " do not keep a backup file, use versions instead
+else
+  set backup 	      " keep a backup file
+endif
+set history=50        " keep 50 lines of command line history
+set ruler        " show the cursor position all the time
+set showcmd        " display incomplete commands
+set incsearch        " do incremental searching
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
+
+" In many terminal emulators the mouse works just fine, thus enable it.
+set mouse=a
+
+if &t_Co > 2 || has("gui_running")
+  syntax on
+  set hlsearch
+endif
+
+if has("autocmd")
+
+  " Enable file type detection.
+  " Use the default filetype settings, so that mail gets 'tw' set to 72,
+  " 'cindent' is on in C files, etc.
+  " Also load indent files, to automatically do language-dependent indenting.
+  filetype plugin indent on
+
+  " Put these in an autocmd group, so that we can delete them easily.
+  augroup vimrcEx
+  au!
+
+  autocmd FileType text setlocal textwidth=78
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid or when inside an event handler
+  " (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+  augroup END
+
+else
+
+  set autoindent        " always set autoindenting on
+
+endif " has("autocmd")
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+         \ | wincmd p | diffthis
+
+" ==============================
+"  MY SETTINGS 
+" ==============================
+" ********************** Functions ***************************
+function s:IsWindows()
+    return has("win16") || has("win32") || has("win64") || has("win95")
+endfunction
+
+function s:SetFontWindows()
+    set guifont=Bitstream_Vera_Sans_Mono:h10,
+                \Monaco:h10,
+                \Consolas:h11,
+                \Lucida_Console:h10,
+                \Consolas:h11,
+                \Courier_New:h9,
+endfunction
+
+function s:SetFontUnix()
+    set guifont=Monospace\ 9,
+endfunction
+
+" Change font size in 'guifont'
+"   size:
+"       '+'/'-':    increase/descrease font size
+"       else:       Set font size to a:size (0 to default size)
+"
+"   This function will convert the fonts defined in 'guifont' to other font
+"   sizes. Currently font size don't check if it gets to zero or minus.
+function s:ChangeFontSize(size)
+    if has("gui_running")
+        if a:size == '+'
+            let eval_str = '\=eval(submatch(0)+1)'
+        elseif a:size == '-'
+            let eval_str = '\=eval(submatch(0)-1)'
+        else
+            let eval_str = str2nr(a:size)
+        endif
+
+        let fontList = split(&guifont, ',')
+        let fontList2 = []
+
+        for font in fontList
+            call add( fontList2, substitute(font, '\d\+', eval_str, '') )
+        endfor
+        let &guifont = join( fontList2, ',' )
+    endif
+endfunction
+
+" ***************** Main *********************************************
+" Map ChangeFontSize() to hot keys
+if has("gui_running")
+    map <Leader>= :<C-U>
+                \for i in range(v:count1)<bar>
+                \   call <SID>ChangeFontSize('+')<bar>
+                \endfor<CR>
+
+    map <Leader>- :<C-U>
+                \for i in range(v:count1)<bar>
+                \   call <SID>ChangeFontSize('-')<bar>
+                \endfor<CR>
+
+    map <Leader>0 :<C-U>call <SID>ChangeFontSize(0)<CR>
+endif
+
+set directory+=$TEMP
+set encoding=utf-8
+" set hidden     " Can switch to another buffer w/o save current one.
+
+" ************************ GUI settings ***********************************
+if has("gui_running")
+    set lines=36
+    set columns=100
+    colo darkblue " colo torte
+    if s:IsWindows()
+        call s:SetFontWindows()
+    else
+        call s:SetFontUnix()
+    endif
+    set guifontwide=Yahei_Mono:h10:cGB2312,SimHei
+    set go-=T
+    set go+=b
+
+else
+    colo darkblue
+endif
+
+" ********************* Appearance Settings *********************************
+
+set vb            " Use visual bell instead of beep
+" set spell        " Use spell checking
+set linebreak       " break line at word boundary
+set number          " line number
+set winminheight=0
+set winminwidth=0
+set foldmethod=syntax    " Syntax folding
+set nofen        " Do not fold on opening
+set display+=lastline "with this, the last line will not have @ chars.
+
+
+" ******************** TTY settings **************************************
+set ttymouse=xterm2
+
+" -------------------------------------------
+" Adding 'p' for quickfix window to preview files
+if has('autocmd') && has('quickfix') 
+        au BufWinEnter quickfix exe 'map <buffer> p <CR><C-W>p'
+endif 
+ 
+" --------------------------------------------
+" Search tag files in the following locations
+"       Look for "tags" 8 lvls upward
+set tags=
+            \./tags,
+            \../tags,
+            \../../tags,
+            \../../../tags,
+            \../../../../tags,
+            \../../../../../tags,
+            \../../../../../../tags,
+            \../../../../../../../tags,
+            \../../../../../../../../tags,
+
+"       include tag files from $HOME/tags
+let s:tagfiles = glob( "$HOME/tags/**/*" )
+let &tags = &tags . ',' . substitute(s:tagfiles, "\n", ",", "g")
+unlet s:tagfiles
+"-----------------------------------------------
+
+" Make sure we use findstr on Windows, no matter if grep is there or not
+if s:IsWindows()
+    set grepprg=findstr\ /N
+endif
+
+" This considers ":" in the keywords when search using C-N, C-P Useful in
+" latex when input sec:xxx
+autocmd FileType tex set iskeyword+=:
+
+" ************************ Omni completion settings ***********************
+set pumheight=8
+" the following lines close the preview window after a completion
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+" ***************************** Key Mapping *****************************
+map <Leader>tt :TlistToggle<CR>
+" Quick escape from insert mode
+imap jj <ESC>
+
+" *************************** Python Style ****************************
+set sw=4 ts=4 smarttab expandtab autoindent
+
+" ************************ txt2tags (t2t) syntax *********************
+au BufNewFile,BufRead *.t2t                 setf txt2tags
+
+func Txt2tags()
+    " read in all lines into a var
+    let b:lines = getline(1, "$")
+    " execute txt2tags command and read the output into a var
+    let b:result = system("txt2tags -t html -i - -o -", join(b:lines,"\n"))
+    let g:t2t_result = split(b:result, "\n")
+    " open a new window and put the result into it
+    new
+    call append(0, g:t2t_result)
+    unlet g:t2t_result
+    setf html
+endfunc
+
+command T2t call Txt2tags()
+
+" *********************** C# folding ********************************
+" Folding : http://vim.wikia.com/wiki/Syntax-based_folding, see comment by
+" Ostrygen au FileType cs set omnifunc=syntaxcomplete#Complete
+au FileType cs set foldmethod=marker
+au FileType cs set foldmarker={,}
+au FileType cs set foldtext=substitute(getline(v:foldstart),'{.*','{...}',)
+au FileType cs set foldlevelstart=2  
+
+" ************************ latex-suite settings *************************
+" IMPORTANT: win32 users will need to have 'shellslash' set so that latex
+" can be called correctly.
+autocmd FileType tex    set shellslash
+
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+autocmd FileType tex    set grepprg=grep\ -nH\ $*
+
+" OPTIONAL: This enables automatic indentation as you type.
+filetype indent on
+
+" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+" The following changes the default filetype back to 'tex':
+let g:tex_flavor='latex'
+
+let g:Tex_ViewRule_dvi = 'dviout.bat -GS=0'
+
+" ******************** Sourcing files *********************
+if filereadable($HOME."/local.vim")
+	exe "so $HOME"."/local.vim"
+endif
