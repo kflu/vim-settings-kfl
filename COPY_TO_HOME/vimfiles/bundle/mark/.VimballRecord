@@ -1,0 +1,1 @@
+mark.vba: call delete('C:\Users\Kefei\vim\COPY_TO_HOME\vimfiles\bundle\mark/autoload/mark.vim')|call delete('C:\Users\Kefei\vim\COPY_TO_HOME\vimfiles\bundle\mark/autoload/mark/palettes.vim')|call delete('C:\Users\Kefei\vim\COPY_TO_HOME\vimfiles\bundle\mark/plugin/mark.vim')|call delete('C:\Users\Kefei\vim\COPY_TO_HOME\vimfiles\bundle\mark/doc/mark.txt')
