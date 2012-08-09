@@ -284,6 +284,7 @@ let g:Tex_ViewRule_dvi = 'dviout.bat -GS=0'
 if filereadable($HOME."/local.vim")
 	exe "so $HOME"."/local.vim"
 endif
+" ******************** Sourcing files *********************
 
 " ****************** delimitMate settings ********************
 " To resolve <S-Tab> conflict with snipMate
@@ -291,4 +292,36 @@ imap <C-J> <Plug>delimitMateS-Tab
 " For python doc string (triple quotes), see
 " https://github.com/Raimondi/delimitMate/issues/55
 au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
+" ****************** delimitMate settings ********************
 
+" **************** cscope usage ****************
+function s:config_cscope()
+
+    if has("cscope")
+        set csto=0
+        " set cst " Use of :tag invokes :cstag:
+        set nocsverb
+        for prefix in ["../../../..","../../..","../..","..","."]
+            " prefix issue: http://bit.ly/QKhlJe
+            let csfile = prefix . "/" . "cscope.out"
+            if filereadable(csfile)
+                execute "cs add " . csfile . " " . prefix
+                break
+            endif
+        endfor
+        set csverb
+    endif
+    set cscopequickfix=s-,c-,d-,i-,t-,e-
+
+    nmap <C-_>s :lcs find s <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-_>g :lcs find g <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-_>c :lcs find c <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-_>t :lcs find t <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-_>e :lcs find e <C-R>=expand("<cword>")<CR><CR>
+    nmap <C-_>f :lcs find f <C-R>=expand("<cfile>")<CR><CR>
+    nmap <C-_>i :lcs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+    nmap <C-_>d :lcs find d <C-R>=expand("<cword>")<CR><CR>
+
+endfunction
+call s:config_cscope()
+" **************** cscope usage ****************
