@@ -301,7 +301,15 @@ function s:config_cscope()
         set csto=0
         " set cst " Use of :tag invokes :cstag:
         set nocsverb
-        for prefix in ["../../../..","../../..","../..","..","."]
+        for prefix in [
+                      \"../../../../../..",
+                      \"../../../../..",
+                      \"../../../..",
+                      \"../../..",
+                      \"../..",
+                      \"..",
+                      \"."
+                      \]
             " prefix issue: http://bit.ly/QKhlJe
             let csfile = prefix . "/" . "cscope.out"
             if filereadable(csfile)
