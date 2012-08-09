@@ -291,4 +291,3 @@ imap <C-J> <Plug>delimitMateS-Tab
 " For python doc string (triple quotes), see
 " https://github.com/Raimondi/delimitMate/issues/55
 au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
-
