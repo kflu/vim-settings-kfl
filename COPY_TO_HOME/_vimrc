@@ -151,6 +151,8 @@ set directory+=$TEMP
 set encoding=utf-8
 " set hidden     " Can switch to another buffer w/o save current one.
 
+source $VIMRUNTIME/mswin.vim " Add support for copy/paste/cut/undo
+
 " ************************ GUI settings ***********************************
 if has("gui_running")
     set lines=36
