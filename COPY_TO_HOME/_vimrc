@@ -151,7 +151,11 @@ set directory+=$TEMP
 set encoding=utf-8
 " set hidden     " Can switch to another buffer w/o save current one.
 
+set nowrap " Do not wrap long lines
 source $VIMRUNTIME/mswin.vim " Add support for copy/paste/cut/undo
+" Unmap windows behaviors of the following keys from mswin.vim
+unmap <C-Y>
+unmap <C-Z>
 
 " ************************ GUI settings ***********************************
 if has("gui_running")
