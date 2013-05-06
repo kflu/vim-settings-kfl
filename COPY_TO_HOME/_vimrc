@@ -201,7 +201,7 @@ endif
 " Search tag files in the following locations
 "       Look for "tags" 8 lvls upward
 set tags=
-            \./tags,
+            \tags,
             \../tags,
             \../../tags,
             \../../../tags,
