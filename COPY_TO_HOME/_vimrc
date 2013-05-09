@@ -212,6 +212,7 @@ set tags=
             \../../../../../../tags,
             \../../../../../../../tags,
             \../../../../../../../../tags,
+            \/usr/include/tags,
 
 "       include tag files from $HOME/tags
 let s:tagfiles = glob( "$HOME/tags/**/*" )
