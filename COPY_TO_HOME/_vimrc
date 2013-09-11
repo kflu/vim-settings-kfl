@@ -341,3 +341,8 @@ function s:config_cscope()
 endfunction
 call s:config_cscope()
 " **************** cscope usage ****************
+
+" **************** Utility commands **********************
+
+" copy file name to system clipboard (verified on Windows)
+command Cpfn let @* = expand("%:p")
