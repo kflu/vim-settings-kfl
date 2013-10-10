@@ -260,13 +260,14 @@ endfunc
 
 command T2t call Txt2tags()
 
-" *********************** C# folding ********************************
+" *********************** C# settings ********************************
 " Folding : http://vim.wikia.com/wiki/Syntax-based_folding, see comment by
 " Ostrygen au FileType cs set omnifunc=syntaxcomplete#Complete
 au FileType cs set foldmethod=marker
 au FileType cs set foldmarker={,}
 au FileType cs set foldtext=substitute(getline(v:foldstart),'{.*','{...}',)
 au FileType cs set foldlevelstart=2  
+au FileType cs set textwidth=100
 
 " ************************ latex-suite settings *************************
 " IMPORTANT: win32 users will need to have 'shellslash' set so that latex
