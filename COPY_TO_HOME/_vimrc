@@ -92,10 +92,10 @@ function s:IsWindows()
 endfunction
 
 function s:SetFontWindows()
-    set guifont=Bitstream_Vera_Sans_Mono:h10,
-                \Monaco:h10,
-                \Consolas:h10,
-                \Lucida_Console:h10,
+    set guifont=Bitstream_Vera_Sans_Mono:h9,
+                \Monaco:h9,
+                \Consolas:h9,
+                \Lucida_Console:h9,
                 \Courier_New:h9,
 endfunction
 
@@ -132,6 +132,7 @@ endfunction
 
 " ***************** Main *********************************************
 " Map ChangeFontSize() to hot keys
+let mapleader = " "
 if has("gui_running")
     map <Leader>= :<C-U>
                 \for i in range(v:count1)<bar>
@@ -162,7 +163,7 @@ endif
 if has("gui_running")
     set lines=36
     set columns=100
-    colo darkblue " colo torte
+    colo desert " colo torte
     if s:IsWindows()
         call s:SetFontWindows()
     else
@@ -173,7 +174,7 @@ if has("gui_running")
     set go+=b
 
 else
-    colo darkblue
+    colo desert
 endif
 
 " ********************* Appearance Settings *********************************
