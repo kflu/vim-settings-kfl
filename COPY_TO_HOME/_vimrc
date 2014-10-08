@@ -18,9 +18,9 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-set rtp+=~/vimfiles/bundle/Vundle.vim
-call vundle#begin()
+" vim-settings-kfl should git clone Vundle.vim into ~/vundle
+set rtp+=~/vundle/Vundle.vim
+call vundle#begin('~/vundle') " install plugins into ~/vundle
 
 Plugin 'gmarik/Vundle.vim'
 Plugin 'kchmck/vim-coffee-script'
