@@ -274,6 +274,7 @@ function s:ConfigureCscope()
 endfunction
 
 function s:ConfigureCoffeeScript()
+    set sw=2 ts=2 smarttab expandtab autoindent
     " This needs to work with the coffeescript syntax definition in .ctags
     " file. See https://gist.github.com/puzzl3r/c2881068454d66f5d84a
     let g:tagbar_type_coffee = {
@@ -288,90 +289,98 @@ function s:ConfigureCoffeeScript()
                 \ }
 endfunction
 
-" ------------------------- Main -------------------------
-" Map ChangeFontSize() to hot keys
-let mapleader = " "
+function s:Main()
+    " ------------------------- Main -------------------------
+    " Map ChangeFontSize() to hot keys
+    let g:mapleader = " "
 
-set sw=4 ts=4 smarttab expandtab autoindent
-" last window will always have a status line. This is needed by vim-airline
-set laststatus=2
-set directory+=$TEMP
-set encoding=utf-8
-set nowrap " Do not wrap long lines
-set vb            " Use visual bell instead of beep
-set linebreak       " break line at word boundary
-set number          " line number
-" allow a window to shrink minimally
-set winminheight=0
-set winminwidth=0
-set foldmethod=syntax    " Syntax folding
-set nofen        " Do not fold on opening
-set display+=lastline "with this, the last line will not have @ chars.
-set ttymouse=xterm2
-" set spell        " Use spell checking
-" set hidden     " Can switch to another buffer w/o save current one.
+    " Only enable airline indent check. Don't enable the default trailing
+    " space check as it's too distracting
+    let g:airline#extensions#whitespace#checks = [ 'indent' ]
 
-" ------------------------- GUI settings -------------------------
-if has("gui_running")
-    set go-=T
-    set go+=b
-    colo desert
-    call s:ConfigureFont()
-endif
-" ------------------------- GUI settings -------------------------
+    set sw=4 ts=4 smarttab expandtab autoindent
+    " last window will always have a status line. This is needed by vim-airline
+    set laststatus=2
+    set directory+=$TEMP
+    set encoding=utf-8
+    set nowrap " Do not wrap long lines
+    set vb            " Use visual bell instead of beep
+    set linebreak       " break line at word boundary
+    set number          " line number
+    " allow a window to shrink minimally
+    set winminheight=0
+    set winminwidth=0
+    set foldmethod=syntax    " Syntax folding
+    set nofen        " Do not fold on opening
+    set display+=lastline "with this, the last line will not have @ chars.
+    set ttymouse=xterm2
+    " set spell        " Use spell checking
+    " set hidden     " Can switch to another buffer w/o save current one.
 
-call s:ConfigureTags()
-call s:ConfigureCscope()
+    " ------------------------- GUI settings -------------------------
+    if has("gui_running")
+        set go-=T
+        set go+=b
+        colo desert
+        call s:ConfigureFont()
+    endif
+    " ------------------------- GUI settings -------------------------
 
-" Adding 'p' for quickfix window to preview files
-if has('autocmd') && has('quickfix') 
-    au BufWinEnter quickfix exe 'map <buffer> p <CR><C-W>p'
-endif 
- 
-" Make sure we use findstr on Windows, no matter if grep is there or not
+    call s:ConfigureTags()
+    call s:ConfigureCscope()
 
-" ------------------------- OMNI COMPLETION SETTINGS -------------------------
-if has('autocmd')
-    set pumheight=8 " set completion window height
-    " the following lines close the preview window after a completion
-    autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-    autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-endif
-" ------------------------- OMNI COMPLETION SETTINGS -------------------------
+    " Adding 'p' for quickfix window to preview files
+    if has('autocmd') && has('quickfix') 
+        au BufWinEnter quickfix exe 'map <buffer> p <CR><C-W>p'
+    endif 
 
-" ------------------------- KEY MAPPINGS -------------------------
-map <Leader>tt :TagbarToggle<CR>
+    " Make sure we use findstr on Windows, no matter if grep is there or not
 
-" Quick escape from insert mode
-imap jj <ESC>
+    " ------------------------- OMNI COMPLETION SETTINGS -------------------------
+    if has('autocmd')
+        set pumheight=8 " set completion window height
+        " the following lines close the preview window after a completion
+        autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+        autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+    endif
+    " ------------------------- OMNI COMPLETION SETTINGS -------------------------
 
-" To resolve <S-Tab> conflict with snipMate
-imap <C-J> <Plug>delimitMateS-Tab
-" ------------------------- KEY MAPPINGS -------------------------
+    " ------------------------- KEY MAPPINGS -------------------------
+    map <Leader>tt :TagbarToggle<CR>
 
-" ------------------------- CUSTOM COMMANDS -------------------------
-" copy file name to system clipboard (verified on Windows)
-command Cpfn let @* = expand("%:p")
-" ------------------------- CUSTOM COMMANDS -------------------------
+    " Quick escape from insert mode
+    imap jj <ESC>
 
-" ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
-if has('autocmd')
-    autocmd FileType python call s:ConfigurePython()
-    autocmd FileType cs call s:ConfigureCSharp()
-    autocmd FileType tex call s:ConfigureTex()
-    autocmd FileType coffee call s:ConfigureCoffeeScript()
-endif
-" ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
+    " To resolve <S-Tab> conflict with snipMate
+    imap <C-J> <Plug>delimitMateS-Tab
+    " ------------------------- KEY MAPPINGS -------------------------
 
-if s:IsWindows()
-    set grepprg=findstr\ /N
+    " ------------------------- CUSTOM COMMANDS -------------------------
+    " copy file name to system clipboard (verified on Windows)
+    command Cpfn let @* = expand("%:p")
+    " ------------------------- CUSTOM COMMANDS -------------------------
 
-    source $VIMRUNTIME/mswin.vim " Add support for copy/paste/cut/undo
-    " Unmap windows behaviors of the following keys from mswin.vim
-    unmap <C-Y>
-    unmap <C-Z>
-endif
+    " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
+    if has('autocmd')
+        autocmd FileType python call s:ConfigurePython()
+        autocmd FileType cs call s:ConfigureCSharp()
+        autocmd FileType tex call s:ConfigureTex()
+        autocmd FileType coffee call s:ConfigureCoffeeScript()
+    endif
+    " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
 
-if filereadable($HOME."/local.vim")
-    exe "so $HOME"."/local.vim"
-endif
+    if s:IsWindows()
+        set grepprg=findstr\ /N
+
+        source $VIMRUNTIME/mswin.vim " Add support for copy/paste/cut/undo
+        " Unmap windows behaviors of the following keys from mswin.vim
+        unmap <C-Y>
+        unmap <C-Z>
+    endif
+
+    if filereadable($HOME."/local.vim")
+        exe "so $HOME"."/local.vim"
+    endif
+endfunction
+
+call s:Main()
