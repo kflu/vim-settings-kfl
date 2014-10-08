@@ -84,7 +84,7 @@ command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
          \ | wincmd p | diffthis
 
 " ==============================
-"  MY SETTINGS 
+"  MY SETTINGS
 " ==============================
 " ********************** Functions ***************************
 function s:IsWindows()
@@ -133,6 +133,7 @@ endfunction
 " ***************** Main *********************************************
 " Map ChangeFontSize() to hot keys
 let mapleader = " "
+set laststatus=2 " last window will always have a status line
 if has("gui_running")
     map <Leader>= :<C-U>
                 \for i in range(v:count1)<bar>
@@ -236,7 +237,7 @@ autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " ***************************** Key Mapping *****************************
-map <Leader>tt :TlistToggle<CR>
+map <Leader>tt :TagbarToggle<CR>
 " Quick escape from insert mode
 imap jj <ESC>
 
@@ -344,6 +345,20 @@ endfunction
 call s:config_cscope()
 " **************** cscope usage ****************
 
+" ******************** coffeescript tagbar support ******************
+" This needs to work with the coffeescript syntax definition in .ctags
+" file. See https://gist.github.com/puzzl3r/c2881068454d66f5d84a
+let g:tagbar_type_coffee = {
+    \ 'ctagstype' : 'coffee',
+    \ 'kinds'     : [
+        \ 'c:classes',
+        \ 'm:methods',
+        \ 'f:functions',
+        \ 'v:variables',
+        \ 'f:fields',
+    \ ]
+\ }
+" ******************** END coffeescript tagbar support ******************
 " **************** Utility commands **********************
 
 " copy file name to system clipboard (verified on Windows)
