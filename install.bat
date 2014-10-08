@@ -6,6 +6,7 @@ pushd %userprofile%
 echo Linking files from %vim%\COPY_TO_HOME to %userprofile%...
 :: Making hardlinks for files because of the vim-WinSymLink bug
 mklink /h _vimrc %vim%\COPY_TO_HOME\_vimrc
+mklink /h .ctags %vim%\COPY_TO_HOME\.ctags
 mklink /d vimfiles %vim%\COPY_TO_HOME\vimfiles
 
 pushd c:\windows
