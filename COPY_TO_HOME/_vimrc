@@ -13,9 +13,9 @@
 
 " When started as "evim", evim.vim will already have done these settings.
 
-" *********** BEGIN Vundle setup **********************
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" ------------------------- VUNDLE SETUP -------------------------
+set nocompatible " be iMproved, required
+filetype off " required
 
 " set the runtime path to include Vundle and initialize
 " vim-settings-kfl should git clone Vundle.vim into ~/vundle
@@ -32,9 +32,9 @@ Plugin 'tpope/vim-surround'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
-" *********** END Vundle setup **********************
+" ------------------------- VUNDLE SETUP -------------------------
 
-" *********** EXAMPLE SETTINGS ******************************************
+" ------------------------- EXAMPLE SETTINGS -------------------------
 if v:progname =~? "evim"
   finish
 endif
@@ -98,11 +98,11 @@ endif " has("autocmd")
 " file it was loaded from, thus the changes you made.
 command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
          \ | wincmd p | diffthis
+" ------------------------- EXAMPLE SETTINGS -------------------------
 
 " ==============================
 "  MY SETTINGS
 " ==============================
-" ********************** Functions ***************************
 function s:IsWindows()
     return has("win16") || has("win32") || has("win64") || has("win95")
 endfunction
@@ -117,6 +117,17 @@ endfunction
 
 function s:SetFontUnix()
     set guifont=Monospace\ 9,
+endfunction
+
+function s:ConfigureFont()
+    if s:IsWindows()
+        call s:SetFontWindows()
+    else
+        call s:SetFontUnix()
+    endif
+
+    set guifontwide=Yahei_Mono:h10:cGB2312,SimHei
+    call s:MapFontChanges()
 endfunction
 
 " Change font size in 'guifont'
@@ -146,184 +157,87 @@ function s:ChangeFontSize(size)
     endif
 endfunction
 
-" ***************** Main *********************************************
-" Map ChangeFontSize() to hot keys
-let mapleader = " "
-set laststatus=2 " last window will always have a status line
-if has("gui_running")
-    map <Leader>= :<C-U>
-                \for i in range(v:count1)<bar>
-                \   call <SID>ChangeFontSize('+')<bar>
-                \endfor<CR>
+function s:MapFontChanges()
+    if has("gui_running")
+        map <Leader>= :<C-U>
+                    \for i in range(v:count1)<bar>
+                    \   call <SID>ChangeFontSize('+')<bar>
+                    \endfor<CR>
 
-    map <Leader>- :<C-U>
-                \for i in range(v:count1)<bar>
-                \   call <SID>ChangeFontSize('-')<bar>
-                \endfor<CR>
+        map <Leader>- :<C-U>
+                    \for i in range(v:count1)<bar>
+                    \   call <SID>ChangeFontSize('-')<bar>
+                    \endfor<CR>
 
-    map <Leader>0 :<C-U>call <SID>ChangeFontSize(0)<CR>
-endif
-
-set directory+=$TEMP
-set encoding=utf-8
-" set hidden     " Can switch to another buffer w/o save current one.
-
-set nowrap " Do not wrap long lines
-if s:IsWindows()
-    source $VIMRUNTIME/mswin.vim " Add support for copy/paste/cut/undo
-    " Unmap windows behaviors of the following keys from mswin.vim
-    unmap <C-Y>
-    unmap <C-Z>
-endif
-
-" ************************ GUI settings ***********************************
-if has("gui_running")
-    set lines=36
-    set columns=100
-    colo desert " colo torte
-    if s:IsWindows()
-        call s:SetFontWindows()
-    else
-        call s:SetFontUnix()
+        map <Leader>0 :<C-U>call <SID>ChangeFontSize(0)<CR>
     endif
-    set guifontwide=Yahei_Mono:h10:cGB2312,SimHei
-    set go-=T
-    set go+=b
+endfunction
 
-else
-    colo desert
-endif
-
-" ********************* Appearance Settings *********************************
-
-set vb            " Use visual bell instead of beep
-" set spell        " Use spell checking
-set linebreak       " break line at word boundary
-set number          " line number
-set winminheight=0
-set winminwidth=0
-set foldmethod=syntax    " Syntax folding
-set nofen        " Do not fold on opening
-set display+=lastline "with this, the last line will not have @ chars.
-
-
-" ******************** TTY settings **************************************
-set ttymouse=xterm2
-
-" -------------------------------------------
-" Adding 'p' for quickfix window to preview files
-if has('autocmd') && has('quickfix') 
-        au BufWinEnter quickfix exe 'map <buffer> p <CR><C-W>p'
-endif 
- 
-" --------------------------------------------
 " Search tag files in the following locations
-"       Look for "tags" 8 lvls upward
-set tags=
-            \tags,
-            \../tags,
-            \../../tags,
-            \../../../tags,
-            \../../../../tags,
-            \../../../../../tags,
-            \../../../../../../tags,
-            \../../../../../../../tags,
-            \../../../../../../../../tags,
-            \/usr/include/tags,
+" for "tags" 8 lvls upward
+function s:ConfigureTags()
+    set tags=
+                \tags,
+                \../tags,
+                \../../tags,
+                \../../../tags,
+                \../../../../tags,
+                \../../../../../tags,
+                \../../../../../../tags,
+                \../../../../../../../tags,
+                \../../../../../../../../tags,
+                \/usr/include/tags,
 
-"       include tag files from $HOME/tags
-let s:tagfiles = glob( "$HOME/tags/**/*" )
-let &tags = &tags . ',' . substitute(s:tagfiles, "\n", ",", "g")
-unlet s:tagfiles
-"-----------------------------------------------
+    "       include tag files from $HOME/tags
+    let tagfiles = glob( "$HOME/tags/**/*" )
+    let &tags = &tags . ',' . substitute(tagfiles, "\n", ",", "g")
+endfunction
 
-" Make sure we use findstr on Windows, no matter if grep is there or not
-if s:IsWindows()
-    set grepprg=findstr\ /N
-endif
-
-" This considers ":" in the keywords when search using C-N, C-P Useful in
-" latex when input sec:xxx
-autocmd FileType tex set iskeyword+=:
-
-" ************************ Omni completion settings ***********************
-set pumheight=8
-" the following lines close the preview window after a completion
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
-" ***************************** Key Mapping *****************************
-map <Leader>tt :TagbarToggle<CR>
-" Quick escape from insert mode
-imap jj <ESC>
-
-" *************************** Python Style ****************************
-set sw=4 ts=4 smarttab expandtab autoindent
-
-" ************************ txt2tags (t2t) syntax *********************
-au BufNewFile,BufRead *.t2t                 setf txt2tags
-
-func Txt2tags()
-    " read in all lines into a var
-    let b:lines = getline(1, "$")
-    " execute txt2tags command and read the output into a var
-    let b:result = system("txt2tags -t html -i - -o -", join(b:lines,"\n"))
-    let g:t2t_result = split(b:result, "\n")
-    " open a new window and put the result into it
-    new
-    call append(0, g:t2t_result)
-    unlet g:t2t_result
-    setf html
-endfunc
-
-command T2t call Txt2tags()
-
-" *********************** C# settings ********************************
+" C# settings
 " Folding : http://vim.wikia.com/wiki/Syntax-based_folding, see comment by
 " Ostrygen au FileType cs set omnifunc=syntaxcomplete#Complete
-au FileType cs set foldmethod=marker
-au FileType cs set foldmarker={,}
-au FileType cs set foldtext=substitute(getline(v:foldstart),'{.*','{...}',)
-au FileType cs set foldlevelstart=2  
-au FileType cs set textwidth=100
+function s:ConfigureCSharp()
+    set foldmethod=marker
+    set foldmarker={,}
+    set foldtext=substitute(getline(v:foldstart),'{.*','{...}',)
+    set foldlevelstart=2  
+    set textwidth=100
+endfunction
 
-" ************************ latex-suite settings *************************
-" IMPORTANT: win32 users will need to have 'shellslash' set so that latex
-" can be called correctly.
-autocmd FileType tex    set shellslash
+function s:ConfigurePython()
+    set sw=4 ts=4 smarttab expandtab autoindent
+    " For python doc string (triple quotes), see
+    " https://github.com/Raimondi/delimitMate/issues/55
+    let b:delimitMate_nesting_quotes = ['"', "'"]
+endfunction
 
-" IMPORTANT: grep will sometimes skip displaying the file name if you
-" search in a singe file. This will confuse Latex-Suite. Set your grep
-" program to always generate a file-name.
-autocmd FileType tex    set grepprg=grep\ -nH\ $*
+" latex-suite settings
+function s:ConfigureTex()
+    " IMPORTANT: win32 users will need to have 'shellslash' set so that latex
+    " can be called correctly.
+    set shellslash
 
-" OPTIONAL: This enables automatic indentation as you type.
-filetype indent on
+    " IMPORTANT: grep will sometimes skip displaying the file name if you
+    " search in a singe file. This will confuse Latex-Suite. Set your grep
+    " program to always generate a file-name.
+    set grepprg=grep\ -nH\ $*
 
-" OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
-" 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
-" The following changes the default filetype back to 'tex':
-let g:tex_flavor='latex'
+    " This considers ":" in the keywords when search using C-N, C-P Useful in
+    " latex when input sec:xxx
+    set iskeyword+=:
 
-let g:Tex_ViewRule_dvi = 'dviout.bat -GS=0'
+    " OPTIONAL: This enables automatic indentation as you type.
+    filetype indent on
 
-" ******************** Sourcing files *********************
-if filereadable($HOME."/local.vim")
-	exe "so $HOME"."/local.vim"
-endif
-" ******************** Sourcing files *********************
+    " OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
+    " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
+    " The following changes the default filetype back to 'tex':
+    let g:tex_flavor='latex'
 
-" ****************** delimitMate settings ********************
-" To resolve <S-Tab> conflict with snipMate
-imap <C-J> <Plug>delimitMateS-Tab
-" For python doc string (triple quotes), see
-" https://github.com/Raimondi/delimitMate/issues/55
-au FileType python let b:delimitMate_nesting_quotes = ['"', "'"]
-" ****************** delimitMate settings ********************
+    let g:Tex_ViewRule_dvi = 'dviout.bat -GS=0'
+endfunction
 
-" **************** cscope usage ****************
-function s:config_cscope()
-
+function s:ConfigureCscope()
     if has("cscope")
         set csto=0
         " set cst " Use of :tag invokes :cstag:
@@ -356,26 +270,106 @@ function s:config_cscope()
     nmap <C-_>f :lcs find f <C-R>=expand("<cfile>")<CR><CR>
     nmap <C-_>i :lcs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
     nmap <C-_>d :lcs find d <C-R>=expand("<cword>")<CR><CR>
-
 endfunction
-call s:config_cscope()
-" **************** cscope usage ****************
 
-" ******************** coffeescript tagbar support ******************
-" This needs to work with the coffeescript syntax definition in .ctags
-" file. See https://gist.github.com/puzzl3r/c2881068454d66f5d84a
-let g:tagbar_type_coffee = {
-    \ 'ctagstype' : 'coffee',
-    \ 'kinds'     : [
-        \ 'c:classes',
-        \ 'm:methods',
-        \ 'f:functions',
-        \ 'v:variables',
-        \ 'f:fields',
-    \ ]
-\ }
-" ******************** END coffeescript tagbar support ******************
-" **************** Utility commands **********************
+function s:ConfigureCoffeeScript()
+    " This needs to work with the coffeescript syntax definition in .ctags
+    " file. See https://gist.github.com/puzzl3r/c2881068454d66f5d84a
+    let g:tagbar_type_coffee = {
+                \ 'ctagstype' : 'coffee',
+                \ 'kinds'     : [
+                \ 'c:classes',
+                \ 'm:methods',
+                \ 'f:functions',
+                \ 'v:variables',
+                \ 'f:fields',
+                \ ]
+                \ }
+endfunction
 
+" ------------------------- Main -------------------------
+" Map ChangeFontSize() to hot keys
+let mapleader = " "
+
+" last window will always have a status line. This is needed by vim-airline
+set laststatus=2
+set directory+=$TEMP
+set encoding=utf-8
+set nowrap " Do not wrap long lines
+set vb            " Use visual bell instead of beep
+set linebreak       " break line at word boundary
+set number          " line number
+" allow a window to shrink minimally
+set winminheight=0
+set winminwidth=0
+set foldmethod=syntax    " Syntax folding
+set nofen        " Do not fold on opening
+set display+=lastline "with this, the last line will not have @ chars.
+set ttymouse=xterm2
+" set spell        " Use spell checking
+" set hidden     " Can switch to another buffer w/o save current one.
+
+" ------------------------- GUI settings -------------------------
+if has("gui_running")
+    set go-=T
+    set go+=b
+    colo desert
+    call s:ConfigureFont()
+endif
+" ------------------------- GUI settings -------------------------
+
+call s:ConfigureTags()
+call s:ConfigureCscope()
+
+" Adding 'p' for quickfix window to preview files
+if has('autocmd') && has('quickfix') 
+    au BufWinEnter quickfix exe 'map <buffer> p <CR><C-W>p'
+endif 
+ 
+" Make sure we use findstr on Windows, no matter if grep is there or not
+
+" ------------------------- OMNI COMPLETION SETTINGS -------------------------
+if has('autocmd')
+    set pumheight=8 " set completion window height
+    " the following lines close the preview window after a completion
+    autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+    autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+endif
+" ------------------------- OMNI COMPLETION SETTINGS -------------------------
+
+" ------------------------- KEY MAPPINGS -------------------------
+map <Leader>tt :TagbarToggle<CR>
+
+" Quick escape from insert mode
+imap jj <ESC>
+
+" To resolve <S-Tab> conflict with snipMate
+imap <C-J> <Plug>delimitMateS-Tab
+" ------------------------- KEY MAPPINGS -------------------------
+
+" ------------------------- CUSTOM COMMANDS -------------------------
 " copy file name to system clipboard (verified on Windows)
 command Cpfn let @* = expand("%:p")
+" ------------------------- CUSTOM COMMANDS -------------------------
+
+" ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
+if has('autocmd')
+    autocmd FileType python call s:ConfigurePython()
+    autocmd FileType cs call s:ConfigureCSharp()
+    autocmd FileType tex call s:ConfigureTex()
+    autocmd FileType coffee call s:ConfigureCoffeeScript()
+endif
+" ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
+
+if s:IsWindows()
+    set grepprg=findstr\ /N
+
+    source $VIMRUNTIME/mswin.vim " Add support for copy/paste/cut/undo
+    " Unmap windows behaviors of the following keys from mswin.vim
+    unmap <C-Y>
+    unmap <C-Z>
+endif
+
+if filereadable($HOME."/local.vim")
+	exe "so $HOME"."/local.vim"
+endif
