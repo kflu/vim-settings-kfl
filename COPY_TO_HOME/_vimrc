@@ -29,6 +29,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'puzzl3r/vim-mark'
 Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-surround'
+Plugin 'bling/vim-airline'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -291,6 +292,7 @@ endfunction
 " Map ChangeFontSize() to hot keys
 let mapleader = " "
 
+set sw=4 ts=4 smarttab expandtab autoindent
 " last window will always have a status line. This is needed by vim-airline
 set laststatus=2
 set directory+=$TEMP
@@ -371,5 +373,5 @@ if s:IsWindows()
 endif
 
 if filereadable($HOME."/local.vim")
-	exe "so $HOME"."/local.vim"
+    exe "so $HOME"."/local.vim"
 endif
