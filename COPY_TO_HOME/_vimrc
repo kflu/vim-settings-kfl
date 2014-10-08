@@ -30,6 +30,7 @@ Plugin 'puzzl3r/vim-mark'
 Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-surround'
 Plugin 'bling/vim-airline'
+Plugin 'scrooloose/nerdtree'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -298,6 +299,9 @@ function s:Main()
     " space check as it's too distracting
     let g:airline#extensions#whitespace#checks = [ 'indent' ]
 
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#show_buffers = 1
+
     set sw=4 ts=4 smarttab expandtab autoindent
     " last window will always have a status line. This is needed by vim-airline
     set laststatus=2
@@ -347,6 +351,7 @@ function s:Main()
 
     " ------------------------- KEY MAPPINGS -------------------------
     map <Leader>tt :TagbarToggle<CR>
+    map <Leader>nn :NERDTree<CR>
 
     " Quick escape from insert mode
     imap jj <ESC>
@@ -381,6 +386,7 @@ function s:Main()
     if filereadable($HOME."/local.vim")
         exe "so $HOME"."/local.vim"
     endif
+
 endfunction
 
 call s:Main()
