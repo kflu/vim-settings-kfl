@@ -290,6 +290,31 @@ function s:ConfigureCoffeeScript()
                 \ }
 endfunction
 
+function s:ConfigureMenu()
+    amenu 700.100 &My.&NERDTree                 :NERDTreeToggle<CR>
+    amenu 700.200 &My.&Tagbar                   :TagbarToggle<CR>
+    amenu 700.300 &My.-SEP1-                    :
+    amenu 700.400 &My.&Install\ new\ plugins    :PluginInstall<CR>
+    amenu 700.500 &My.&Update\ new\ plugins     :PluginInstall!<CR>
+    amenu 700.600 &My.-SEP2-                    :
+    amenu 700.700 &My.&Copy\ file\ path         :Cpfn<CR>
+    amenu 700.800 &My.&Horizontal\ Scrollbar    :Hsbar<CR>
+
+    if !has('gui_running')
+        " Source menu.vim so :emenu can use them in non-gui environments
+        so $VIMRUNTIME/menu.vim
+    endif
+endfunction
+
+function s:ToggleHorizontalScrollbar()
+    let index=match(&guioptions, "b")
+    if index >= 0
+        set guioptions-=b
+    else
+        set guioptions+=b
+    endif
+endfunction
+
 function s:Main()
     " ------------------------- Main -------------------------
     " Map ChangeFontSize() to hot keys
@@ -318,15 +343,16 @@ function s:Main()
     set nofen        " Do not fold on opening
     set display+=lastline "with this, the last line will not have @ chars.
     set ttymouse=xterm2
+    set wildmenu     " Show menu for command line autocomplete
     " set spell        " Use spell checking
     " set hidden     " Can switch to another buffer w/o save current one.
 
     " ------------------------- GUI settings -------------------------
     if has("gui_running")
         set go-=T
-        set go+=b
         colo desert
         call s:ConfigureFont()
+        autocmd GUIEnter * winsize 100 40
     endif
     " ------------------------- GUI settings -------------------------
 
@@ -363,6 +389,7 @@ function s:Main()
     " ------------------------- CUSTOM COMMANDS -------------------------
     " copy file name to system clipboard (verified on Windows)
     command Cpfn let @* = expand("%:p")
+    command Hsbar call s:ToggleHorizontalScrollbar()
     " ------------------------- CUSTOM COMMANDS -------------------------
 
     " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
@@ -386,6 +413,8 @@ function s:Main()
     if filereadable($HOME."/local.vim")
         exe "so $HOME"."/local.vim"
     endif
+
+    call s:ConfigureMenu()
 
 endfunction
 
