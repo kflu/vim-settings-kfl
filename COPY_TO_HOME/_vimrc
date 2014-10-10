@@ -32,6 +32,10 @@ Plugin 'tpope/vim-surround'
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
 
+" Themes
+Plugin 'sickill/vim-monokai'
+Plugin 'altercation/vim-colors-solarized'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 " ------------------------- VUNDLE SETUP -------------------------
@@ -295,10 +299,11 @@ function s:ConfigureMenu()
     amenu 700.200 &My.&Tagbar                   :TagbarToggle<CR>
     amenu 700.300 &My.-SEP1-                    :
     amenu 700.400 &My.&Install\ new\ plugins    :PluginInstall<CR>
-    amenu 700.500 &My.&Update\ new\ plugins     :PluginInstall!<CR>
+    amenu 700.500 &My.&Update\ all\ plugins     :PluginInstall!<CR>
     amenu 700.600 &My.-SEP2-                    :
     amenu 700.700 &My.&Copy\ file\ path         :Cpfn<CR>
     amenu 700.800 &My.&Horizontal\ Scrollbar    :Hsbar<CR>
+    amenu 700.900 &My.&vimrc                    :new $MYVIMRC<CR>
 
     if !has('gui_running')
         " Source menu.vim so :emenu can use them in non-gui environments
@@ -344,15 +349,19 @@ function s:Main()
     set display+=lastline "with this, the last line will not have @ chars.
     set ttymouse=xterm2
     set wildmenu     " Show menu for command line autocomplete
+    set ignorecase
+    set smartcase
     " set spell        " Use spell checking
     " set hidden     " Can switch to another buffer w/o save current one.
 
     " ------------------------- GUI settings -------------------------
     if has("gui_running")
         set go-=T
-        colo desert
+        colo solarized " this color doesn't work well under console
         call s:ConfigureFont()
         autocmd GUIEnter * winsize 100 40
+    else
+        colo desert
     endif
     " ------------------------- GUI settings -------------------------
 
