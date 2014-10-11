@@ -23,16 +23,25 @@ set rtp+=~/vundle/Vundle.vim
 call vundle#begin('~/vundle') " install plugins into ~/vundle
 
 Plugin 'gmarik/Vundle.vim'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'scrooloose/syntastic'
+
 Plugin 'majutsushi/tagbar'
 Plugin 'puzzl3r/vim-mark'
 Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-surround'
+
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-commentary'
+Plugin 'nathanaelkane/vim-indent-guides'
 
-" Themes
+" ----- language support -----
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'Windows-PowerShell-Syntax-Plugin'
+Plugin 'OrangeT/vim-csharp'
+
+" ----- Themes -----
 Plugin 'sickill/vim-monokai'
 Plugin 'altercation/vim-colors-solarized'
 
@@ -42,7 +51,7 @@ filetype plugin indent on    " required
 
 " ------------------------- EXAMPLE SETTINGS -------------------------
 if v:progname =~? "evim"
-  finish
+    finish
 endif
 set nocompatible
 
@@ -50,9 +59,9 @@ set nocompatible
 set backspace=indent,eol,start
 
 if has("vms")
-  set nobackup        " do not keep a backup file, use versions instead
+    set nobackup        " do not keep a backup file, use versions instead
 else
-  set backup 	      " keep a backup file
+    set backup 	      " keep a backup file
 endif
 set history=50        " keep 50 lines of command line history
 set ruler        " show the cursor position all the time
@@ -66,44 +75,44 @@ map Q gq
 set mouse=a
 
 if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
+    syntax on
+    set hlsearch
 endif
 
 if has("autocmd")
 
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
+    " Enable file type detection.
+    " Use the default filetype settings, so that mail gets 'tw' set to 72,
+    " 'cindent' is on in C files, etc.
+    " Also load indent files, to automatically do language-dependent indenting.
+    filetype plugin indent on
 
-  " Put these in an autocmd group, so that we can delete them easily.
-  augroup vimrcEx
-  au!
+    " Put these in an autocmd group, so that we can delete them easily.
+    augroup vimrcEx
+        au!
 
-  autocmd FileType text setlocal textwidth=78
+        autocmd FileType text setlocal textwidth=78
 
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
+        " When editing a file, always jump to the last known cursor position.
+        " Don't do it when the position is invalid or when inside an event handler
+        " (happens when dropping a file on gvim).
+        autocmd BufReadPost *
+                    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+                    \   exe "normal! g`\"" |
+                    \ endif
 
-  augroup END
+    augroup END
 
 else
 
-  set autoindent        " always set autoindenting on
+    set autoindent        " always set autoindenting on
 
 endif " has("autocmd")
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
 command! DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-         \ | wincmd p | diffthis
+            \ | wincmd p | diffthis
 " ------------------------- EXAMPLE SETTINGS -------------------------
 
 " ==============================
@@ -200,15 +209,9 @@ function s:ConfigureTags()
 endfunction
 
 " C# settings
-" Folding : http://vim.wikia.com/wiki/Syntax-based_folding, see comment by
-" Ostrygen au FileType cs set omnifunc=syntaxcomplete#Complete
 function s:ConfigureCSharp()
-    set foldmethod=marker
-    set foldmarker={,}
-    set foldtext=substitute(getline(v:foldstart),'{.*','{...}',)
-    set foldlevelstart=2  
-    set textwidth=100
-endfunction
+
+endfunction " s:ConfigureCSharp
 
 function s:ConfigurePython()
     set sw=4 ts=4 smarttab expandtab autoindent
@@ -249,14 +252,14 @@ function s:ConfigureCscope()
         " set cst " Use of :tag invokes :cstag:
         set nocsverb
         for prefix in [
-                      \"../../../../../..",
-                      \"../../../../..",
-                      \"../../../..",
-                      \"../../..",
-                      \"../..",
-                      \"..",
-                      \"."
-                      \]
+                    \"../../../../../..",
+                    \"../../../../..",
+                    \"../../../..",
+                    \"../../..",
+                    \"../..",
+                    \"..",
+                    \"."
+                    \]
             " prefix issue: http://bit.ly/QKhlJe
             let csfile = prefix . "/" . "cscope.out"
             if filereadable(csfile)
@@ -303,7 +306,7 @@ function s:ConfigureMenu()
     amenu 700.600 &My.-SEP2-                    :
     amenu 700.700 &My.&Copy\ file\ path         :Cpfn<CR>
     amenu 700.800 &My.&Horizontal\ Scrollbar    :Hsbar<CR>
-    amenu 700.900 &My.&vimrc                    :new $MYVIMRC<CR>
+    amenu 700.900 &My.&vimrc                    :tabnew $MYVIMRC<CR>
 
     if !has('gui_running')
         " Source menu.vim so :emenu can use them in non-gui environments
@@ -333,6 +336,7 @@ function s:Main()
     let g:airline#extensions#tabline#show_buffers = 1
 
     set sw=4 ts=4 smarttab expandtab autoindent
+    set cursorline " highlight current line
     " last window will always have a status line. This is needed by vim-airline
     set laststatus=2
     set directory+=$TEMP
@@ -344,15 +348,22 @@ function s:Main()
     " allow a window to shrink minimally
     set winminheight=0
     set winminwidth=0
-    set foldmethod=syntax    " Syntax folding
-    set nofen        " Do not fold on opening
+
+    set foldmethod=indent
+    if (has('gui_running'))
+        set foldcolumn=4
+    endif
+    set foldminlines=0 " allow folding 1-liner
+    if has('autocmd')
+        " start without folding
+        autocmd VimEnter * exe "normal zR"
+    endif
+
     set display+=lastline "with this, the last line will not have @ chars.
     set ttymouse=xterm2
     set wildmenu     " Show menu for command line autocomplete
     set ignorecase
     set smartcase
-    " set spell        " Use spell checking
-    " set hidden     " Can switch to another buffer w/o save current one.
 
     " ------------------------- GUI settings -------------------------
     if has("gui_running")
@@ -377,10 +388,12 @@ function s:Main()
 
     " ------------------------- OMNI COMPLETION SETTINGS -------------------------
     if has('autocmd')
+
         set pumheight=8 " set completion window height
         " the following lines close the preview window after a completion
         autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
         autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
     endif
     " ------------------------- OMNI COMPLETION SETTINGS -------------------------
 
