@@ -31,7 +31,6 @@ Plugin 'tpope/vim-surround'
 
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-commentary'
 Plugin 'nathanaelkane/vim-indent-guides'
@@ -302,6 +301,7 @@ function s:ConfigureMenu()
     amenu 700.200 &My.&Tagbar                   :TagbarToggle<CR>
     amenu 700.300 &My.-SEP1-                    :
     amenu 700.400 &My.&Install\ new\ plugins    :PluginInstall<CR>
+    amenu 700.420 &My.&Clean\ new\ plugins      :PluginClean<CR>
     amenu 700.500 &My.&Update\ all\ plugins     :PluginInstall!<CR>
     amenu 700.600 &My.-SEP2-                    :
     amenu 700.700 &My.&Copy\ file\ path         :Cpfn<CR>
