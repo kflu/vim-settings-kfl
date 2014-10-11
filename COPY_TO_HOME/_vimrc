@@ -324,7 +324,7 @@ function s:ToggleHorizontalScrollbar()
 endfunction
 
 function s:Main()
-    " ------------------------- Main -------------------------
+
     " Map ChangeFontSize() to hot keys
     let g:mapleader = " "
 
@@ -357,6 +357,7 @@ function s:Main()
     if has('autocmd')
         " start without folding
         autocmd VimEnter * exe "normal zR"
+        autocmd BufReadPost * exe "normal zR"
     endif
 
     set display+=lastline "with this, the last line will not have @ chars.
