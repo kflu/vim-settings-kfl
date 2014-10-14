@@ -399,6 +399,8 @@ function s:Main()
     " ------------------------- OMNI COMPLETION SETTINGS -------------------------
 
     " ------------------------- KEY MAPPINGS -------------------------
+    " Pressing <Leader> twice put you in command mode
+    map <Leader><Leader> :
     map <Leader>tt :TagbarToggle<CR>
     map <Leader>nn :NERDTree<CR>
 
