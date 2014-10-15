@@ -354,11 +354,7 @@ function s:Main()
         set foldcolumn=4
     endif
     set foldminlines=0 " allow folding 1-liner
-    if has('autocmd')
-        " start without folding
-        autocmd VimEnter * exe "normal zR"
-        autocmd BufReadPost * exe "normal zR"
-    endif
+    set nofen
 
     set display+=lastline "with this, the last line will not have @ chars.
     set ttymouse=xterm2
