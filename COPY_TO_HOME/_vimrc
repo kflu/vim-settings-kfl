@@ -35,10 +35,14 @@ Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-commentary'
 Plugin 'nathanaelkane/vim-indent-guides'
 
+" expand selection progressively. use +/_ to expand/reduce selection
+Plugin 'terryma/vim-expand-region'
+
 " ----- language support -----
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'Windows-PowerShell-Syntax-Plugin'
 Plugin 'OrangeT/vim-csharp'
+Plugin 'chrisbra/csv.vim'
 
 " ----- Themes -----
 Plugin 'sickill/vim-monokai'
@@ -296,6 +300,13 @@ function s:ConfigureCoffeeScript()
                 \ }
 endfunction
 
+function s:ConfigureCsv()
+    " don't conceal the delimiter. Concealing delimiter is confusing as the
+    " delimiters are replaced with pipes (|). Also column highlighting doesn't
+    " work on those pipes so empty columns are not highlighted.
+    let g:csv_no_conceal = 1
+endfunction
+
 function s:ConfigureMenu()
     amenu 700.100 &My.&NERDTree                 :NERDTreeToggle<CR>
     amenu 700.200 &My.&Tagbar                   :TagbarToggle<CR>
@@ -419,6 +430,7 @@ function s:Main()
         autocmd FileType cs call s:ConfigureCSharp()
         autocmd FileType tex call s:ConfigureTex()
         autocmd FileType coffee call s:ConfigureCoffeeScript()
+        autocmd FileType csv call s:ConfigureCsv()
     endif
     " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
 
