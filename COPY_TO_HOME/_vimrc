@@ -38,11 +38,20 @@ Plugin 'nathanaelkane/vim-indent-guides'
 " expand selection progressively. use +/_ to expand/reduce selection
 Plugin 'terryma/vim-expand-region'
 
+" ----- snipmate, snippets and the dependencies -----
+Plugin 'garbas/vim-snipmate' " the main snipmate plugin
+Plugin 'honza/vim-snippets' " snippets for snipmate
+" Dependencies
+Plugin 'marcweber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+
 " ----- language support -----
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'Windows-PowerShell-Syntax-Plugin'
-Plugin 'OrangeT/vim-csharp'
 Plugin 'chrisbra/csv.vim'
+
+" Disable csharp as it errors when running under console (vim)
+" Plugin 'OrangeT/vim-csharp'
 
 " ----- Themes -----
 Plugin 'sickill/vim-monokai'
