@@ -28,11 +28,13 @@ Plugin 'majutsushi/tagbar'
 Plugin 'puzzl3r/vim-mark'
 Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-surround'
+Plugin 'ervandew/supertab'
+Plugin 'kien/ctrlp.vim'
+Plugin 'easymotion/vim-easymotion'
 
 Plugin 'bling/vim-airline'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-commentary'
 Plugin 'nathanaelkane/vim-indent-guides'
 
 " expand selection progressively. use +/_ to expand/reduce selection
@@ -54,7 +56,6 @@ Plugin 'chrisbra/csv.vim'
 " Plugin 'OrangeT/vim-csharp'
 
 " ----- Themes -----
-Plugin 'sickill/vim-monokai'
 Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()            " required
@@ -322,7 +323,7 @@ function s:ConfigureMenu()
     amenu 700.200 &My.&Tagbar                   :TagbarToggle<CR>
     amenu 700.300 &My.-SEP1-                    :
     amenu 700.400 &My.&Install\ new\ plugins    :PluginInstall<CR>
-    amenu 700.420 &My.&Clean\ new\ plugins      :PluginClean<CR>
+    amenu 700.420 &My.&Clean\ plugins           :PluginClean<CR>
     amenu 700.500 &My.&Update\ all\ plugins     :PluginInstall!<CR>
     amenu 700.600 &My.-SEP2-                    :
     amenu 700.700 &My.&Copy\ file\ path         :Cpfn<CR>
@@ -342,6 +343,15 @@ function s:ToggleHorizontalScrollbar()
     else
         set guioptions+=b
     endif
+endfunction
+
+function s:ConfigureSuperTab()
+  let g:SuperTabDefaultCompletionType = 'context'
+endfunction
+
+function s:ConfigureEasyMotion()
+  map s <Plug>(easymotion-prefix)
+  let g:EasyMotion_smartcase = 1
 endfunction
 
 function s:Main()
@@ -458,6 +468,8 @@ function s:Main()
     endif
 
     call s:ConfigureMenu()
+    call s:ConfigureSuperTab()
+    call s:ConfigureEasyMotion()
 
 endfunction
 
