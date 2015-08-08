@@ -29,7 +29,6 @@ Plugin 'puzzl3r/vim-mark' " mark keywords with colors
 Plugin 'Raimondi/delimitMate' " parenthesis auto closing and jumping
 Plugin 'tpope/vim-surround' " surrounding text blocks with parenthesis
 Plugin 'ervandew/supertab'
-Plugin 'kien/ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
 
 Plugin 'bling/vim-airline' " status line
@@ -38,7 +37,6 @@ Plugin 'kien/ctrlp.vim' " fuzzy search
 Plugin 'scrooloose/syntastic' " Syntax checking framework
 Plugin 'nathanaelkane/vim-indent-guides' " Show visual indication of indentation <Leader>ig
 Plugin 'terryma/vim-expand-region' " expand selection progressively. use +/_ to expand/reduce selection
-Plugin 'ervandew/supertab'
 
 " ----- snipmate, snippets and the dependencies -----
 Plugin 'garbas/vim-snipmate' " the main snipmate plugin
