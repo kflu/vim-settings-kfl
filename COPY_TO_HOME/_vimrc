@@ -24,19 +24,18 @@ call vundle#begin('~/vundle') " install plugins into ~/vundle
 
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'majutsushi/tagbar'
-Plugin 'puzzl3r/vim-mark'
-Plugin 'Raimondi/delimitMate'
-Plugin 'tpope/vim-surround'
+Plugin 'majutsushi/tagbar' " Right hand side nav bar for code
+Plugin 'puzzl3r/vim-mark' " mark keywords with colors
+Plugin 'Raimondi/delimitMate' " parenthesis auto closing and jumping
+Plugin 'tpope/vim-surround' " surrounding text blocks with parenthesis
 
-Plugin 'bling/vim-airline'
+Plugin 'bling/vim-airline' " status line
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-commentary'
-Plugin 'nathanaelkane/vim-indent-guides'
-
-" expand selection progressively. use +/_ to expand/reduce selection
-Plugin 'terryma/vim-expand-region'
+Plugin 'kien/ctrlp.vim' " fuzzy search
+Plugin 'scrooloose/syntastic' " Syntax checking framework
+Plugin 'nathanaelkane/vim-indent-guides' " Show visual indication of indentation <Leader>ig
+Plugin 'terryma/vim-expand-region' " expand selection progressively. use +/_ to expand/reduce selection
+Plugin 'ervandew/supertab'
 
 " ----- snipmate, snippets and the dependencies -----
 Plugin 'garbas/vim-snipmate' " the main snipmate plugin
@@ -46,7 +45,7 @@ Plugin 'marcweber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 
 " ----- language support -----
-Plugin 'kchmck/vim-coffee-script'
+Plugin 'kchmck/vim-coffee-script' " syntax, tasks, linting (via syntactic & coffeelint)
 Plugin 'Windows-PowerShell-Syntax-Plugin'
 Plugin 'chrisbra/csv.vim'
 
@@ -54,7 +53,6 @@ Plugin 'chrisbra/csv.vim'
 " Plugin 'OrangeT/vim-csharp'
 
 " ----- Themes -----
-Plugin 'sickill/vim-monokai'
 Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()            " required
@@ -322,7 +320,7 @@ function s:ConfigureMenu()
     amenu 700.200 &My.&Tagbar                   :TagbarToggle<CR>
     amenu 700.300 &My.-SEP1-                    :
     amenu 700.400 &My.&Install\ new\ plugins    :PluginInstall<CR>
-    amenu 700.420 &My.&Clean\ new\ plugins      :PluginClean<CR>
+    amenu 700.420 &My.&Clean\ plugins      :PluginClean<CR>
     amenu 700.500 &My.&Update\ all\ plugins     :PluginInstall!<CR>
     amenu 700.600 &My.-SEP2-                    :
     amenu 700.700 &My.&Copy\ file\ path         :Cpfn<CR>
