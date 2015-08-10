@@ -30,6 +30,7 @@ Plugin 'Raimondi/delimitMate' " parenthesis auto closing and jumping
 Plugin 'tpope/vim-surround' " surrounding text blocks with parenthesis
 Plugin 'ervandew/supertab'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'tpope/vim-fugitive'
 
 Plugin 'bling/vim-airline' " status line
 Plugin 'scrooloose/nerdtree'
@@ -451,6 +452,7 @@ function s:Main()
         autocmd FileType tex call s:ConfigureTex()
         autocmd FileType coffee call s:ConfigureCoffeeScript()
         autocmd FileType csv call s:ConfigureCsv()
+        autocmd BufNewFile,BufRead *.md set filetype=markdown " override .md from modula2
     endif
     " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
 
