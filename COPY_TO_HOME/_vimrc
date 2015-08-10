@@ -440,6 +440,8 @@ function s:Main()
     " copy file name to system clipboard (verified on Windows)
     command Cpfn let @* = expand("%:p")
     command Hsbar call s:ToggleHorizontalScrollbar()
+    command CD cd %:p:h
+    command LCD lcd %:p:h
     " ------------------------- CUSTOM COMMANDS -------------------------
 
     " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
