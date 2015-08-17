@@ -327,7 +327,7 @@ function s:ConfigureMenu()
     amenu 700.600 &My.-SEP2-                    :
     amenu 700.700 &My.&Copy\ file\ path         :Cpfn<CR>
     amenu 700.800 &My.&Horizontal\ Scrollbar    :Hsbar<CR>
-    amenu 700.900 &My.&vimrc                    :tabnew $MYVIMRC<CR>
+    amenu 700.900 &My.&vimrc                    :new $MYVIMRC<CR>
 
     if !has('gui_running')
         " Source menu.vim so :emenu can use them in non-gui environments
@@ -345,7 +345,7 @@ function s:ToggleHorizontalScrollbar()
 endfunction
 
 function s:ConfigureSuperTab()
-  let g:SuperTabDefaultCompletionType = 'context'
+  " let g:SuperTabDefaultCompletionType = 'context'
 endfunction
 
 function s:ConfigureEasyMotion()
