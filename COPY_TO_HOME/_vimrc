@@ -348,17 +348,18 @@ function s:ConfigureEasyMotion()
   let g:EasyMotion_smartcase = 1
 endfunction
 
+function s:ConfigureAirline()
+    " Only enable airline indent check. Don't enable the default trailing
+    " space check as it's too distracting
+    let g:airline#extensions#whitespace#checks = [ 'indent' ]
+    let g:airline#extensions#tabline#enabled = 1
+endfunction
+
 function s:Main()
 
     " Map ChangeFontSize() to hot keys
     let g:mapleader = " "
-
-    " Only enable airline indent check. Don't enable the default trailing
-    " space check as it's too distracting
-    let g:airline#extensions#whitespace#checks = [ 'indent' ]
-
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#show_buffers = 1
+    call s:ConfigureAirline()
 
     set sw=4 ts=4 smarttab expandtab autoindent
     set cursorline " highlight current line
@@ -402,9 +403,9 @@ function s:Main()
     call s:ConfigureCscope()
 
     " Adding 'p' for quickfix window to preview files
-    if has('autocmd') && has('quickfix') 
+    if has('autocmd') && has('quickfix')
         au BufWinEnter quickfix exe 'map <buffer> p <CR><C-W>p'
-    endif 
+    endif
 
     " ------------------------- OMNI COMPLETION SETTINGS -------------------------
     if has('autocmd')
