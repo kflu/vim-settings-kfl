@@ -28,7 +28,6 @@ Plugin 'majutsushi/tagbar' " Right hand side nav bar for code
 Plugin 'puzzl3r/vim-mark' " mark keywords with colors
 Plugin 'Raimondi/delimitMate' " parenthesis auto closing and jumping
 Plugin 'tpope/vim-surround' " surrounding text blocks with parenthesis
-Plugin 'ervandew/supertab'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-fugitive'
 
@@ -344,10 +343,6 @@ function s:ToggleHorizontalScrollbar()
     endif
 endfunction
 
-function s:ConfigureSuperTab()
-  " let g:SuperTabDefaultCompletionType = 'context'
-endfunction
-
 function s:ConfigureEasyMotion()
   map s <Plug>(easymotion-prefix)
   let g:EasyMotion_smartcase = 1
@@ -411,8 +406,6 @@ function s:Main()
         au BufWinEnter quickfix exe 'map <buffer> p <CR><C-W>p'
     endif 
 
-    " Make sure we use findstr on Windows, no matter if grep is there or not
-
     " ------------------------- OMNI COMPLETION SETTINGS -------------------------
     if has('autocmd')
 
@@ -457,6 +450,7 @@ function s:Main()
     " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
 
     if s:IsWindows()
+        " Make sure we use findstr on Windows, no matter if grep is there or not
         set grepprg=findstr\ /N
 
         source $VIMRUNTIME/mswin.vim " Add support for copy/paste/cut/undo
@@ -470,7 +464,6 @@ function s:Main()
     endif
 
     call s:ConfigureMenu()
-    call s:ConfigureSuperTab()
     call s:ConfigureEasyMotion()
 
 endfunction
