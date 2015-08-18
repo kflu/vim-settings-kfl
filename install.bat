@@ -5,7 +5,6 @@ set vim=%~dp0
 pushd %userprofile%
 echo Linking files from %vim%\COPY_TO_HOME to %userprofile%...
 mklink _vimrc %vim%\COPY_TO_HOME\_vimrc
-mklink .ctags %vim%\COPY_TO_HOME\.ctags
 
 pushd c:\windows
 echo Linking files from %vim%\COPY_TO_PATH to c:\windows...
