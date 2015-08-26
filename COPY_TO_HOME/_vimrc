@@ -347,13 +347,16 @@ function s:ToggleHorizontalScrollbar()
 endfunction
 
 function s:ConfigureEasyMotion()
-  map s <Plug>(easymotion-prefix)
   let g:EasyMotion_smartcase = 1
+  map <Leader>em <Plug>(easymotion-prefix)
+  map <C-S> <Plug>(easymotion-bd-w)
 endfunction
 
 function s:ConfigureSuperTab()
     let g:SuperTabDefaultCompletionType = 'context'
     let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+    let g:SuperTabMappingForward = '<c-space>'
+    let g:SuperTabMappingBackward = '<s-c-space>'
 endfunction
 
 function s:ConfigureOmniSharp()
@@ -506,10 +509,18 @@ function s:Main()
         " Make sure we use findstr on Windows, no matter if grep is there or not
         set grepprg=findstr\ /N
 
-        source $VIMRUNTIME/mswin.vim " Add support for copy/paste/cut/undo
-        " Unmap windows behaviors of the following keys from mswin.vim
-        unmap <C-Y>
-        unmap <C-Z>
+        " Don't source mswin, as it introduces too many keybindings that can
+        " be otherwise used
+        " source $VIMRUNTIME/mswin.vim " Add support for copy/paste/cut/undo
+        " " Unmap windows behaviors of the following keys from mswin.vim
+        " unmap <C-Y>
+        " unmap <C-Z>
+
+        vnoremap <C-X> "+x
+        vnoremap <C-C> "+y
+        map <C-V>		"+gP
+        cmap <C-V>		<C-R>+
+        
     endif
 
     if filereadable($HOME."/local.vim")
