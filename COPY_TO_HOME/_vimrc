@@ -37,7 +37,7 @@ Plugin 'kien/ctrlp.vim' " fuzzy search
 Plugin 'scrooloose/syntastic' " Syntax checking framework
 Plugin 'nathanaelkane/vim-indent-guides' " Show visual indication of indentation <Leader>ig
 Plugin 'terryma/vim-expand-region' " expand selection progressively. use +/_ to expand/reduce selection
-Plugin 'mhinz/vim-startify' " fancy vim start page
+Plugin 'tpope/vim-dispatch'
 
 " ----- snipmate, snippets and the dependencies -----
 Plugin 'garbas/vim-snipmate' " the main snipmate plugin
