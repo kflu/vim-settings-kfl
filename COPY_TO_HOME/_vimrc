@@ -40,6 +40,7 @@ Plugin 'terryma/vim-expand-region' " expand selection progressively. use +/_ to 
 Plugin 'tpope/vim-dispatch'
 Plugin 'OmniSharp/omnisharp-vim'
 Plugin 'ervandew/supertab'
+Plugin 'szw/vim-maximizer' " Maximize and restores windows <F3> to toggle
 
 " ----- snipmate, snippets and the dependencies -----
 Plugin 'garbas/vim-snipmate' " the main snipmate plugin
