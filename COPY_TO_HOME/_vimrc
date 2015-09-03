@@ -521,6 +521,7 @@ function s:Main()
         vnoremap <C-C> "+y
         map <C-V>		"+gP
         cmap <C-V>		<C-R>+
+        imap <C-V>		<C-R>+
         
     endif
 
