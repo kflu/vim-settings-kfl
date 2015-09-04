@@ -156,6 +156,8 @@ function s:ConfigureFont()
         call s:SetFontUnix()
     endif
 
+    " On Windows this needs the Chinese Simplified language to be enabled,
+    " otherwise E231 is thrown on gvim exit.
     set guifontwide=Yahei_Mono:h10:cGB2312,SimHei
     call s:MapFontChanges()
 endfunction
