@@ -211,8 +211,8 @@ function s:ExchangeMake()
     try
         setlocal makeprg=build\ -Cc
         setlocal errorformat=%.%#>%f(%l\\,%c)\ :%m,%-G%.%#
-        lmake
-        lopen
+        make
+        cw
     finally
         let &l:makeprg = oldmakeprg
         let &l:efm = oldefm
