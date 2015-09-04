@@ -203,6 +203,20 @@ function s:MapFontChanges()
     endif
 endfunction
 
+function s:ExchangeMake()
+    let oldmakeprg = &l:makeprg
+    let oldefm = &l:efm
+    try
+        setlocal makeprg=build\ -Cc
+        setlocal errorformat=%.%#>%f(%l\\,%c)\ :%m,%-G%.%#
+        lmake
+        lopen
+    finally
+        let &l:makeprg = oldmakeprg
+        let &l:efm = oldefm
+    endtry
+endfunction
+
 " Search tag files in the following locations
 " for "tags" 8 lvls upward
 function s:ConfigureTags()
@@ -493,6 +507,7 @@ function s:Main()
     command Hsbar call s:ToggleHorizontalScrollbar()
     command CD cd %:p:h
     command LCD lcd %:p:h
+    command Bcc call s:ExchangeMake()
     " ------------------------- CUSTOM COMMANDS -------------------------
 
     " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
