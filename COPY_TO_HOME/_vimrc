@@ -536,6 +536,8 @@ function s:Main()
     call s:ConfigureSuperTab()
     call s:ConfigureOmniSharp()
 
+    let g:syntastic_auto_loc_list = 0
+
 endfunction
 
 call s:Main()
