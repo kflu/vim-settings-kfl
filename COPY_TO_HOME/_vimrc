@@ -433,6 +433,11 @@ function s:ConfigureAirline()
     let g:airline#extensions#tabline#enabled = 1
 endfunction
 
+function s:ConfigureDelimiteMate()
+    let g:delimitMate_expand_space = 1
+    let g:delimitMate_expand_cr = 1
+endfunction
+
 function s:Main()
 
     " Map ChangeFontSize() to hot keys
@@ -557,9 +562,10 @@ function s:Main()
     call s:ConfigureEasyMotion()
     call s:ConfigureSuperTab()
     call s:ConfigureOmniSharp()
+    call s:ConfigureDelimiteMate()
 
+    " Don't close location list when CR is pressed on an entry
     let g:syntastic_auto_loc_list = 0
-
 endfunction
 
 call s:Main()
