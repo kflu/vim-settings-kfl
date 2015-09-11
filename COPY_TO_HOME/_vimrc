@@ -209,7 +209,7 @@ function s:ExchangeMake(...)
     let oldmakeprg = &l:makeprg
     let oldefm = &l:efm
     try
-        setlocal errorformat=%.%#>%f(%l\\,%c)\ :%m,%-G%.%#
+        setlocal errorformat=%.%#%\\d%\\+>%f(%l\\,%c)\ :%m,%.%#%\\d%\\+>%f\ CS%n:\ %m,%-G%.%#
         if 0 == a:0
             setlocal makeprg=build\ -Cc
         else
@@ -217,7 +217,7 @@ function s:ExchangeMake(...)
             let &l:makeprg = "type " . a:1
         endif
 
-        make
+        Make
         cw
     finally
         let &l:makeprg = oldmakeprg
