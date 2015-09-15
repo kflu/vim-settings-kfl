@@ -522,6 +522,10 @@ function s:Main()
     command LCD lcd %:p:h
     command Bcc call s:ExchangeMake()
     command Bccl call s:ExchangeMake('buildd.err')
+
+    command Exdiff !start cmd /c windiff.exe -l %
+    command Exedit !sd edit %
+    command Exopened !start cmd /c sdv opened
     " ------------------------- CUSTOM COMMANDS -------------------------
 
     " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
