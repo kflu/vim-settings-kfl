@@ -38,7 +38,7 @@ Plugin 'scrooloose/syntastic' " Syntax checking framework
 Plugin 'nathanaelkane/vim-indent-guides' " Show visual indication of indentation <Leader>ig
 Plugin 'terryma/vim-expand-region' " expand selection progressively. use +/_ to expand/reduce selection
 Plugin 'tpope/vim-dispatch'
-Plugin 'OmniSharp/omnisharp-vim'
+" Plugin 'OmniSharp/omnisharp-vim'
 Plugin 'ervandew/supertab'
 Plugin 'szw/vim-maximizer' " Maximize and restores windows <F3> to toggle
 
@@ -506,6 +506,7 @@ function s:Main()
     map <Leader><Leader> :
     map <Leader>tt :TagbarToggle<CR>
     map <Leader>nn :NERDTree<CR>
+    map <C-Tab> <C-W><C-W>
 
     " Quick escape from insert mode
     imap jj <ESC>
@@ -572,7 +573,7 @@ function s:Main()
     call s:ConfigureMenu()
     call s:ConfigureEasyMotion()
     call s:ConfigureSuperTab()
-    call s:ConfigureOmniSharp()
+    " call s:ConfigureOmniSharp()
     call s:ConfigureDelimiteMate()
 
     " Don't close location list when CR is pressed on an entry
