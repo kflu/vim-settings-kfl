@@ -526,6 +526,13 @@ function s:Main()
     command Exdiff !start cmd /c windiff.exe -l %
     command Exedit !sd edit %
     command Exopened !start cmd /c sdv opened
+
+    " I tried !start cmd /c start "" "URL". This URL can contain spaces. But
+    " it cannot contain # signs as a limitation of Windows filenames. In
+    " additional, ftype http doesn't give me the correct default browser
+    " executable. So I have to use a hard coded browser.
+    command -nargs=+ G !start "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "https://www.google.com/search?q=<args>"
+    command -nargs=+ DD !start "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "http://devdocs.io\#q=<args>"
     " ------------------------- CUSTOM COMMANDS -------------------------
 
     " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
