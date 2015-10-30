@@ -25,7 +25,7 @@ call vundle#begin('~/vundle') " install plugins into ~/vundle
 Plugin 'gmarik/Vundle.vim'
 
 Plugin 'majutsushi/tagbar' " Right hand side nav bar for code
-Plugin 'puzzl3r/vim-mark' " mark keywords with colors
+Plugin 'kflu/vim-mark' " mark keywords with colors
 Plugin 'Raimondi/delimitMate' " parenthesis auto closing and jumping
 Plugin 'tpope/vim-surround' " surrounding text blocks with parenthesis
 Plugin 'easymotion/vim-easymotion'
