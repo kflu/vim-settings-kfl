@@ -51,7 +51,6 @@ Plugin 'tomtom/tlib_vim'
 
 " ----- language support -----
 Plugin 'kchmck/vim-coffee-script' " syntax, tasks, linting (via syntactic & coffeelint)
-Plugin 'Windows-PowerShell-Syntax-Plugin'
 Plugin 'chrisbra/csv.vim'
 
 " Disable csharp as it errors when running under console (vim)
