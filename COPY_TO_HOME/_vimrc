@@ -58,8 +58,13 @@ Plugin 'pangloss/vim-javascript'
 " Disable csharp as it errors when running under console (vim)
 " Plugin 'OrangeT/vim-csharp'
 
+Plugin 'mhinz/vim-signify' " show a left hand side bar for change status
+Plugin 'kshenoy/vim-signature' " Display markers
+
 " ----- Themes -----
-Plugin 'altercation/vim-colors-solarized'
+" Plugin 'altercation/vim-colors-solarized'
+" Use my fork before altercation/solarized/issues/252 is fixed
+Plugin 'kflu/vim-colors-solarized'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
