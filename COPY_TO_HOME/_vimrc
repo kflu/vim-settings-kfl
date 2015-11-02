@@ -58,7 +58,7 @@ Plugin 'pangloss/vim-javascript'
 " Disable csharp as it errors when running under console (vim)
 " Plugin 'OrangeT/vim-csharp'
 
-Plugin 'mhinz/vim-signify' " show a left hand side bar for change status
+Plugin 'airblade/vim-gitgutter' " Show git status in sign column
 Plugin 'kshenoy/vim-signature' " Display markers
 
 " ----- Themes -----
