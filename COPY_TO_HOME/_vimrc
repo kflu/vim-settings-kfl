@@ -345,7 +345,7 @@ function s:ConfigureCsv()
     " delimiters are replaced with pipes (|). Also column highlighting doesn't
     " work on those pipes so empty columns are not highlighted.
     let g:csv_no_conceal = 1
-    InitCSV
+    CSVInit
 endfunction
 
 function s:ConfigureMenu()
