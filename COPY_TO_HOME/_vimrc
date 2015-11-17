@@ -563,14 +563,19 @@ function s:Main()
         " " Unmap windows behaviors of the following keys from mswin.vim
         " unmap <C-Y>
         " unmap <C-Z>
-
-        vnoremap <C-X> "+x
-        vnoremap <C-C> "+y
-        map <C-V>		"+gP
-        cmap <C-V>		<C-R>+
-        imap <C-V>		<C-R>+
-        
     endif
+
+    " Ctrl-C/V/A
+    vnoremap <C-C> "+y
+    map      <C-V> "+gP
+    cmap     <C-V> <C-R>+
+    imap     <C-V> <C-R>+
+    noremap  <C-A> gggH<C-O>G
+    inoremap <C-A> <C-O>gg<C-O>gH<C-O>G
+    cnoremap <C-A> <C-C>gggH<C-O>G
+    onoremap <C-A> <C-C>gggH<C-O>G
+    snoremap <C-A> <C-C>gggH<C-O>G
+    xnoremap <C-A> <C-C>ggVG
 
     if filereadable($HOME."/local.vim")
         exe "so $HOME"."/local.vim"
