@@ -52,7 +52,7 @@ Plugin 'tomtom/tlib_vim'
 " ----- language support -----
 Plugin 'kchmck/vim-coffee-script' " syntax, tasks, linting (via syntactic & coffeelint)
 Plugin 'chrisbra/csv.vim'
-Plugin 'kflu/tern_for_vim' " Js code completion
+Plugin 'ternjs/tern_for_vim' " Js code completion
 Plugin 'pangloss/vim-javascript'
 
 " Disable csharp as it errors when running under console (vim)
