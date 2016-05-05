@@ -164,7 +164,10 @@ function s:ConfigureFont()
 
     " On Windows this needs the Chinese Simplified language to be enabled,
     " otherwise E231 is thrown on gvim exit.
-    set guifontwide=Yahei_Mono:h10:cGB2312,SimHei
+    " Appending Monospace,Consolas to make sure this setting never ever 
+    " throw.
+    set guifontwide=Yahei_Mono:h10:cGB2312,SimHei,Monospace,Consolas
+
     call s:MapFontChanges()
 endfunction
 
@@ -228,6 +231,20 @@ function s:ExchangeMake(...)
     finally
         let &l:makeprg = oldmakeprg
         let &l:efm = oldefm
+    endtry
+endfunction
+
+" The script to enable using Google CodeSearch as a grep program
+function s:Csearch(...)
+    let oldprg = &l:grepprg
+    let oldgfm = &l:gfm
+    try
+        setlocal grepformat=%f\:%l\:%m
+        setlocal grepprg=csearch\ -n 
+        execute "grep" join(a:000)
+    finally
+        let &l:grepprg = oldprg
+        let &l:gfm = oldgfm
     endtry
 endfunction
 
@@ -529,6 +546,9 @@ function s:Main()
     command LCD lcd %:p:h
     command Bcc call s:ExchangeMake()
     command Bccl call s:ExchangeMake('buildd.err')
+
+    " Enable using CodeSearch as a grep program
+    command -nargs=+ Csearch call s:Csearch(<f-args>)
 
     command Exdiff !start cmd /c windiff.exe -l %
     command Exedit !sd edit %
