@@ -256,6 +256,10 @@ function s:ConfigureCSharp()
 
 endfunction " s:ConfigureCSharp
 
+function s:ConfigureJavascript()
+    let g:syntastic_javascript_checkers = ['eslint']
+endfunction
+
 function s:ConfigurePython()
     set sw=4 ts=4 smarttab expandtab autoindent
     " For python doc string (triple quotes), see
@@ -549,6 +553,7 @@ function s:Main()
         autocmd FileType tex call s:ConfigureTex()
         autocmd FileType coffee call s:ConfigureCoffeeScript()
         autocmd FileType csv call s:ConfigureCsv()
+        autocmd FileType javascript call s:ConfigureJavascript()
         autocmd BufNewFile,BufRead *.md set filetype=markdown " override .md from modula2
     endif
     " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
