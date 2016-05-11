@@ -50,9 +50,11 @@ Plugin 'marcweber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 
 " ----- language support -----
+Plugin 'plasticboy/vim-markdown'
 Plugin 'kchmck/vim-coffee-script' " syntax, tasks, linting (via syntactic & coffeelint)
 Plugin 'chrisbra/csv.vim'
-Plugin 'ternjs/tern_for_vim' " Js code completion
+" Tempororily disabled due to the lack of useness.
+" Plugin 'ternjs/tern_for_vim' " Js code completion
 Plugin 'pangloss/vim-javascript'
 
 " Disable csharp as it errors when running under console (vim)
