@@ -57,6 +57,9 @@ Plugin 'chrisbra/csv.vim'
 " Plugin 'ternjs/tern_for_vim' " Js code completion
 Plugin 'pangloss/vim-javascript'
 
+" --- F# support ---
+Plugin 'fsharp/vim-fsharp'
+
 " Disable csharp as it errors when running under console (vim)
 " Plugin 'OrangeT/vim-csharp'
 
@@ -407,8 +410,6 @@ endfunction
 function s:ConfigureSuperTab()
     let g:SuperTabDefaultCompletionType = 'context'
     let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
-    let g:SuperTabMappingForward = '<c-space>'
-    let g:SuperTabMappingBackward = '<s-c-space>'
 endfunction
 
 function s:ConfigureOmniSharp()
