@@ -56,12 +56,10 @@ Plugin 'chrisbra/csv.vim'
 " Tempororily disabled due to the lack of useness.
 " Plugin 'ternjs/tern_for_vim' " Js code completion
 Plugin 'pangloss/vim-javascript'
-Plugin 'fsharp/vim-fsharp' " f# support
-Plugin 'wannesm/wmgraphviz.vim' " graphviz support
 Plugin 'vim-scripts/paredit.vim'
-
-" Disable csharp as it errors when running under console (vim)
-" Plugin 'OrangeT/vim-csharp'
+Plugin 'wannesm/wmgraphviz.vim' "graphviz
+" Plugin 'fsharp/vim-fsharp'
+" Plugin 'OrangeT/vim-csharp' " Disable csharp as it errors when running under console (vim)
 
 Plugin 'airblade/vim-gitgutter' " Show git status in sign column
 Plugin 'kshenoy/vim-signature' " Display markers
