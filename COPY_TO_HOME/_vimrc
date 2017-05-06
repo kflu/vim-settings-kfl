@@ -56,9 +56,10 @@ Plugin 'chrisbra/csv.vim'
 " Tempororily disabled due to the lack of useness.
 " Plugin 'ternjs/tern_for_vim' " Js code completion
 Plugin 'pangloss/vim-javascript'
+Plugin 'wannesm/wmgraphviz.vim' "graphviz
 
 " --- F# support ---
-Plugin 'fsharp/vim-fsharp'
+" Plugin 'fsharp/vim-fsharp'
 
 " Disable csharp as it errors when running under console (vim)
 " Plugin 'OrangeT/vim-csharp'
