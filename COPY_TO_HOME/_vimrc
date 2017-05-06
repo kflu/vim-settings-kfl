@@ -58,6 +58,7 @@ Plugin 'chrisbra/csv.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'fsharp/vim-fsharp' " f# support
 Plugin 'wannesm/wmgraphviz.vim' " graphviz support
+Plugin 'vim-scripts/paredit.vim'
 
 " Disable csharp as it errors when running under console (vim)
 " Plugin 'OrangeT/vim-csharp'
