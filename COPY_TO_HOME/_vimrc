@@ -28,6 +28,7 @@ Plugin 'majutsushi/tagbar' " Right hand side nav bar for code
 Plugin 'kflu/vim-mark' " mark keywords with colors
 Plugin 'Raimondi/delimitMate' " parenthesis auto closing and jumping
 Plugin 'tpope/vim-surround' " surrounding text blocks with parenthesis
+Plugin 'tpope/vim-repeat' " use . to repeat plugin ops, like the ones in surround
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-fugitive'
 
@@ -56,13 +57,14 @@ Plugin 'chrisbra/csv.vim'
 " Tempororily disabled due to the lack of useness.
 " Plugin 'ternjs/tern_for_vim' " Js code completion
 Plugin 'pangloss/vim-javascript'
-Plugin 'vim-scripts/paredit.vim'
+" Plugin 'vim-scripts/paredit.vim'
 Plugin 'wannesm/wmgraphviz.vim' "graphviz
 " Plugin 'fsharp/vim-fsharp'
 " Plugin 'OrangeT/vim-csharp' " Disable csharp as it errors when running under console (vim)
 
 Plugin 'airblade/vim-gitgutter' " Show git status in sign column
 Plugin 'kshenoy/vim-signature' " Display markers
+Plugin 'vim-scripts/LargeFile' " load large files more efficiently
 
 " ----- Themes -----
 " Plugin 'altercation/vim-colors-solarized'
@@ -147,7 +149,8 @@ function s:IsWindows()
 endfunction
 
 function s:SetFontWindows()
-    set guifont=Bitstream_Vera_Sans_Mono:h9,
+    set guifont=DejaVu_Sans_Mono:h9,
+                \Bitstream_Vera_Sans_Mono:h9,
                 \Monaco:h9,
                 \Consolas:h9,
                 \Lucida_Console:h9,
