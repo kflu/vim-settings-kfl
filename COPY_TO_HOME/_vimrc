@@ -24,7 +24,9 @@ call vundle#begin('~/vundle') " install plugins into ~/vundle
 
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'majutsushi/tagbar' " Right hand side nav bar for code
+
+" Disable tagbar - very slow when loading file in some folders 
+"Plugin 'majutsushi/tagbar' " Right hand side nav bar for code
 Plugin 'kflu/vim-mark' " mark keywords with colors
 Plugin 'Raimondi/delimitMate' " parenthesis auto closing and jumping
 Plugin 'tpope/vim-surround' " surrounding text blocks with parenthesis
@@ -62,7 +64,9 @@ Plugin 'wannesm/wmgraphviz.vim' "graphviz
 " Plugin 'fsharp/vim-fsharp'
 " Plugin 'OrangeT/vim-csharp' " Disable csharp as it errors when running under console (vim)
 
-Plugin 'airblade/vim-gitgutter' " Show git status in sign column
+" Disable gitgutter - after update it asks to get the gitgutter_grep which I
+" don't want to.
+" Plugin 'airblade/vim-gitgutter' " Show git status in sign column
 Plugin 'kshenoy/vim-signature' " Display markers
 Plugin 'vim-scripts/LargeFile' " load large files more efficiently
 
