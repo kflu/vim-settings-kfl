@@ -163,7 +163,8 @@ function s:SetFontWindows()
 endfunction
 
 function s:SetFontUnix()
-    set guifont=Monospace\ 9,
+    set guifont=DejaVu\ Sans\ Mono\ 10,
+                \Monospace\ 9,
 endfunction
 
 function s:ConfigureFont()
