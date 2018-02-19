@@ -42,7 +42,7 @@ Plugin 'nathanaelkane/vim-indent-guides' " Show visual indication of indentation
 Plugin 'terryma/vim-expand-region' " expand selection progressively. use +/_ to expand/reduce selection
 Plugin 'tpope/vim-dispatch'
 " Plugin 'OmniSharp/omnisharp-vim'
-Plugin 'ervandew/supertab'
+"Plugin 'ervandew/supertab'     " disable b/c it's annoying conflict with tab
 Plugin 'szw/vim-maximizer' " Maximize and restores windows <F3> to toggle
 
 " ----- snipmate, snippets and the dependencies -----
@@ -69,6 +69,7 @@ Plugin 'wannesm/wmgraphviz.vim' "graphviz
 " Plugin 'airblade/vim-gitgutter' " Show git status in sign column
 Plugin 'kshenoy/vim-signature' " Display markers
 Plugin 'vim-scripts/LargeFile' " load large files more efficiently
+Plugin 'vim-scripts/DrawIt' " draw ASCII arts
 
 " ----- Themes -----
 " Plugin 'altercation/vim-colors-solarized'
@@ -598,17 +599,20 @@ function s:Main()
         " unmap <C-Z>
     endif
 
-    " Ctrl-C/V/A
-    vnoremap <C-C> "+y
-    map      <C-V> "+gP
-    cmap     <C-V> <C-R>+
-    imap     <C-V> <C-R>+
-    noremap  <C-A> gggH<C-O>G
-    inoremap <C-A> <C-O>gg<C-O>gH<C-O>G
-    cnoremap <C-A> <C-C>gggH<C-O>G
-    onoremap <C-A> <C-C>gggH<C-O>G
-    snoremap <C-A> <C-C>gggH<C-O>G
-    xnoremap <C-A> <C-C>ggVG
+    " Ctrl-C/V/A. Only do this on Windows. As in *nix some key conflicts,
+    " e.g., C-Q can't be used for block selection so we have to use C-V.
+    if s:IsWindows()
+        vnoremap <C-C> "+y
+        map      <C-V> "+gP
+        cmap     <C-V> <C-R>+
+        imap     <C-V> <C-R>+
+        noremap  <C-A> gggH<C-O>G
+        inoremap <C-A> <C-O>gg<C-O>gH<C-O>G
+        cnoremap <C-A> <C-C>gggH<C-O>G
+        onoremap <C-A> <C-C>gggH<C-O>G
+        snoremap <C-A> <C-C>gggH<C-O>G
+        xnoremap <C-A> <C-C>ggVG
+    endif
 
     if filereadable($HOME."/local.vim")
         exe "so $HOME"."/local.vim"
@@ -622,6 +626,11 @@ function s:Main()
 
     " Don't close location list when CR is pressed on an entry
     let g:syntastic_auto_loc_list = 0
+
+    if !s:IsWindows()
+        runtime! ftplugin/man.vim
+    endif
+
 endfunction
 
 call s:Main()
