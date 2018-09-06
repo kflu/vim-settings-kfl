@@ -178,7 +178,7 @@ function s:ConfigureFont()
     " otherwise E231 is thrown on gvim exit.
     " Appending Monospace,Consolas to make sure this setting never ever 
     " throw.
-    set guifontwide=Yahei_Mono:h10:cGB2312,SimHei,Monospace,Consolas
+    set guifontwide=Yahei_Mono:h10:cGB2312,SimHei,Monospace,Consolas,Menlo
 
     call s:MapFontChanges()
 endfunction
