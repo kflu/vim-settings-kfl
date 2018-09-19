@@ -20,4 +20,7 @@ pushd vundle
 git clone https://github.com/gmarik/Vundle.vim.git
 popd
 
+mkdir vim-plug
+pushd vim-plug
+git clone https://github.com/junegunn/vim-plug.git
 popd

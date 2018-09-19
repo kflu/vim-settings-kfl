@@ -19,64 +19,67 @@ filetype off " required
 
 " set the runtime path to include Vundle and initialize
 " vim-settings-kfl should git clone Vundle.vim into ~/vundle
-set rtp+=~/vundle/Vundle.vim
-call vundle#begin('~/vundle') " install plugins into ~/vundle
 
-Plugin 'gmarik/Vundle.vim'
-
+set rtp+=~/vim-plug/plug.vim
+call plug#begin('~/vim-plug')
 
 " Disable tagbar - very slow when loading file in some folders 
-"Plugin 'majutsushi/tagbar' " Right hand side nav bar for code
-Plugin 'kflu/vim-mark' " mark keywords with colors
-Plugin 'Raimondi/delimitMate' " parenthesis auto closing and jumping
-Plugin 'tpope/vim-surround' " surrounding text blocks with parenthesis
-Plugin 'tpope/vim-repeat' " use . to repeat plugin ops, like the ones in surround
-Plugin 'easymotion/vim-easymotion'
-Plugin 'tpope/vim-fugitive'
+Plug 'majutsushi/tagbar' " Right hand side nav bar for code
+Plug 'kflu/vim-mark' " mark keywords with colors
+Plug 'Raimondi/delimitMate' " parenthesis auto closing and jumping
+Plug 'tpope/vim-surround' " surrounding text blocks with parenthesis
+Plug 'tpope/vim-repeat' " use . to repeat plugin ops, like the ones in surround
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-fugitive'
 
-Plugin 'bling/vim-airline' " status line
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim' " fuzzy search
-Plugin 'scrooloose/syntastic' " Syntax checking framework
-Plugin 'nathanaelkane/vim-indent-guides' " Show visual indication of indentation <Leader>ig
-Plugin 'terryma/vim-expand-region' " expand selection progressively. use +/_ to expand/reduce selection
-Plugin 'tpope/vim-dispatch'
-" Plugin 'OmniSharp/omnisharp-vim'
-"Plugin 'ervandew/supertab'     " disable b/c it's annoying conflict with tab
-Plugin 'szw/vim-maximizer' " Maximize and restores windows <F3> to toggle
+Plug 'bling/vim-airline' " status line
+Plug 'scrooloose/nerdtree'
+Plug 'kien/ctrlp.vim' " fuzzy search
+Plug 'scrooloose/syntastic' " Syntax checking framework
+Plug 'nathanaelkane/vim-indent-guides' " Show visual indication of indentation <Leader>ig
+Plug 'terryma/vim-expand-region' " expand selection progressively. use +/_ to expand/reduce selection
+Plug 'tpope/vim-dispatch'
+" Plug 'OmniSharp/omnisharp-vim'
+" Plug 'ervandew/supertab'     " disable b/c it's annoying conflict with tab
+Plug 'szw/vim-maximizer' " Maximize and restores windows <F3> to toggle
 
 " ----- snipmate, snippets and the dependencies -----
-Plugin 'garbas/vim-snipmate' " the main snipmate plugin
-Plugin 'honza/vim-snippets' " snippets for snipmate
+Plug 'garbas/vim-snipmate' " the main snipmate plugin
+Plug 'honza/vim-snippets' " snippets for snipmate
 " Dependencies
-Plugin 'marcweber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
+Plug 'marcweber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
 
 " ----- language support -----
-Plugin 'plasticboy/vim-markdown'
-Plugin 'kchmck/vim-coffee-script' " syntax, tasks, linting (via syntactic & coffeelint)
-Plugin 'chrisbra/csv.vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'kchmck/vim-coffee-script' " syntax, tasks, linting (via syntactic & coffeelint)
+Plug 'chrisbra/csv.vim'
 " Tempororily disabled due to the lack of useness.
-" Plugin 'ternjs/tern_for_vim' " Js code completion
-Plugin 'pangloss/vim-javascript'
-" Plugin 'vim-scripts/paredit.vim'
-Plugin 'wannesm/wmgraphviz.vim' "graphviz
-" Plugin 'fsharp/vim-fsharp'
-" Plugin 'OrangeT/vim-csharp' " Disable csharp as it errors when running under console (vim)
+" Plug 'ternjs/tern_for_vim' " Js code completion
+Plug 'pangloss/vim-javascript'
+" Plug 'vim-scripts/paredit.vim'
+Plug 'wannesm/wmgraphviz.vim' "graphviz
+" Plug 'fsharp/vim-fsharp'
+" Plug 'OrangeT/vim-csharp' " Disable csharp as it errors when running under console (vim)
+
+" For Java IDE
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
 
 " Disable gitgutter - after update it asks to get the gitgutter_grep which I
 " don't want to.
-" Plugin 'airblade/vim-gitgutter' " Show git status in sign column
-Plugin 'kshenoy/vim-signature' " Display markers
-Plugin 'vim-scripts/LargeFile' " load large files more efficiently
-Plugin 'vim-scripts/DrawIt' " draw ASCII arts
+" Plug 'airblade/vim-gitgutter' " Show git status in sign column
+Plug 'kshenoy/vim-signature' " Display markers
+Plug 'vim-scripts/LargeFile' " load large files more efficiently
+Plug 'vim-scripts/DrawIt' " draw ASCII arts
 
 " ----- Themes -----
-" Plugin 'altercation/vim-colors-solarized'
+" Plug 'altercation/vim-colors-solarized'
 " Use my fork before altercation/solarized/issues/252 is fixed
-Plugin 'kflu/vim-colors-solarized'
+Plug 'kflu/vim-colors-solarized'
 
-call vundle#end()            " required
+call plug#end()
+
 filetype plugin indent on    " required
 " ------------------------- VUNDLE SETUP -------------------------
 
@@ -385,9 +388,9 @@ function s:ConfigureMenu()
     amenu 700.100 &My.&NERDTree                 :NERDTreeToggle<CR>
     amenu 700.200 &My.&Tagbar                   :TagbarToggle<CR>
     amenu 700.300 &My.-SEP1-                    :
-    amenu 700.400 &My.&Install\ new\ plugins    :PluginInstall<CR>
-    amenu 700.420 &My.&Clean\ plugins           :PluginClean<CR>
-    amenu 700.500 &My.&Update\ all\ plugins     :PluginInstall!<CR>
+    amenu 700.400 &My.&Install\ new\ plugins    :PlugInstall<CR>
+    amenu 700.420 &My.&Clean\ plugins           :PlugClean<CR>
+    amenu 700.500 &My.&Update\ all\ plugins     :PlugInstall!<CR>
     amenu 700.600 &My.-SEP2-                    :
     amenu 700.700 &My.&Copy\ file\ path         :Cpfn<CR>
     amenu 700.800 &My.&Horizontal\ Scrollbar    :Hsbar<CR>
