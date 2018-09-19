@@ -20,7 +20,7 @@ filetype off " required
 " set the runtime path to include Vundle and initialize
 " vim-settings-kfl should git clone Vundle.vim into ~/vundle
 
-set rtp+=~/vim-plug/plug.vim
+set rtp+=~/vim-plug/vim-plug
 call plug#begin('~/vim-plug')
 
 " Disable tagbar - very slow when loading file in some folders 

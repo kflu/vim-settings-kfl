@@ -20,7 +20,7 @@ pushd vundle
 git clone https://github.com/gmarik/Vundle.vim.git
 popd
 
-mkdir vim-plug
-pushd vim-plug
-git clone https://github.com/junegunn/vim-plug.git
-popd
+REM cloning vim-plug repo into `autoload` folder because vim-plug repo has 
+REM `plug.vim` in the repo's root (this is different than Vundle)
+mkdir vim-plug\vim-plug
+git clone https://github.com/junegunn/vim-plug.git vim-plug\vim-plug\autoload
