@@ -10,5 +10,6 @@ source $DIR/rc.mine        # shell-neutral settings
 export PS1="[\u@\h \w]$ "
 source_rc ~/rc.d/bash/post '*'
 
+printf "==== DONE ====\n"
 
 # vim: set ft=sh:

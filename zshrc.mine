@@ -11,4 +11,6 @@ source $DIR/rc.mine
 export PS1="[%n@%M %~]$ "
 source_rc ~/rc.d/zsh/post '*'
 
+printf "==== DONE ====\n"
+
 # vim: set ft=sh:
