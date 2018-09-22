@@ -9,6 +9,8 @@ source_rc ~/rc.d/sh/pre '*'
 [ `uname` = "Linux" ] && alias ls="ls --color=auto"
 alias ll="ls -la"
 source_rc ~/rc.d/sh/post '*'
-printf "rc.mine execution completed\n"
+
+RES_MBP=1680x1050
+
 
 # vim: set ft=sh
