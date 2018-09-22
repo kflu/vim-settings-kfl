@@ -13,6 +13,24 @@ alias vvv="xclip -sel clipboard -o"
 source_rc ~/rc.d/sh/post '*'
 
 RES_MBP=1680x1050
+RES_ACER_HOME=2560x1440
+
+clip_dump() {
+    printf "\n======== clipboard =========\n"
+    xclip -o -sel clipboard
+
+    printf "\n======== primary =========\n"
+    xclip -o -sel primary
+    printf "\n"
+
+    printf "\n======== secondary =========\n"
+    xclip -o -sel secondary
+    printf "\n"
+
+    printf "\n======== buffer-cut =========\n"
+    xclip -o -sel buffer-cut
+    printf "\n"
+}
 
 
-# vim: set ft=sh
+# vim========== set ft=sh

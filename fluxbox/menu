@@ -18,7 +18,6 @@
 [encoding] {UTF-8}
       [exec] (xterm) {xterm}
       [exec] (urxvt) {urxvt256c-ml}
-      [exec] (firefox) {firefox}
       [exec] (chrome) {chromium-browser}
 [submenu] (Fluxbox menu)
       [config] (Configure)

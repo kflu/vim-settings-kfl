@@ -1,0 +1,3 @@
+#!/bin/sh
+
+nohup xterm -T "fbhtop" -n "fbhtop" -e 'htop' &

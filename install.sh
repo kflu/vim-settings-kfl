@@ -4,9 +4,14 @@ ln -s -f $DIR/.screenrc ~/.screenrc
 ln -s -f $DIR/.gitconfig ~/.gitconfig
 ln -s -f $DIR/.Xclients ~/.Xclients
 ln -s -f $DIR/.Xresources ~/.Xresources
+
 mkdir -p ~/.fluxbox
 ln -s -f $DIR/fluxbox/keys ~/.fluxbox/keys
 ln -s -f $DIR/fluxbox/menu ~/.fluxbox/menu
+ln -s -f $DIR/fluxbox/windowmenu ~/.fluxbox/windowmenu
+
+mkdir -p ~/bin
+ln -s -f $DIR/bin/fbhtop ~/bin/fbhtop
 
 if [ ! -f ~/.profile ] || ! grep -q "profile.mine" ~/.profile; then
     printf "\n. $DIR/profile.mine\n" >> ~/.profile
