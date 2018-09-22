@@ -4,6 +4,7 @@
 # current script's path if it's `source`'d. Per [1], use `$BASH_SOURCE`.
 # [1]: https://unix.stackexchange.com/a/4673/38968
 DIR=`dirname $BASH_SOURCE`
+source "$DIR/common.sh"
 source_rc ~/rc.d/bash/pre '*'
 source $DIR/rc.mine        # shell-neutral settings
 export PS1="[\u@\h \w]$ "
