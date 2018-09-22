@@ -605,11 +605,18 @@ function s:Main()
 
     " Ctrl-C/V/A. Only do this on Windows. As in *nix some key conflicts,
     " e.g., C-Q can't be used for block selection so we have to use C-V.
+    vnoremap <C-C> "+y
+    map      <C-V> "+gP
+    cmap     <C-V> <C-R>+
+    imap     <C-V> <C-R>+
+
+    " Remap block selection <c-v> to <a-v>
+    " On Mac (and in VNC) <a-v> is <esc>v
+    " https://stackoverflow.com/a/24047539/695964
+    nnoremap <a-v> <c-v>
+    nnoremap <esc>v <c-v>
+
     if s:IsWindows()
-        vnoremap <C-C> "+y
-        map      <C-V> "+gP
-        cmap     <C-V> <C-R>+
-        imap     <C-V> <C-R>+
         noremap  <C-A> gggH<C-O>G
         inoremap <C-A> <C-O>gg<C-O>gH<C-O>G
         cnoremap <C-A> <C-C>gggH<C-O>G
