@@ -8,6 +8,8 @@ source "$DIR/common.sh"
 source_rc ~/rc.d/sh/pre '*'
 [ `uname` = "Linux" ] && alias ls="ls --color=auto"
 alias ll="ls -la"
+alias ccc="xclip -sel clipboard"
+alias vvv="xclip -sel clipboard -o"
 source_rc ~/rc.d/sh/post '*'
 
 RES_MBP=1680x1050
