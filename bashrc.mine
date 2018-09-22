@@ -1,0 +1,13 @@
+# bash specific settings go here
+
+# get path of the script being `source`'d. For bash, `$0` doesn't give you
+# current script's path if it's `source`'d. Per [1], use `$BASH_SOURCE`.
+# [1]: https://unix.stackexchange.com/a/4673/38968
+DIR=`dirname $BASH_SOURCE`
+source_rc ~/rc.d/bash/pre '*'
+source $DIR/rc.mine        # shell-neutral settings
+export PS1="[\u@\h \w]$ "
+source_rc ~/rc.d/bash/post '*'
+
+
+# vim: set ft=sh:

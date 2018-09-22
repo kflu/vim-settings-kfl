@@ -1,0 +1,135 @@
+! Base16 Default Dark
+! Scheme: Chris Kempson (http://chriskempson.com)
+
+! ================ XTERM =====================
+xterm*faceName: DejaVu Sans Mono Book
+xterm*faceSize: 10
+
+#define base00 #181818
+#define base01 #282828
+#define base02 #383838
+#define base03 #585858
+#define base04 #b8b8b8
+#define base05 #d8d8d8
+#define base06 #e8e8e8
+#define base07 #f8f8f8
+#define base08 #ab4642
+#define base09 #dc9656
+#define base0A #f7ca88
+#define base0B #a1b56c
+#define base0C #86c1b9
+#define base0D #7cafc2
+#define base0E #ba8baf
+#define base0F #a16946
+
+xterm*foreground:   base05
+#ifdef background_opacity
+xterm*background:   [background_opacity]base00
+#else
+xterm*background:   base00
+#endif
+xterm*cursorColor:  base05
+
+xterm*color0:       base00
+xterm*color1:       base08
+xterm*color2:       base0B
+xterm*color3:       base0A
+xterm*color4:       base0D
+xterm*color5:       base0E
+xterm*color6:       base0C
+xterm*color7:       base05
+
+xterm*color8:       base03
+xterm*color9:       base09
+xterm*color10:      base01
+xterm*color11:      base02
+xterm*color12:      base04
+xterm*color13:      base06
+xterm*color14:      base0F
+xterm*color15:      base07
+
+XTerm.vt100.translations: #override \n\
+Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+
+
+! ================ RXVT =====================
+
+URxvt.depth:                32
+URxvt.geometry:             128x30
+! URxvt.transparent:          false
+! URxvt.fading:               0
+! URxvt.urgentOnBell:         true
+! URxvt.visualBell:           true
+! URxvt.loginShell:           true
+! URxvt.saveLines:            50
+! URxvt.internalBorder:       3
+! URxvt.lineSpace:            0
+
+! Fonts
+URxvt.allow_bold:           true
+URxvt*font: xft:Monospace:pixelsize=14
+
+! Fix font space
+URxvt*letterSpace: -1
+
+! Scrollbar
+URxvt.scrollBar:            false       // use tmux
+URxvt.scrollBar_right:      true
+URxvt.scrollStyle:          plain
+
+! Perl extensions
+URxvt.perl-ext-common:      default,matcher
+URxvt.matcher.button:       1
+URxvt.urlLauncher:          firefox
+
+! Cursor
+URxvt.cursorBlink:          true
+URxvt.cursorColor:          #657b83
+URxvt.cursorUnderline:      false
+
+! Pointer
+URxvt.pointerBlank:         true
+
+! color
+! Base16 Default Dark
+! Scheme: Chris Kempson (http://chriskempson.com)
+
+URxvt*foreground:   #d8d8d8
+#ifdef background_opacity
+URxvt*background:   [background_opacity]#181818
+#else
+URxvt*background:   #181818
+#endif
+URxvt*cursorColor:  #d8d8d8
+
+URxvt*color0:       #181818
+URxvt*color1:       #ab4642
+URxvt*color2:       #a1b56c
+URxvt*color3:       #f7ca88
+URxvt*color4:       #7cafc2
+URxvt*color5:       #ba8baf
+URxvt*color6:       #86c1b9
+URxvt*color7:       #d8d8d8
+
+URxvt*color8:       #585858
+URxvt*color9:       #ab4642
+URxvt*color10:      #a1b56c
+URxvt*color11:      #f7ca88
+URxvt*color12:      #7cafc2
+URxvt*color13:      #ba8baf
+URxvt*color14:      #86c1b9
+URxvt*color15:      #f8f8f8
+
+! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
+! use 'shell' template to set these if necessary
+URxvt*color16:      #dc9656
+URxvt*color17:      #a16946
+URxvt*color18:      #282828
+URxvt*color19:      #383838
+URxvt*color20:      #b8b8b8
+URxvt*color21:      #e8e8e8
+
+URxvt.keysym.Shift-Control-V: eval:paste_clipboard
+URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
+

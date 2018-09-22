@@ -1,0 +1,10 @@
+[user]
+	name = KFL
+	email = kfldev@outlook.com
+[alias]
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+[credential]
+	helper = cache

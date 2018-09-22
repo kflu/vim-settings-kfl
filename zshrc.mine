@@ -1,0 +1,14 @@
+# zsh specific settings
+
+# get path of the script being `source`'d. Per [1], `$0` works for zsh, not bash 
+# [1]: https://unix.stackexchange.com/a/4673/38968
+SCRIPT=`realpath $0`
+DIR=`dirname $SCRIPT`
+
+source "$DIR/common.sh"
+source_rc ~/rc.d/zsh/pre '*'
+source $DIR/rc.mine
+export PS1="[%n@%M %~]$ "
+source_rc ~/rc.d/zsh/post '*'
+
+# vim: set ft=sh:

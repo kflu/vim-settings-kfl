@@ -1,0 +1,6 @@
+startup_message off
+altscreen on
+caption always "%?%F%{.R.}%?%3n %t%? [%h]%?"
+hardstatus alwayslastline "%Y/%m/%d %c:%s | %l | %{-}%-w%{r}%n*%t%{-}%+w"
+bindkey -k k1 focus up
+bindkey -k k2 focus down

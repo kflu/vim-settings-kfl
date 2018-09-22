@@ -1,0 +1,14 @@
+#!/bin/sh
+# shell-neutral rc settings
+
+SCRIPT=`realpath $0`
+DIR=`dirname $SCRIPT`
+
+source "$DIR/common.sh"
+source_rc ~/rc.d/sh/pre '*'
+[ `uname` = "Linux" ] && alias ls="ls --color=auto"
+alias ll="ls -la"
+source_rc ~/rc.d/sh/post '*'
+printf "rc.mine execution completed\n"
+
+# vim: set ft=sh
