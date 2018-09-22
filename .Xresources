@@ -133,3 +133,7 @@ URxvt*color21:      #e8e8e8
 URxvt.keysym.Shift-Control-V: eval:paste_clipboard
 URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
 
+! Disable those two modes which impacts ctrl-shift-v for pasting
+! https://www.reddit.com/r/urxvt/comments/35x03n/if_youve_been_vexed_by_urxvts_picture_insert_mode/
+URxvt.iso14755: false
+URxvt.iso14755_52: false
