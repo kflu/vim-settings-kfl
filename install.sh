@@ -12,6 +12,7 @@ ln -s -f $DIR/fluxbox/windowmenu ~/.fluxbox/windowmenu
 
 mkdir -p ~/bin
 ln -s -f $DIR/bin/fbhtop ~/bin/fbhtop
+ln -s -f $DIR/bin/fbterm ~/bin/fbterm
 
 if [ ! -f ~/.profile ] || ! grep -q "profile.mine" ~/.profile; then
     printf "\n. $DIR/profile.mine\n" >> ~/.profile

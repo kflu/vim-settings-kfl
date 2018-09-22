@@ -1,0 +1,23 @@
+[app] (name=fbrun)
+  [Position]	(WINCENTER)	{0 0}
+  [Layer]	{2}
+[end]
+
+[app] (title=fbterm)
+    [Position]  (Bottom) {0 0}
+    [Dimensions] {2000 240}
+    [Deco]      {NONE}
+    [Hidden] {yes}
+    [Sticky] {yes}
+    [Layer] {Desktop}
+[end]
+
+[app] (title=fbhtop)
+    [Position]  (TopRight) {0 0}
+    [Dimensions] {600 180}
+    [Deco]      {NONE}
+    [Hidden] {yes}
+    [Sticky] {yes}
+    [Layer] {Bottom}
+[end]
+

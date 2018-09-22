@@ -1,0 +1,3 @@
+#!/bin/sh
+
+nohup xterm +sb -T "fbterm" -n "fbterm" -e zsh &
