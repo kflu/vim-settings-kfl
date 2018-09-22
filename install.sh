@@ -8,6 +8,8 @@ ln -s -f $DIR/.Xresources ~/.Xresources
 mkdir -p ~/.fluxbox
 ln -s -f $DIR/fluxbox/keys ~/.fluxbox/keys
 ln -s -f $DIR/fluxbox/menu ~/.fluxbox/menu
+ln -s -f $DIR/fluxbox/apps ~/.fluxbox/apps
+ln -s -f $DIR/fluxbox/startup ~/.fluxbox/startup
 ln -s -f $DIR/fluxbox/windowmenu ~/.fluxbox/windowmenu
 
 mkdir -p ~/bin
