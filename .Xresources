@@ -4,6 +4,7 @@
 ! ================ XTERM =====================
 xterm*faceName: DejaVu Sans Mono Book
 xterm*faceSize: 10
+XTerm*utf8: 1
 
 #define base00 #181818
 #define base01 #282828
