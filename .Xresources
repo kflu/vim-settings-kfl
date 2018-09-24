@@ -1,6 +1,10 @@
 ! Base16 Default Dark
 ! Scheme: Chris Kempson (http://chriskempson.com)
 
+! Set DPI manually in case you don't like it
+! Xft.dpi:   96 
+
+
 ! ================ XTERM =====================
 xterm*faceName: DejaVu Sans Mono Book
 xterm*faceSize: 10
