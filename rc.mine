@@ -16,6 +16,15 @@ godo() {
     eval "nohup $@ > /dev/null 2&>1 &"
 }
 
+set_dpi() {
+    dpi=$1
+    printf "Setting DPI to $dpi in ~/.Xresources.dpi\n"
+    echo "Xft.dpi:$dpi" > ~/.Xresources.dpi
+    printf "Reloading ~/.Xresources\n"
+    xrdb -cpp `which cpp` ~/.Xresources
+    printf "done\n"
+}
+
 source_rc ~/rc.d/sh/post '*'
 
 RES_MBP=1680x1050
