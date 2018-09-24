@@ -10,6 +10,12 @@ source_rc ~/rc.d/sh/pre '*'
 alias ll="ls -la"
 alias ccc="xclip -sel clipboard"
 alias vvv="xclip -sel clipboard -o"
+
+godo() {
+    printf "args are: $@\n"
+    eval "nohup $@ > /dev/null 2&>1 &"
+}
+
 source_rc ~/rc.d/sh/post '*'
 
 RES_MBP=1680x1050
