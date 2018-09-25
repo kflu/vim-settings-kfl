@@ -12,7 +12,6 @@ alias ccc="xclip -sel clipboard"
 alias vvv="xclip -sel clipboard -o"
 
 godo() {
-    printf "args are: $@\n"
     eval "nohup $@ > /dev/null 2>&1 &"
 }
 
