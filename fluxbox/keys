@@ -41,6 +41,7 @@ OnTitlebar Mouse3 :WindowMenu
 # alt-tab
 Mod1 Tab :NextWindow {groups} (workspace=[current])
 Mod1 Shift Tab :PrevWindow {groups} (workspace=[current])
+Mod4 Escape :ClientMenu
 
 Mod4 d :ShowDesktop
 

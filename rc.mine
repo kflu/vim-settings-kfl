@@ -13,7 +13,7 @@ alias vvv="xclip -sel clipboard -o"
 
 godo() {
     printf "args are: $@\n"
-    eval "nohup $@ > /dev/null 2&>1 &"
+    eval "nohup $@ > /dev/null 2>&1 &"
 }
 
 set_dpi() {
