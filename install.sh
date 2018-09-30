@@ -16,6 +16,9 @@ mkdir -p ~/bin
 ln -s -f $DIR/bin/fbhtop ~/bin/fbhtop
 ln -s -f $DIR/bin/fbterm ~/bin/fbterm
 
+mkdir -p ~/.urxvt/ext
+ln -s -f $DIR/.urxvt/ext/font-size ~/.urxvt/ext/font-size
+
 if [ ! -f ~/.profile ] || ! grep -q "profile.mine" ~/.profile; then
     printf "\n. $DIR/profile.mine\n" >> ~/.profile
 fi
