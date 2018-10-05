@@ -8,7 +8,9 @@ DIR=`dirname $SCRIPT`
 source "$DIR/common.sh"
 source_rc ~/rc.d/zsh/pre '*'
 source $DIR/rc.mine
-export PS1="[%n@%M %~]$ "
+NEWLINE=$'\n'
+# export PS1="[%n@%M %~] %(?.$fg[green].$fg[red])%#$reset_color "
+export PS1="[%n@%M %~] %(?.$fg[green].$fg[red])%#$reset_color ${NEWLINE}> "
 source_rc ~/rc.d/zsh/post '*'
 
 printf "==== DONE ====\n"
