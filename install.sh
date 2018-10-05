@@ -4,7 +4,7 @@ ln -s -f $DIR/.screenrc ~/.screenrc
 ln -s -f $DIR/.gitconfig ~/.gitconfig
 ln -s -f $DIR/.Xclients ~/.Xclients
 ln -s -f $DIR/.Xresources ~/.Xresources
-ln -s -f $DIR/.Xresources.dpi ~/.Xresources.dpi
+touch ~/.Xresources.dpi
 
 mkdir -p ~/.fluxbox
 ln -s -f $DIR/fluxbox/keys ~/.fluxbox/keys
