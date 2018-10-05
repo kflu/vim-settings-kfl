@@ -50,6 +50,8 @@ Plug 'honza/vim-snippets' " snippets for snipmate
 Plug 'marcweber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 
+Plug 'mileszs/ack.vim' " use ag or ack
+
 " ----- language support -----
 Plug 'plasticboy/vim-markdown'
 Plug 'kchmck/vim-coffee-script' " syntax, tasks, linting (via syntactic & coffeelint)
@@ -62,9 +64,11 @@ Plug 'wannesm/wmgraphviz.vim' "graphviz
 " Plug 'fsharp/vim-fsharp'
 " Plug 'OrangeT/vim-csharp' " Disable csharp as it errors when running under console (vim)
 
-" For Java IDE
+" LSP support
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " Disable gitgutter - after update it asks to get the gitgutter_grep which I
 " don't want to.
@@ -77,6 +81,7 @@ Plug 'vim-scripts/DrawIt' " draw ASCII arts
 " Plug 'altercation/vim-colors-solarized'
 " Use my fork before altercation/solarized/issues/252 is fixed
 Plug 'kflu/vim-colors-solarized'
+
 
 call plug#end()
 
@@ -641,6 +646,10 @@ function s:Main()
 
     if !s:IsWindows()
         runtime! ftplugin/man.vim
+    endif
+
+    if executable('ag') " use ag and fallback to ack
+        let g:ackprg = 'ag --vimgrep'
     endif
 
 endfunction
