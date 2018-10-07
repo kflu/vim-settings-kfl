@@ -1,31 +1,31 @@
 SCRIPT=`realpath $0`
 DIR=`dirname $SCRIPT`
-ln -s -f $DIR/.screenrc ~/.screenrc
-ln -s -f $DIR/.gitconfig ~/.gitconfig
-ln -s -f $DIR/.Xclients ~/.Xclients
-ln -s -f $DIR/.Xresources ~/.Xresources
+ln -v -s -f $DIR/.screenrc ~/.screenrc
+ln -v -s -f $DIR/.gitconfig ~/.gitconfig
+ln -v -s -f $DIR/.Xclients ~/.Xclients
+ln -v -s -f $DIR/.Xresources ~/.Xresources
 touch ~/.Xresources.dpi
 
-mkdir -p ~/.fluxbox
-ln -s -f $DIR/fluxbox/keys ~/.fluxbox/keys
-ln -s -f $DIR/fluxbox/menu ~/.fluxbox/menu
-ln -s -f $DIR/fluxbox/apps ~/.fluxbox/apps
-ln -s -f $DIR/fluxbox/startup ~/.fluxbox/startup
-ln -s -f $DIR/fluxbox/windowmenu ~/.fluxbox/windowmenu
+mkdir -v -p ~/.fluxbox
+ln -v -s -f $DIR/fluxbox/keys ~/.fluxbox/keys
+ln -v -s -f $DIR/fluxbox/menu ~/.fluxbox/menu
+ln -v -s -f $DIR/fluxbox/apps ~/.fluxbox/apps
+ln -v -s -f $DIR/fluxbox/startup ~/.fluxbox/startup
+ln -v -s -f $DIR/fluxbox/windowmenu ~/.fluxbox/windowmenu
 
-mkdir -p ~/bin
-ln -s -f $DIR/bin/fbhtop ~/bin/fbhtop
-ln -s -f $DIR/bin/fbterm ~/bin/fbterm
+mkdir -v -p ~/bin
+ln -v -s -f $DIR/bin/fbhtop ~/bin/fbhtop
+ln -v -s -f $DIR/bin/fbterm ~/bin/fbterm
 
-mkdir -p ~/.urxvt/ext
-ln -s -f $DIR/.urxvt/ext/font-size ~/.urxvt/ext/font-size
+mkdir -v -p ~/.urxvt/ext
+ln -v -s -f $DIR/.urxvt/ext/font-size ~/.urxvt/ext/font-size
 
-mkdir -p ~/install/share/bin
-mkdir -p ~/install/share/man
-find "$DIR/install/share/man" -type f | while read fn; do
+mkdir -v -p ~/install/share/bin
+mkdir -v -p ~/install/share/man
+# install markdown docs
+find "$DIR/install/share/man" -type f -not -name '*~' | while read fn; do
     target="`basename $fn`"
-    echo "$fn"
-    ln -s -f "$fn" "$HOME/install/share/man/$target"
+    ln -v -s -f "$fn" "$HOME/install/share/man/$target"
 done
 
 
@@ -63,12 +63,12 @@ oldpath=`pwd`; cd $HOME
 if ! [ -d ~/.tmux ]; then
     git clone https://github.com/kflu/.tmux.git
 fi
-ln -s -f .tmux/.tmux.conf ~/.tmux.conf
+ln -v -s -f .tmux/.tmux.conf ~/.tmux.conf
 cp ~/.tmux/.tmux.conf.local ~
 printf "\n"
 printf "set -g mouse on\n" >> ~/.tmux.conf.local
 
-mkdir -p ~/rc.d/sh/pre \
+mkdir -v -p ~/rc.d/sh/pre \
          ~/rc.d/sh/post \
          ~/rc.d/bash/post \
          ~/rc.d/bash/pre \
