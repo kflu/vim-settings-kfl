@@ -515,6 +515,7 @@ function s:Main()
     if has("gui_running")
         set go-=T
         colo solarized " this color doesn't work well under console
+        set bg=dark
         call s:ConfigureFont()
         autocmd GUIEnter * winsize 100 40
     else
