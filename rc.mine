@@ -10,6 +10,8 @@ source_rc ~/rc.d/sh/pre '*'
 alias ll="ls -la"
 alias ccc="xclip -sel clipboard"
 alias vvv="xclip -sel clipboard -o"
+alias vman="MANPAGER='vim +MANPAGER -c \"set nomodifiable readonly\" -' man"
+alias gman="MANPAGER='gvim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 
 godo() {
     eval "nohup $@ > /dev/null 2>&1 &"
