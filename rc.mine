@@ -15,10 +15,26 @@ alias vman="MANPAGER='vim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 alias gvman="MANPAGER='gvim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 
 # read markdown docs
-mddoc() {
+cheat() {
     root="$HOME/install/share/man/"
+    while getopts 'r:h' opt; do
+        case "$opt" in
+            r)
+                root="$OPTARG";;
+            h)
+                echo "Usage: [-r <doc_root>] doc" >&2; return;;
+        esac
+    done
+    shift $((OPTIND-1))
     term="$1"
-    vim -c "set nomodifiable readonly | map q :q<cr>" "$root/$term.md"
+    fn="$root/$term.md"
+
+    if [ -f "$fn" ]; then 
+        vim -c "set nomodifiable readonly | map q :q<cr>" "$fn"
+    else
+        echo "File does not exist: $fn" >&2
+        return 1
+    fi
 }
 
 godo() {
