@@ -20,6 +20,15 @@ ln -s -f $DIR/bin/fbterm ~/bin/fbterm
 mkdir -p ~/.urxvt/ext
 ln -s -f $DIR/.urxvt/ext/font-size ~/.urxvt/ext/font-size
 
+mkdir -p ~/install/share/bin
+mkdir -p ~/install/share/man
+find "$DIR/install/share/man" -type f | while read fn; do
+    target="`basename $fn`"
+    echo "$fn"
+    ln -s -f "$fn" "$HOME/install/share/man/$target"
+done
+
+
 if [ ! -f ~/.profile ] || ! grep -q "profile.mine" ~/.profile; then
     printf "\n. $DIR/profile.mine\n" >> ~/.profile
 fi
