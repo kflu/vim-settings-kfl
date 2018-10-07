@@ -13,6 +13,14 @@ alias vvv="xclip -sel clipboard -o"
 alias vman="MANPAGER='vim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 alias gman="MANPAGER='gvim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 
+# read markdown docs
+# mddoc <term>
+mddoc() {
+    root="$HOME/install/share/man/"
+    term="$1"
+    view -c "set nomodifiable readonly" "$root/$term.md"
+}
+
 godo() {
     eval "nohup $@ > /dev/null 2>&1 &"
 }
