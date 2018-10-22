@@ -28,11 +28,16 @@ cheat() {
     shift $((OPTIND-1))
     term="$1"
     fn="$root/$term.md"
-    if ! [ -f "$fn" ];then
-        echo "$fn does not exist. Opening index.md..."
-        fn="$root/index.md"
+    if [ -f "$fn" ]; then
+        vim -c "set nomodifiable readonly noswapfile | map q :q<cr> | cd $root" "$fn"
+    else
+        vim -c "set nomodifiable readonly noswapfile | map q :q<cr> | cd $root" "$root"
     fi
-    vim -c "set nomodifiable readonly | map q :q<cr>" "$fn"
+
+    # if ! [ -f "$fn" ];then
+    #     echo "$fn does not exist. Opening index.md..."
+    #     fn="$root/index.md"
+    # fi
 }
 
 godo() {
