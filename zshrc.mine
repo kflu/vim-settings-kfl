@@ -9,8 +9,7 @@ source "$DIR/common.sh"
 source_rc ~/rc.d/zsh/pre '*'
 source $DIR/rc.mine
 NEWLINE=$'\n'
-# export PS1="[%n@%M %~] %(?.$fg[green].$fg[red])%#$reset_color "
-export PS1="[%n@%M %~] %(?.$fg[green].$fg[red])%#$reset_color ${NEWLINE}> "
+export PS1="$BG[018]$FG[015][%n@%M %~]${NEWLINE}%{$reset_color%}%(?.$fg[green].$fg[red])>>> %{$reset_color%}"
 source_rc ~/rc.d/zsh/post '*'
 
 printf "==== DONE ====\n"
