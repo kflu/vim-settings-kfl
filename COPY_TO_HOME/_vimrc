@@ -556,7 +556,9 @@ function s:Main()
     map <C-Tab> <C-W><C-W>
 
     " Quick escape from insert mode
-    imap jj <ESC>
+    " Disabled since it interfere not with typing, BUT with pasting
+    " in insert mode - if text contains `jj` it acts as ESC
+    " imap jj <ESC>
 
     " To resolve <S-Tab> conflict with snipMate
     imap <C-J> <Plug>delimitMateS-Tab
