@@ -81,6 +81,7 @@ Plug 'vim-scripts/DrawIt' " draw ASCII arts
 " Plug 'altercation/vim-colors-solarized'
 " Use my fork before altercation/solarized/issues/252 is fixed
 Plug 'kflu/vim-colors-solarized'
+Plug 'NLKNguyen/papercolor-theme'
 
 
 call plug#end()
@@ -519,13 +520,12 @@ function s:Main()
     " ------------------------- GUI settings -------------------------
     if has("gui_running")
         set go-=T
-        colo solarized " this color doesn't work well under console
-        set bg=dark
+        colo PaperColor | set bg=light
         call s:ConfigureFont()
         autocmd GUIEnter * winsize 100 40
     else
-        " colo desert
-        colo evening  " looks like a 265 color theme
+        " Use vimdiff to test theme under console
+        colo PaperColor | set bg=light
     endif
     " ------------------------- GUI settings -------------------------
 
