@@ -12,6 +12,7 @@ ln -v -s -f $DIR/fluxbox/menu ~/.fluxbox/menu
 ln -v -s -f $DIR/fluxbox/apps ~/.fluxbox/apps
 ln -v -s -f $DIR/fluxbox/startup ~/.fluxbox/startup
 ln -v -s -f $DIR/fluxbox/windowmenu ~/.fluxbox/windowmenu
+ln -v -s -f $DIR/fluxbox/overlay ~/.fluxbox/overlay
 
 mkdir -v -p ~/bin
 ln -v -s -f $DIR/bin/fbhtop ~/bin/fbhtop
