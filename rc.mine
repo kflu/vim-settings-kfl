@@ -75,5 +75,20 @@ clip_dump() {
     printf "\n"
 }
 
+# Fuzzy search in bookmarks
+bm() {
+    type="$1";shift
+    case "$type" in
+        d) target="$HOME/.bookmarks/dirs";;
+        f) target="$HOME/.bookmarks/files";;
+        *) target="$HOME/.bookmarks";;
+    esac
+    find "$target" -type f | while read -r fn; do cat "$fn"; done | uniq | fzf
+}
+
+cdbm() {
+    cd `bm d`
+}
+
 
 # vim========== set ft=sh
