@@ -31,6 +31,7 @@ Plug 'tpope/vim-surround' " surrounding text blocks with parenthesis
 Plug 'tpope/vim-repeat' " use . to repeat plugin ops, like the ones in surround
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive'
+Plug 'jlfwong/vim-mercenary'  " HG GUI
 
 Plug 'bling/vim-airline' " status line
 Plug 'scrooloose/nerdtree'
@@ -76,6 +77,16 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'kshenoy/vim-signature' " Display markers
 Plug 'vim-scripts/LargeFile' " load large files more efficiently
 Plug 'vim-scripts/DrawIt' " draw ASCII arts
+
+" fzf the fuzzy searcher
+" Assume fzf is already installed via git:
+" https://github.com/junegunn/fzf#using-git
+" If fzf is installed in other fashion, this needs to be changed.
+" fzf is so useful that its installation should be automated
+" So below setting may change in the future.
+Plug '~/.fzf'
+Plug 'junegunn/fzf.vim'
+
 
 " ----- Themes -----
 " Plug 'altercation/vim-colors-solarized'
