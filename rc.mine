@@ -14,6 +14,20 @@ alias vvv="xclip -sel clipboard -o"
 alias vman="MANPAGER='vim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 alias gvman="MANPAGER='gvim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 
+# alias ..="cd .."
+# alias ...="cd ../.."
+# alias ....="cd ../../.."
+# alias .....="cd ../../../.."
+# alias ......="cd ../../../../.."
+# alias .......="cd ../../../../../.."
+# alias ........="cd ../../../../../../.."
+# alias .........="cd ../../../../../../../.."
+# alias ..........="cd ../../../../../../../../.."
+# alias ...........="cd ../../../../../../../../../.."
+# alias ............="cd ../../../../../../../../../../.."
+# alias .............="cd ../../../../../../../../../../../.."
+
+
 # read markdown docs
 cheat() {
     root="$HOME/install/share/man/"
@@ -73,6 +87,21 @@ clip_dump() {
     printf "\n======== buffer-cut =========\n"
     xclip -o -sel buffer-cut
     printf "\n"
+}
+
+# Fuzzy search in bookmarks
+bm() {
+    type="$1";shift
+    case "$type" in
+        d) target="$HOME/.bookmarks/dirs";;
+        f) target="$HOME/.bookmarks/files";;
+        *) target="$HOME/.bookmarks";;
+    esac
+    find -L "$target" -type f ! -name '*~' | while read -r fn; do cat "$fn"; done | uniq | fzf
+}
+
+cdbm() {
+    cd `bm d`
 }
 
 
