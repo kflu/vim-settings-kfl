@@ -64,6 +64,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'wannesm/wmgraphviz.vim' "graphviz
 " Plug 'fsharp/vim-fsharp'
 " Plug 'OrangeT/vim-csharp' " Disable csharp as it errors when running under console (vim)
+Plug 'solarnz/thrift.vim'
 
 " LSP support
 Plug 'prabirshrestha/async.vim'
