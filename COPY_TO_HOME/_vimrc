@@ -26,7 +26,8 @@ call plug#begin('~/vim-plug')
 " Disable tagbar - very slow when loading file in some folders 
 Plug 'majutsushi/tagbar' " Right hand side nav bar for code
 Plug 'kflu/vim-mark' " mark keywords with colors
-Plug 'Raimondi/delimitMate' " parenthesis auto closing and jumping
+" delimitMate turns out quite annoying. Try disable it (20190106)
+" Plug 'Raimondi/delimitMate' " parenthesis auto closing and jumping
 Plug 'tpope/vim-surround' " surrounding text blocks with parenthesis
 Plug 'tpope/vim-repeat' " use . to repeat plugin ops, like the ones in surround
 Plug 'easymotion/vim-easymotion'
@@ -94,6 +95,7 @@ Plug 'junegunn/fzf.vim'
 " Use my fork before altercation/solarized/issues/252 is fixed
 Plug 'kflu/vim-colors-solarized'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'junegunn/goyo.vim'  " Distraction free writing
 
 
 call plug#end()
