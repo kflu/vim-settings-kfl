@@ -4,6 +4,32 @@
 # current script's path if it's `source`'d. Per [1], use `$BASH_SOURCE`.
 # [1]: https://unix.stackexchange.com/a/4673/38968
 DIR=`dirname $BASH_SOURCE`
+
+light_green="\[\e[1;32m\]"
+light_red="\[\e[1;31m\]"
+yellow="\[\e[0;33m\]"
+gray="\[\e[0;37m\]"
+magenta="\[\e[0;95m\]"
+white="\[\e[38;5;15m\]"
+bg_blue="\e[48;5;18m\]"
+reset="\[\e[m\]"
+
+# Customize prompt
+prompt_command() {
+
+    local status="$?"
+    local status_color=""
+    if [ $status != 0 ]; then
+        status_color=$light_red
+    else
+        status_color=$light_green
+    fi
+    export PS1="${white}${bg_blue}[\u@\h \w] ${status_color}%${reset}\n${magenta}>>>${reset} "
+}
+export GIT_PS1_SHOWDIRTYSTATE=1
+export PROMPT_COMMAND=prompt_command
+
+
 source "$DIR/common.sh"
 source_rc ~/rc.d/bash/pre '*'
 source $DIR/rc.mine        # shell-neutral settings
