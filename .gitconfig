@@ -6,5 +6,7 @@
 	ci = commit
 	st = status
 	br = branch
+    smartlog = log --graph
+    sl = !git smartlog
 [credential]
 	helper = cache
