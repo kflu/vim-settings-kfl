@@ -1,0 +1,12 @@
+#!/bin/sh
+
+while true; do
+    clear
+
+    echo "User: $(whoami)"
+    echo "Host: $(hostname)"
+    echo "Time: $(date +'%H:%M:%S')"
+    # echo "$(curl 'wttr.in/seattle?0Q')"
+
+    sleep 1
+done

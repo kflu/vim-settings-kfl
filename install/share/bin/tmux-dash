@@ -26,15 +26,25 @@ fi
 if ! tmux has-session -t dash >/dev/null 2>&1; then
     tmux new-session -s dash -d
     console_id=$(tmux display -t dash -p "#{pane_id}")
-    cal_id=$(tmux split-window -t dash -P -F "#{pane_id}" -b -v -l 10 "while true; do clear; cal; sleep 3; done")
+
+    cal_id=$(tmux split-window -t dash -P -F "#{pane_id}" -b -v -l 11 "while true; do clear; cal; sleep 3; done")
+    # tmux resize-pane -t "dash:^.${cal_id}" -x 10
+
+    info_id=$(tmux split-window -t dash -P -F "#{pane_id}" -h -l 30 "dash-info")
+
+    weather_id=$(tmux split-window -t dash -P -F "#{pane_id}" -h -l 30 'while true; do clear; curl "wttr.in/seattle?0Q"; sleep 3600; done')
+
+    weather2_id=$(tmux split-window -t dash -P -F "#{pane_id}" -h -l 30 'while true; do clear; weather; sleep 3600; done')
+
     htop_id=$(tmux split-window -t dash -P -F "#{pane_id}" -h -p 70 "htop")
 
     # disable input to these panes
-    for id in "$cal_id" "$htop_id"; do
+    for id in "$cal_id" "$htop_id" "$info_id" "$weather_id" "$weather2_id"; do
         tmux select-pane -t "dash:^.${id}" -d
     done
 
     # activate console pane
     tmux select-pane -t "dash:^.${console_id}"
 fi
-tmux a -t dash
+
+tmux a -t dash 
