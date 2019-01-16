@@ -14,14 +14,15 @@ ln -v -s -f $DIR/fluxbox/startup ~/.fluxbox/startup
 ln -v -s -f $DIR/fluxbox/windowmenu ~/.fluxbox/windowmenu
 ln -v -s -f $DIR/fluxbox/overlay ~/.fluxbox/overlay
 
-mkdir -v -p ~/bin
-ln -v -s -f $DIR/bin/fbhtop ~/bin/fbhtop
-ln -v -s -f $DIR/bin/fbterm ~/bin/fbterm
-
 mkdir -v -p ~/.urxvt/ext
 ln -v -s -f $DIR/.urxvt/ext/font-size ~/.urxvt/ext/font-size
 
 mkdir -v -p ~/install/share/bin
+find "$DIR/install/share/bin" -type f -not -name '*~' | while read fn; do
+    target="`basename $fn`"
+    ln -v -s -f "$fn" "$HOME/install/share/bin/$target"
+done
+
 mkdir -v -p ~/install/share/man
 # install markdown docs
 find "$DIR/install/share/man" -type f -not -name '*~' | while read fn; do

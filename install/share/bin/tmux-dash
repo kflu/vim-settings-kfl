@@ -1,0 +1,40 @@
+#!/bin/sh
+
+usage=$(cat <<EOF
+Usage:
+    [-x]
+
+-x: kill dashboard session
+EOF
+)
+
+while getopts 'xh' opt; do
+    case "$opt" in
+        x)
+            kill=1;;
+        h)
+            echo "$usage" >&2; exit 0;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [ $kill ]; then
+    tmux kill-session -t dash >/dev/null 2>&1
+    exit 0
+fi
+
+if ! tmux has-session -t dash >/dev/null 2>&1; then
+    tmux new-session -s dash -d
+    console_id=$(tmux display -t dash -p "#{pane_id}")
+    cal_id=$(tmux split-window -t dash -P -F "#{pane_id}" -b -v -l 10 "while true; do clear; cal; sleep 3; done")
+    htop_id=$(tmux split-window -t dash -P -F "#{pane_id}" -h -p 70 "htop")
+
+    # disable input to these panes
+    for id in "$cal_id" "$htop_id"; do
+        tmux select-pane -t "dash:^.${id}" -d
+    done
+
+    # activate console pane
+    tmux select-pane -t "dash:^.${console_id}"
+fi
+tmux a -t dash

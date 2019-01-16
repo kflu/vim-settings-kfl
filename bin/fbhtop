@@ -1,3 +1,0 @@
-#!/bin/sh
-
-nohup xterm +sb -T "fbhtop" -n "fbhtop" -e 'htop' > /dev/null &

@@ -18,9 +18,6 @@ xmodmap "$HOME/.Xmodmap"
 # And last but not least we start fluxbox.
 # Because it is the last app you have to run it with ''exec'' before it.
 
-fbterm &
-fbhtop &
-
 exec fluxbox
 # or if you want to keep a log:
 # exec fluxbox -log "/home/kefeilu/.fluxbox/log"

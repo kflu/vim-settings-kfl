@@ -14,6 +14,8 @@ alias vvv="xclip -sel clipboard -o"
 alias vman="MANPAGER='vim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 alias gvman="MANPAGER='gvim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 
+export PATH="$HOME/install/share/bin":"$PATH"
+
 # alias ..="cd .."
 # alias ...="cd ../.."
 # alias ....="cd ../../.."
@@ -103,23 +105,5 @@ bm() {
 cdbm() {
     cd `bm d`
 }
-
-tmux-dash() {
-    if tmux new-session -s dash -d; then
-        local console_id=$(tmux display -t dash -p "#{pane_id}")
-        local cal_id=$(tmux split-window -t dash -P -F "#{pane_id}" -b -v -l 10 "while true; do clear; cal; sleep 3; done")
-        local htop_id=$(tmux split-window -t dash -P -F "#{pane_id}" -h -p 70 "htop")
-
-        # disable input to these panes
-        for id in "$cal_id" "$htop_id"; do
-            tmux select-pane -t "dash:^.${id}" -d
-        done
-
-        # activate console pane
-        tmux select-pane -t "dash:^.${console_id}"
-    fi
-    tmux a -t dash
-}
-
 
 # vim========== set ft=sh
