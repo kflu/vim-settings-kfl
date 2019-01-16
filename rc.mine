@@ -16,46 +16,6 @@ alias gvman="MANPAGER='gvim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 
 export PATH="$HOME/install/share/bin":"$PATH"
 
-# alias ..="cd .."
-# alias ...="cd ../.."
-# alias ....="cd ../../.."
-# alias .....="cd ../../../.."
-# alias ......="cd ../../../../.."
-# alias .......="cd ../../../../../.."
-# alias ........="cd ../../../../../../.."
-# alias .........="cd ../../../../../../../.."
-# alias ..........="cd ../../../../../../../../.."
-# alias ...........="cd ../../../../../../../../../.."
-# alias ............="cd ../../../../../../../../../../.."
-# alias .............="cd ../../../../../../../../../../../.."
-
-
-# read markdown docs
-cheat() {
-    root="$HOME/install/share/man/"
-    while getopts 'r:h' opt; do
-        case "$opt" in
-            r)
-                root="$OPTARG";;
-            h)
-                echo "Usage: [-r <doc_root>] doc" >&2; return;;
-        esac
-    done
-    shift $((OPTIND-1))
-    term="$1"
-    fn="$root/$term.md"
-    if [ -f "$fn" ]; then
-        vim -c "set nomodifiable readonly noswapfile | map q :q<cr> | cd $root" "$fn"
-    else
-        vim -c "set nomodifiable readonly noswapfile | map q :q<cr> | cd $root" "$root"
-    fi
-
-    # if ! [ -f "$fn" ];then
-    #     echo "$fn does not exist. Opening index.md..."
-    #     fn="$root/index.md"
-    # fi
-}
-
 godo() {
     eval "nohup $@ > /dev/null 2>&1 &"
 }

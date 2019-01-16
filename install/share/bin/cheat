@@ -1,0 +1,37 @@
+#!/bin/sh
+
+USAGE=$(cat <<EOF
+cheat [-r <doc_root>] [-e] [-h] [term]
+
+    -r <doc_root>: use doc_root as the root
+    -e: edit
+    -h: help
+    term: term to search. Default is doc_root
+
+EOF
+)
+
+root="$HOME/install/share/man/"
+while getopts 'r:eh' opt; do
+    case "$opt" in
+        r)
+            root="$OPTARG";;
+        e)
+            edit=1;;
+        h)
+            echo "$USAGE" >&2; exit 0;;
+    esac
+done
+shift $((OPTIND-1))
+term="$1"
+fn="$root/$term.md"
+if [ -n "$edit" ]; then
+    "$EDITOR" "$fn"
+    exit
+fi
+
+if [ -f "$fn" ]; then
+    vim -c "set nomodifiable readonly noswapfile | map q :q<cr> | cd $root" "$fn"
+else
+    vim -c "set nomodifiable readonly noswapfile | map q :q<cr> | cd $root" "$root"
+fi
