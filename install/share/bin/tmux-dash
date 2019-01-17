@@ -32,7 +32,7 @@ if ! tmux has-session -t dash >/dev/null 2>&1; then
     weather2_id=$(tmux split-window -t dash -P -F "#{pane_id}" -h 'while true; do clear; weather; sleep 3600; done')
     htop_id=$(tmux split-window -t dash -P -F "#{pane_id}" -h "htop")
 
-    tmux resize-pane -t "dash:^.${cal_id}" -x 25 -y 11
+    tmux resize-pane -t "dash:^.${cal_id}" -x 25 -y 12
     tmux resize-pane -t "dash:^.${info_id}" -x 20
     tmux resize-pane -t "dash:^.${weather_id}" -x 30 
     tmux resize-pane -t "dash:^.${htop}" -x 65
