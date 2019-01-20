@@ -12,8 +12,10 @@ ln -v -s -f $DIR/fluxbox/menu ~/.fluxbox/menu
 ln -v -s -f $DIR/fluxbox/apps ~/.fluxbox/apps
 ln -v -s -f $DIR/fluxbox/startup ~/.fluxbox/startup
 ln -v -s -f $DIR/fluxbox/windowmenu ~/.fluxbox/windowmenu
-ln -v -s -f $DIR/fluxbox/overlay ~/.fluxbox/overlay
-ln -v -s -f $DIR/fluxbox/styles ~/.fluxbox/styles
+ln -v -s -f -t ~/.fluxbox $DIR/fluxbox/styles
+
+cat $DIR/fluxbox/styles/startrek.tar.gz | tar xzO > $DIR/fluxbox/styles/startrek.gitignore.xpm
+ln -v -s -f $DIR/fluxbox/styles/startrek.gitignore.xpm $DIR/fluxbox/styles/Dyne/pixmaps/startrek.gitignore.xpm
 
 mkdir -v -p ~/.urxvt/ext
 ln -v -s -f $DIR/.urxvt/ext/font-size ~/.urxvt/ext/font-size
