@@ -13,6 +13,7 @@ ln -v -s -f $DIR/fluxbox/apps ~/.fluxbox/apps
 ln -v -s -f $DIR/fluxbox/startup ~/.fluxbox/startup
 ln -v -s -f $DIR/fluxbox/windowmenu ~/.fluxbox/windowmenu
 ln -v -s -f $DIR/fluxbox/overlay ~/.fluxbox/overlay
+ln -v -s -f $DIR/fluxbox/styles ~/.fluxbox/styles
 
 mkdir -v -p ~/.urxvt/ext
 ln -v -s -f $DIR/.urxvt/ext/font-size ~/.urxvt/ext/font-size
