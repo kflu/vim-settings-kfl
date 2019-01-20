@@ -16,6 +16,10 @@ alias gvman="MANPAGER='gvim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 
 export PATH="$HOME/install/share/bin":"$PATH"
 
+# readline to treat those as words:
+# https://stackoverflow.com/a/11200998/695964
+export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
 godo() {
     eval "nohup $@ > /dev/null 2>&1 &"
 }
