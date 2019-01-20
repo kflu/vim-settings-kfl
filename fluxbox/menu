@@ -16,9 +16,12 @@
 #     session.menuFile: ~/.fluxbox/my-menu
 [begin] (Fluxbox-1.3.7)
 [encoding] {UTF-8}
+      [restart] (restart)
       [exec] (xterm) {xterm}
       [exec] (urxvt) {urxvt256c-ml}
       [exec] (chrome) {chromium-browser}
+      [exec] (firefox) {firefox}
+      [exec] (gvim) {gvim}
 [submenu] (Fluxbox menu)
       [config] (Configure)
 [submenu] (System Styles) {Choose a style...}
