@@ -18,7 +18,7 @@ export PATH="$HOME/install/share/bin":"$PATH"
 
 # readline to treat those as words:
 # https://stackoverflow.com/a/11200998/695964
-export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>|'
+export WORDCHARS='"*?_-.[]~=&;!#$%^(){}<>|'"'"
 
 godo() {
     eval "nohup $@ > /dev/null 2>&1 &"
