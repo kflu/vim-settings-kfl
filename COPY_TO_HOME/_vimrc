@@ -96,6 +96,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'kflu/vim-colors-solarized'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'junegunn/goyo.vim'  " Distraction free writing
+Plug 'dhruvasagar/vim-table-mode'
 
 
 call plug#end()
