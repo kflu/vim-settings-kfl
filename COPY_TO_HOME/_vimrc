@@ -23,7 +23,7 @@ filetype off " required
 set rtp+=~/vim-plug/vim-plug
 call plug#begin('~/vim-plug')
 
-" Disable tagbar - very slow when loading file in some folders 
+" Disable tagbar - very slow when loading file in some folders
 Plug 'majutsushi/tagbar' " Right hand side nav bar for code
 Plug 'kflu/vim-mark' " mark keywords with colors
 " delimitMate turns out quite annoying. Try disable it (20190106)
@@ -200,7 +200,7 @@ function s:ConfigureFont()
 
     " On Windows this needs the Chinese Simplified language to be enabled,
     " otherwise E231 is thrown on gvim exit.
-    " Appending Monospace,Consolas to make sure this setting never ever 
+    " Appending Monospace,Consolas to make sure this setting never ever
     " throw.
     set guifontwide=Yahei_Mono:h10:cGB2312,SimHei,Monospace,Consolas,Menlo
 
@@ -484,7 +484,7 @@ function s:ConfigureOmniSharp()
         autocmd FileType cs nnoremap <buffer> <C-J> :OmniSharpNavigateDown<cr>
 
     augroup END
-    
+
 endfunction
 
 function s:ConfigureAirline()
@@ -531,6 +531,10 @@ function s:Main()
     set wildmenu     " Show menu for command line autocomplete
     set ignorecase
     set smartcase
+
+    " Show trailing spaces
+    highlight ExtraWhitespace ctermbg=red guibg=red
+    match ExtraWhitespace /\s\+$/
 
     " ------------------------- GUI settings -------------------------
     if has("gui_running")
