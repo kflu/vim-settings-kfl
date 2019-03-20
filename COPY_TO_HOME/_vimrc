@@ -37,7 +37,7 @@ Plug 'jlfwong/vim-mercenary'  " HG GUI
 Plug 'bling/vim-airline' " status line
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim' " fuzzy search
-Plug 'scrooloose/syntastic' " Syntax checking framework
+Plug 'scrooloose/syntastic' " Syntax checking (lint) framework
 Plug 'nathanaelkane/vim-indent-guides' " Show visual indication of indentation <Leader>ig
 Plug 'terryma/vim-expand-region' " expand selection progressively. use +/_ to expand/reduce selection
 Plug 'tpope/vim-dispatch'
