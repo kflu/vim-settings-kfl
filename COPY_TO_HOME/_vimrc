@@ -685,6 +685,9 @@ function s:Main()
         let g:ackprg = 'ag --vimgrep'
     endif
 
+    " Don't pop up errors when checkers return non-zero code
+    let g:syntastic_exit_checks = 0
+
 endfunction
 
 call s:Main()
