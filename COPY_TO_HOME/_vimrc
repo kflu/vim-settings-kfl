@@ -44,6 +44,7 @@ Plug 'tpope/vim-dispatch'
 " Plug 'OmniSharp/omnisharp-vim'
 " Plug 'ervandew/supertab'     " disable b/c it's annoying conflict with tab
 Plug 'szw/vim-maximizer' " Maximize and restores windows <F3> to toggle
+Plug 'djoshea/vim-autoread' " detect external file changes
 
 " ----- snipmate, snippets and the dependencies -----
 Plug 'garbas/vim-snipmate' " the main snipmate plugin
