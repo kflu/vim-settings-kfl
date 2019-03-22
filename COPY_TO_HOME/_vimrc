@@ -23,7 +23,7 @@ filetype off " required
 set rtp+=~/vim-plug/vim-plug
 call plug#begin('~/vim-plug')
 
-" Disable tagbar - very slow when loading file in some folders 
+" Disable tagbar - very slow when loading file in some folders
 Plug 'majutsushi/tagbar' " Right hand side nav bar for code
 Plug 'kflu/vim-mark' " mark keywords with colors
 " delimitMate turns out quite annoying. Try disable it (20190106)
@@ -37,7 +37,7 @@ Plug 'jlfwong/vim-mercenary'  " HG GUI
 Plug 'bling/vim-airline' " status line
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim' " fuzzy search
-Plug 'scrooloose/syntastic' " Syntax checking framework
+Plug 'scrooloose/syntastic' " Syntax checking (lint) framework
 Plug 'nathanaelkane/vim-indent-guides' " Show visual indication of indentation <Leader>ig
 Plug 'terryma/vim-expand-region' " expand selection progressively. use +/_ to expand/reduce selection
 Plug 'tpope/vim-dispatch'
@@ -97,6 +97,7 @@ Plug 'wannesm/wmgraphviz.vim'
 Plug 'kflu/vim-colors-solarized'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'junegunn/goyo.vim'  " Distraction free writing
+Plug 'dhruvasagar/vim-table-mode'
 
 
 call plug#end()
@@ -200,7 +201,7 @@ function s:ConfigureFont()
 
     " On Windows this needs the Chinese Simplified language to be enabled,
     " otherwise E231 is thrown on gvim exit.
-    " Appending Monospace,Consolas to make sure this setting never ever 
+    " Appending Monospace,Consolas to make sure this setting never ever
     " throw.
     set guifontwide=Yahei_Mono:h10:cGB2312,SimHei,Monospace,Consolas,Menlo
 
@@ -318,6 +319,7 @@ function s:ConfigurePython()
     " For python doc string (triple quotes), see
     " https://github.com/Raimondi/delimitMate/issues/55
     let b:delimitMate_nesting_quotes = ['"', "'"]
+    let g:syntastic_python_checkers = ['flake8']
 endfunction
 
 " latex-suite settings
@@ -484,7 +486,7 @@ function s:ConfigureOmniSharp()
         autocmd FileType cs nnoremap <buffer> <C-J> :OmniSharpNavigateDown<cr>
 
     augroup END
-    
+
 endfunction
 
 function s:ConfigureAirline()
@@ -531,6 +533,10 @@ function s:Main()
     set wildmenu     " Show menu for command line autocomplete
     set ignorecase
     set smartcase
+
+    " Show trailing spaces
+    highlight ExtraWhitespace ctermbg=red guibg=red
+    match ExtraWhitespace /\s\+$/
 
     " ------------------------- GUI settings -------------------------
     if has("gui_running")
