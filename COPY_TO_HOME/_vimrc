@@ -504,6 +504,13 @@ endfunction
 
 function s:Main()
 
+    set noswapfile
+
+    " Move backup files out of sight
+    " https://stackoverflow.com/a/2828550/695964
+    set backupdir-=.
+    set backupdir^=~/tmp//,/tmp//,$TEMP//
+
     " Map ChangeFontSize() to hot keys
     let g:mapleader = " "
     call s:ConfigureAirline()
