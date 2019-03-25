@@ -437,9 +437,9 @@ function s:ToggleHorizontalScrollbar()
 endfunction
 
 function s:ConfigureEasyMotion()
-  let g:EasyMotion_smartcase = 1
-  map <Leader>em <Plug>(easymotion-prefix)
-  map <C-S> <Plug>(easymotion-bd-w)
+    let g:EasyMotion_do_mapping = 0
+    let g:EasyMotion_smartcase = 1
+    map <Leader>g <Plug>(easymotion-bd-w)
 endfunction
 
 function s:ConfigureSuperTab()
@@ -581,8 +581,6 @@ function s:Main()
     " ------------------------- KEY MAPPINGS -------------------------
     " Pressing <Leader> twice put you in command mode
     map <Leader><Leader> :
-    map <Leader>tt :TagbarToggle<CR>
-    map <Leader>nn :NERDTree<CR>
     map <C-Tab> <C-W><C-W>
 
     " Quick escape from insert mode
