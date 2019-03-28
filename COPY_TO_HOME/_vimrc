@@ -447,6 +447,11 @@ function s:ConfigureSuperTab()
     let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 endfunction
 
+function s:ConfigureThrift()
+    autocmd FileType thrift setlocal tabstop=2 shiftwidth=2
+endfunction
+
+
 function s:ConfigureOmniSharp()
 
     augroup omnisharp_commands
@@ -671,6 +676,7 @@ function s:Main()
     call s:ConfigureSuperTab()
     " call s:ConfigureOmniSharp()
     call s:ConfigureDelimiteMate()
+    call s:ConfigureThrift()
 
     " Don't close location list when CR is pressed on an entry
     let g:syntastic_auto_loc_list = 0
