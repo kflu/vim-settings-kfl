@@ -548,6 +548,9 @@ function s:Main()
     set ignorecase
     set smartcase
 
+    " When formatting texts, consider indentation of list paragraphs
+    set formatoption+=n
+
     " Show trailing spaces
     highlight ExtraWhitespace ctermbg=red guibg=red
     match ExtraWhitespace /\s\+$/
