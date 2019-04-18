@@ -63,7 +63,11 @@ bm() {
         f) target="$HOME/.bookmarks/files";;
         *) target="$HOME/.bookmarks";;
     esac
-    find -L "$target" -type f ! -name '*~' | while read -r fn; do cat "$fn"; done | uniq | fzf
+    find -L "$target" -type f ! -name '*~' | while read -r fn; do
+        cat $fn | while read -r ln; do
+            eval echo $ln
+        done
+    done | uniq | fzf
 }
 
 cdbm() {
