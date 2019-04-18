@@ -4,6 +4,14 @@
 * [case command][case]
 * [Shell pattern matching][pattern]
 
+
+get file directory
+----------------------------------------------------------------------
+
+SCRIPT=`realpath $0`
+DIR=`dirname $SCRIPT`
+
+
 case
 ----------------------------------------------------------------------
 
