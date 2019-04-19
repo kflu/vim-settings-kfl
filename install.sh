@@ -7,7 +7,13 @@ ln -v -s -f $DIR/.Xresources ~/.Xresources
 touch ~/.Xresources.dpi
 
 mkdir -v -p ~/.fluxbox
-cp $DIR/fluxbox/_init ~/.fluxbox/init  # copy the base init over: only set default style
+
+# cp $DIR/fluxbox/_init ~/.fluxbox/init
+# copy the base init over: only set default style
+cat <<EOF > ~/.fluxbox/init
+session.styleFile:	/home/kefeilu/.fluxbox/styles/Dyne
+EOF
+
 ln -v -s -f $DIR/fluxbox/keys ~/.fluxbox/keys
 ln -v -s -f $DIR/fluxbox/menu ~/.fluxbox/menu
 ln -v -s -f $DIR/fluxbox/apps ~/.fluxbox/apps

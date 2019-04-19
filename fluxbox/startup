@@ -21,4 +21,4 @@ xmodmap "$HOME/.Xmodmap"
 cd "$HOME"
 exec fluxbox
 # or if you want to keep a log:
-# exec fluxbox -log "/home/kefeilu/.fluxbox/log"
+# exec fluxbox -log "/home/$USERNAME/.fluxbox/log"
