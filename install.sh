@@ -10,9 +10,7 @@ mkdir -v -p ~/.fluxbox
 
 # cp $DIR/fluxbox/_init ~/.fluxbox/init
 # copy the base init over: only set default style
-cat <<EOF > ~/.fluxbox/init
-session.styleFile:	/home/kefeilu/.fluxbox/styles/Dyne
-EOF
+echo "session.styleFile:	$HOME/.fluxbox/styles/Dyne" > ~/.fluxbox/init
 
 ln -v -s -f $DIR/fluxbox/keys ~/.fluxbox/keys
 ln -v -s -f $DIR/fluxbox/menu ~/.fluxbox/menu
