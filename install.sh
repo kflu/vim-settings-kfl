@@ -4,6 +4,7 @@ ln -v -s -f $DIR/.screenrc ~/.screenrc
 ln -v -s -f $DIR/.gitconfig ~/.gitconfig
 ln -v -s -f $DIR/.Xclients ~/.Xclients
 ln -v -s -f $DIR/.Xresources ~/.Xresources
+ln -v -s -f $DIR/.ideavimrc ~/.ideavimrc
 touch ~/.Xresources.dpi
 
 mkdir -v -p ~/.fluxbox

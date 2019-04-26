@@ -1,0 +1,4 @@
+source ~/.vimrc
+set hls
+" Copied form vim. Excluded `:`
+set iskeyword=@,48-57,_,192-255
