@@ -451,6 +451,12 @@ function s:ConfigureThrift()
     autocmd FileType thrift setlocal tabstop=2 shiftwidth=2
 endfunction
 
+function s:ConfigureMarkdown()
+    " Disable comments formatting. *, - are treated as comments and interfer
+    " with markdown list formatting Since markdown doesn't have comments, this
+    " is safe to remove
+    setlocal comments=
+endfunction
 
 function s:ConfigureOmniSharp()
 
@@ -633,6 +639,7 @@ function s:Main()
         autocmd FileType csv call s:ConfigureCsv()
         autocmd FileType javascript call s:ConfigureJavascript()
         autocmd BufNewFile,BufRead *.md set filetype=markdown " override .md from modula2
+        autocmd FileType markdown call s:ConfigureMarkdown()
     endif
     " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
 
