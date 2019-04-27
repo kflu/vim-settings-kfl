@@ -456,6 +456,9 @@ function s:ConfigureMarkdown()
     " with markdown list formatting Since markdown doesn't have comments, this
     " is safe to remove
     setlocal comments=
+
+    " Also recognize `[ ]` as list header
+    setlocal formatlistpat+=\\\|^\\s*\\[\ \\]\ 
 endfunction
 
 function s:ConfigureOmniSharp()
