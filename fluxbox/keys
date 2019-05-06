@@ -81,12 +81,24 @@ Mod4 R  :Exec gmrun
 Mod1 F4             :Close
 Shift Mod4 M        :ToggleCmd {Maximize} {Restore}
 Control Mod4 M      :Minimize
-Mod1 Enter          :Fullscreen
 
-Mod4 Left   :MacroCmd {ResizeTo 50% 100%} {MoveTo 00 00 Left}
-Mod4 Right  :MacroCmd {ResizeTo 50% 100%} {MoveTo 00 00 Right}
-Mod4 Up     :MacroCmd {ResizeTo 100% 50%} {MoveTo 00 00 Up}
-Mod4 Down   :MacroCmd {ResizeTo 100% 50%} {MoveTo 00 00 Bottom}
+Control Shift Mod1 h  :MacroCmd {ResizeTo 50% 100%} {MoveTo 00 00 Left}
+Control Shift Mod1 l  :MacroCmd {ResizeTo 50% 100%} {MoveTo 00 00 Right}
+Control Shift Mod1 k  :MacroCmd {ResizeTo 100% 50%} {MoveTo 00 00 Up}
+Control Shift Mod1 j  :MacroCmd {ResizeTo 100% 50%} {MoveTo 00 00 Bottom}
+Control Shift Mod1 y  :MacroCmd {ResizeTo 50% 50%} {MoveTo 00 00 TopLeft}
+Control Shift Mod1 u  :MacroCmd {ResizeTo 50% 50%} {MoveTo 00 00 TopRight}
+Control Shift Mod1 n  :MacroCmd {ResizeTo 50% 50%} {MoveTo 00 00 BottomLeft}
+Control Shift Mod1 m  :MacroCmd {ResizeTo 50% 50%} {MoveTo 00 00 BottomRight}
+# Simulate fullscreen. Differs from :Fullscreen in that :Fullscreen doesn't allow
+# change to other window shape (e.g. snap to left/right) in fullscreen mode.
+Control Shift Mod1 f  :MacroCmd {ResizeTo 100% 100%} {MoveTo 00 00 Left}
+
+# Deprecated:
+# Mod4 Left   :MacroCmd {ResizeTo 50% 100%} {MoveTo 00 00 Left}
+# Mod4 Right  :MacroCmd {ResizeTo 50% 100%} {MoveTo 00 00 Right}
+# Mod4 Up     :MacroCmd {ResizeTo 100% 50%} {MoveTo 00 00 Up}
+# Mod4 Down   :MacroCmd {ResizeTo 100% 50%} {MoveTo 00 00 Bottom}
 
 # open the window menu
 Mod1 space :WindowMenu
