@@ -308,15 +308,21 @@ endfunction
 
 " C# settings
 function s:ConfigureCSharp()
+    call s:SetTabForCoding()
 
 endfunction " s:ConfigureCSharp
 
 function s:ConfigureJavascript()
+    call s:SetTabForCoding()
     let g:syntastic_javascript_checkers = ['eslint']
 endfunction
 
+function s:SetTabForCoding()
+    setlocal sw=4 ts=4 smarttab expandtab autoindent
+endfunction
+
 function s:ConfigurePython()
-    set sw=4 ts=4 smarttab expandtab autoindent
+    call s:SetTabForCoding()
     " For python doc string (triple quotes), see
     " https://github.com/Raimondi/delimitMate/issues/55
     let b:delimitMate_nesting_quotes = ['"', "'"]
@@ -326,6 +332,8 @@ endfunction
 
 " latex-suite settings
 function s:ConfigureTex()
+    call s:SetTabForCoding()
+
     " IMPORTANT: win32 users will need to have 'shellslash' set so that latex
     " can be called correctly.
     set shellslash
@@ -386,7 +394,7 @@ function s:ConfigureCscope()
 endfunction
 
 function s:ConfigureCoffeeScript()
-    set sw=2 ts=2 smarttab expandtab autoindent
+    call s:SetTabForCoding()
     " This needs to work with the coffeescript syntax definition in .ctags
     " file. See https://gist.github.com/puzzl3r/c2881068454d66f5d84a
     let g:tagbar_type_coffee = {
@@ -448,10 +456,14 @@ function s:ConfigureSuperTab()
 endfunction
 
 function s:ConfigureThrift()
-    autocmd FileType thrift setlocal tabstop=2 shiftwidth=2
+    call s:SetTabForCoding()
+    setlocal tabstop=2 shiftwidth=2  " overrides some prev tab settings
 endfunction
 
 function s:ConfigureMarkdown()
+    call s:SetTabForCoding()
+    setlocal wrap tw=80
+
     " Disable comments formatting. *, - are treated as comments and interfer
     " with markdown list formatting Since markdown doesn't have comments, this
     " is safe to remove
@@ -530,7 +542,6 @@ function s:Main()
     let g:mapleader = " "
     call s:ConfigureAirline()
 
-    set sw=4 ts=4 smarttab expandtab autoindent
     set cursorline " highlight current line
     " last window will always have a status line. This is needed by vim-airline
     set laststatus=2
@@ -635,6 +646,7 @@ function s:Main()
 
     " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
     if has('autocmd')
+        autocmd FileType thrift call s:ConfigureThrift()
         autocmd FileType python call s:ConfigurePython()
         autocmd FileType cs call s:ConfigureCSharp()
         autocmd FileType tex call s:ConfigureTex()
@@ -689,7 +701,6 @@ function s:Main()
     call s:ConfigureSuperTab()
     " call s:ConfigureOmniSharp()
     call s:ConfigureDelimiteMate()
-    call s:ConfigureThrift()
 
     " Don't close location list when CR is pressed on an entry
     let g:syntastic_auto_loc_list = 0
