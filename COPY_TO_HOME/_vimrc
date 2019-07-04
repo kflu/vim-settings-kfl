@@ -529,6 +529,16 @@ function s:ConfigureDelimiteMate()
     let g:delimitMate_expand_cr = 1
 endfunction
 
+function s:goyo_enter()
+    setlocal wrap
+    setlocal guioptions-=r
+endfunction
+
+function s:goyo_leave()
+    setlocal wrap<
+    setlocal guioptions<
+endfunction
+
 function s:Main()
 
     set noswapfile
@@ -646,15 +656,20 @@ function s:Main()
 
     " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
     if has('autocmd')
-        autocmd FileType thrift call s:ConfigureThrift()
-        autocmd FileType python call s:ConfigurePython()
-        autocmd FileType cs call s:ConfigureCSharp()
-        autocmd FileType tex call s:ConfigureTex()
-        autocmd FileType coffee call s:ConfigureCoffeeScript()
-        autocmd FileType csv call s:ConfigureCsv()
+        autocmd FileType thrift     call s:ConfigureThrift()
+        autocmd FileType python     call s:ConfigurePython()
+        autocmd FileType cs         call s:ConfigureCSharp()
+        autocmd FileType tex        call s:ConfigureTex()
+        autocmd FileType coffee     call s:ConfigureCoffeeScript()
+        autocmd FileType csv        call s:ConfigureCsv()
         autocmd FileType javascript call s:ConfigureJavascript()
+        autocmd FileType markdown   call s:ConfigureMarkdown()
+        autocmd FileType vim        call s:SetTabForCoding()
+
+        autocmd User GoyoEnter nested call <SID>goyo_enter()
+        autocmd User GoyoLeave nested call <SID>goyo_leave()
+
         autocmd BufNewFile,BufRead *.md set filetype=markdown " override .md from modula2
-        autocmd FileType markdown call s:ConfigureMarkdown()
     endif
     " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
 
