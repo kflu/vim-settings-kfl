@@ -542,6 +542,8 @@ endfunction
 function s:Main()
 
     set noswapfile
+    " Disable right scrollbar - I don't use it often
+    set guioptions-=r
 
     " Move backup files out of sight
     " https://stackoverflow.com/a/2828550/695964
