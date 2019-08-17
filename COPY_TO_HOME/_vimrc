@@ -308,12 +308,10 @@ endfunction
 
 " C# settings
 function s:ConfigureCSharp()
-    call s:SetTabForCoding()
 
 endfunction " s:ConfigureCSharp
 
 function s:ConfigureJavascript()
-    call s:SetTabForCoding()
     let g:syntastic_javascript_checkers = ['eslint']
 endfunction
 
@@ -322,7 +320,6 @@ function s:SetTabForCoding()
 endfunction
 
 function s:ConfigurePython()
-    call s:SetTabForCoding()
     " For python doc string (triple quotes), see
     " https://github.com/Raimondi/delimitMate/issues/55
     let b:delimitMate_nesting_quotes = ['"', "'"]
@@ -332,7 +329,6 @@ endfunction
 
 " latex-suite settings
 function s:ConfigureTex()
-    call s:SetTabForCoding()
 
     " IMPORTANT: win32 users will need to have 'shellslash' set so that latex
     " can be called correctly.
@@ -394,7 +390,6 @@ function s:ConfigureCscope()
 endfunction
 
 function s:ConfigureCoffeeScript()
-    call s:SetTabForCoding()
     " This needs to work with the coffeescript syntax definition in .ctags
     " file. See https://gist.github.com/puzzl3r/c2881068454d66f5d84a
     let g:tagbar_type_coffee = {
@@ -456,12 +451,10 @@ function s:ConfigureSuperTab()
 endfunction
 
 function s:ConfigureThrift()
-    call s:SetTabForCoding()
     setlocal tabstop=2 shiftwidth=2  " overrides some prev tab settings
 endfunction
 
 function s:ConfigureMarkdown()
-    call s:SetTabForCoding()
     setlocal wrap tw=80
 
     " Disable comments formatting. *, - are treated as comments and interfer
@@ -667,7 +660,6 @@ function s:Main()
         autocmd FileType csv        call s:ConfigureCsv()
         autocmd FileType javascript call s:ConfigureJavascript()
         autocmd FileType markdown   call s:ConfigureMarkdown()
-        autocmd FileType vim        call s:SetTabForCoding()
 
         autocmd User GoyoEnter nested call <SID>goyo_enter()
         autocmd User GoyoLeave nested call <SID>goyo_leave()
@@ -733,6 +725,9 @@ function s:Main()
 
     " Don't pop up errors when checkers return non-zero code
     let g:syntastic_exit_checks = 0
+
+    " By default use coding tab setting
+    call s:SetTabForCoding()
 
 endfunction
 
