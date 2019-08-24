@@ -316,7 +316,7 @@ function s:ConfigureJavascript()
 endfunction
 
 function s:SetTabForCoding()
-    setlocal sw=4 ts=4 smarttab expandtab autoindent
+    set sw=4 ts=4 smarttab expandtab autoindent
 endfunction
 
 function s:ConfigurePython()
