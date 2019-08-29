@@ -134,10 +134,10 @@ URxvt.iso14755: false
 URxvt.iso14755_52: false
 
 ! https://github.com/majutsushi/urxvt-font-size
-URxvt.keysym.C-Up:     font-size:increase
-URxvt.keysym.C-Down:   font-size:decrease
-URxvt.keysym.C-equal:  font-size:reset
-URxvt.keysym.C-slash:  font-size:show
+URxvt.keysym.C-plus:    font-size:increase
+URxvt.keysym.C-equal:   font-size:increase
+URxvt.keysym.C-minus:   font-size:decrease
+URxvt.keysym.C-0:       font-size:reset
 
 URxvt.pointerColor: red
 URxvt.pointerColor2: white
