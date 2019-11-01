@@ -91,6 +91,9 @@ Plug '~/.fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'wannesm/wmgraphviz.vim'
 
+" Diff two directories and files in them
+Plug 'will133/vim-dirdiff'
+
 
 " ----- Themes -----
 " Plug 'altercation/vim-colors-solarized'
