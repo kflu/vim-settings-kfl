@@ -726,6 +726,9 @@ function s:Main()
     " Don't pop up errors when checkers return non-zero code
     let g:syntastic_exit_checks = 0
 
+    " Don't invoke linter by default (slow)
+    let g:syntastic_mode_map = { "mode": "passive" }
+
     " By default use coding tab setting
     call s:SetTabForCoding()
 
