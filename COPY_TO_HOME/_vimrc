@@ -320,7 +320,6 @@ endfunction
 
 function s:ConfigCoding()
     set sw=4 ts=4 smarttab expandtab autoindent
-    set breakindent " soft line wrap indent too
 endfunction
 
 function s:ConfigurePython()
@@ -468,6 +467,9 @@ function s:ConfigureMarkdown()
 
     " Also recognize `[ ]` as list header
     setlocal formatlistpat+=\\\|^\\s*\\[\ \\]\ 
+
+    set breakindent " soft wrapped lines are indented too
+    let &showbreak = '↳ ' " visual line break indicator
 endfunction
 
 function s:ConfigureOmniSharp()
