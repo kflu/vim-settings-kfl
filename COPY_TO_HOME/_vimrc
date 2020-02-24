@@ -615,6 +615,8 @@ function s:Main()
     " ------------------------- OMNI COMPLETION SETTINGS -------------------------
 
     " ------------------------- KEY MAPPINGS -------------------------
+    " Danger: quit without saving
+    map XX :qa!<Enter>
     " Pressing <Leader> twice put you in command mode
     map <Leader><Leader> :
     map <C-Tab> <C-W><C-W>
