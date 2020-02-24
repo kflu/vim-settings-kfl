@@ -318,7 +318,7 @@ function s:ConfigureJavascript()
     let g:syntastic_javascript_checkers = ['eslint']
 endfunction
 
-function s:SetTabForCoding()
+function s:ConfigCoding()
     set sw=4 ts=4 smarttab expandtab autoindent
 endfunction
 
@@ -467,6 +467,9 @@ function s:ConfigureMarkdown()
 
     " Also recognize `[ ]` as list header
     setlocal formatlistpat+=\\\|^\\s*\\[\ \\]\ 
+
+    set breakindent " soft wrapped lines are indented too
+    let &showbreak = '↳ ' " visual line break indicator
 endfunction
 
 function s:ConfigureOmniSharp()
@@ -735,7 +738,7 @@ function s:Main()
     let g:syntastic_mode_map = { "mode": "passive" }
 
     " By default use coding tab setting
-    call s:SetTabForCoding()
+    call s:ConfigCoding()
 
 endfunction
 
