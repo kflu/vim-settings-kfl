@@ -15,6 +15,7 @@ alias vman="MANPAGER='vim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 alias gvman="MANPAGER='gvim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 
 export PATH="$HOME/install/usr/bin":"$HOME/install/share/bin":"$PATH"
+export PATH="$HOME/.dotnet/tools":"$PATH"
 
 # readline to treat those as words:
 # https://stackoverflow.com/a/11200998/695964
