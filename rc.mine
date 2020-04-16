@@ -17,6 +17,15 @@ alias gvman="MANPAGER='gvim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 export PATH="$HOME/install/usr/bin":"$HOME/install/share/bin":"$PATH"
 export PATH="$HOME/.dotnet/tools":"$PATH"
 
+# EDITOR is used by tmux to infer if vi-mode should be used
+# So try to set it
+if command -v vim; then
+    export EDITOR=`command -v vim`
+elif command -v vi; then
+    export EDITOR=`command -v vi`
+fi
+
+
 # readline to treat those as words:
 # https://stackoverflow.com/a/11200998/695964
 export WORDCHARS='"*?_-.[]~=&;!#$%^(){}<>|'"'"
