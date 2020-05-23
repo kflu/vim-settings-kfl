@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# https://github.com/TeddyBearX/youtube-vlc
+
 MACOS_VLC_PATH="/Applications/VLC.app/Contents/MacOS/VLC" # This is the default VLC command in MacOS.
 LINUX_VLC_PATH="vlc" # This is the default VLC command in Linux.
 YOUTUBE_DL_PATH="youtube-dl" # This is the default youtube-dl command in both MacOS and Linux.
