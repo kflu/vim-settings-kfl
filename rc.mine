@@ -84,4 +84,16 @@ cdbm() {
     cd `bm d`
 }
 
+
+_fzf_complete_fc() {
+    _fzf_complete --tac --cycle --prompt='fc> ' -- "$@" < <(fc -l)
+}
+
+_fzf_complete_fc_post() {
+    awk '{print $1}'
+}
+
+[ -n "$BASH" ] && complete -F _fzf_complete_fc -o default -o bashdefault fc
+
+
 # vim========== set ft=sh
