@@ -86,7 +86,7 @@ cdbm() {
 
 
 _fzf_complete_fc() {
-    _fzf_complete --tac --cycle --prompt='fc> ' -- "$@" < <(fc -l)
+    _fzf_complete --tac --cycle --prompt='fc> ' -- "$@" < <(fc -l -1000)
 }
 
 _fzf_complete_fc_post() {
