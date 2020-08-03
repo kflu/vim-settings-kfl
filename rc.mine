@@ -95,5 +95,9 @@ _fzf_complete_fc_post() {
 
 [ -n "$BASH" ] && complete -F _fzf_complete_fc -o default -o bashdefault fc
 
+logout_mac() {
+    launchctl bootout gui/$( id -u $(whoami) )
+}
+
 
 # vim========== set ft=sh
