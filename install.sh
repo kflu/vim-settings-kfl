@@ -73,10 +73,17 @@ mkdir -v -p ~/rc.d/sh/pre \
          ~/rc.d/zsh/post \
          ~/rc.d/zsh/pre
 
+# --- Clipboard ----
 # This works for v2.7 but not v2.3. I can't find a way to support x11 copy across versions.
 # So let's disable it, and use manual xclip trick.
 # printf 'bind -Tcopy-mode-vi M-y send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c" \; display-message "copied to system clipboard"' >> ~/.tmux.conf.local
 # printf "\n" >> ~/.tmux.conf.local
+
+# --- youtube-vlc ----
+if [ ! -e ~/.youtube-vlc ]; then
+    git clone https://github.com/kflu/youtube-vlc.git ~/.youtube-vlc
+fi
+ln -v -s -f ~/.youtube-vlc/bin/youtube-vlc ~/install/share/bin/youtube-vlc
 
 cd $oldpath
 
