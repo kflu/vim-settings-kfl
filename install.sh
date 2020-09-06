@@ -14,14 +14,14 @@ mkdir -v -p ~/.urxvt/ext
 ln -v -s -f $DIR/.urxvt/ext/font-size ~/.urxvt/ext/font-size
 
 mkdir -v -p ~/install/share/bin
-find "$DIR/install/share/bin" -type f -not -name '*~' | while read fn; do
+find "$DIR/install/share/bin" -type f '!' -name '*~' | while read fn; do
     target="`basename $fn`"
     ln -v -s -f "$fn" "$HOME/install/share/bin/$target"
 done
 
 mkdir -v -p ~/install/share/man
 # install markdown docs
-find "$DIR/install/share/man" -type f -not -name '*~' | while read fn; do
+find "$DIR/install/share/man" -type f '!' -name '*~' | while read fn; do
     target="`basename $fn`"
     ln -v -s -f "$fn" "$HOME/install/share/man/$target"
 done
