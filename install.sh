@@ -8,7 +8,7 @@ err() {
 }
 
 has_git() {
-    git --version 2>&1 > /dev/null
+    git --version > /dev/null 2>&1 
 }
 
 # Install files under in $1/ to $2/ via symlink
@@ -61,7 +61,7 @@ fi
     printf "set -g mouse on\n" >> "$HOME/.tmux.conf.local"
 )
 
-mkdir -v -p \
+mkdir -p \
     "$HOME/rc.d/sh/pre" \
     "$HOME/rc.d/sh/post" \
     "$HOME/rc.d/bash/post" \
