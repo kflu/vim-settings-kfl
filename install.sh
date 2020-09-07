@@ -1,29 +1,31 @@
-SCRIPT=`realpath $0`
-DIR=`dirname $SCRIPT`
-ln -v -s -f $DIR/.screenrc ~/.screenrc
-ln -v -s -f $DIR/.gitconfig ~/.gitconfig
-ln -v -s -f $DIR/.Xclients ~/.Xclients
-ln -v -s -f $DIR/.Xresources ~/.Xresources
-ln -v -s -f $DIR/.ideavimrc ~/.ideavimrc
+#!/bin/sh
+
+DIR="$( cd "`dirname "$0"`" && pwd )"
+
+ln -s -f $DIR/.screenrc ~/.screenrc
+ln -s -f $DIR/.gitconfig ~/.gitconfig
+ln -s -f $DIR/.Xclients ~/.Xclients
+ln -s -f $DIR/.Xresources ~/.Xresources
+ln -s -f $DIR/.ideavimrc ~/.ideavimrc
 touch ~/.Xresources.dpi
 
 mkdir -v -p ~/.fonts
-ln -v -s -f $DIR/.fonts/FreeSans.ttf ~/.fonts/FreeSans.ttf
+ln -s -f $DIR/.fonts/FreeSans.ttf ~/.fonts/FreeSans.ttf
 
 mkdir -v -p ~/.urxvt/ext
-ln -v -s -f $DIR/.urxvt/ext/font-size ~/.urxvt/ext/font-size
+ln -s -f $DIR/.urxvt/ext/font-size ~/.urxvt/ext/font-size
 
 mkdir -v -p ~/install/share/bin
 find "$DIR/install/share/bin" -type f '!' -name '*~' | while read fn; do
     target="`basename $fn`"
-    ln -v -s -f "$fn" "$HOME/install/share/bin/$target"
+    ln -s -f "$fn" "$HOME/install/share/bin/$target"
 done
 
 mkdir -v -p ~/install/share/man
 # install markdown docs
 find "$DIR/install/share/man" -type f '!' -name '*~' | while read fn; do
     target="`basename $fn`"
-    ln -v -s -f "$fn" "$HOME/install/share/man/$target"
+    ln -s -f "$fn" "$HOME/install/share/man/$target"
 done
 
 
@@ -61,7 +63,7 @@ oldpath=`pwd`; cd $HOME
 if ! [ -d ~/.tmux ]; then
     git clone https://github.com/kflu/.tmux.git
 fi
-ln -v -s -f .tmux/.tmux.conf ~/.tmux.conf
+ln -s -f .tmux/.tmux.conf ~/.tmux.conf
 cp ~/.tmux/.tmux.conf.local ~
 printf "\n"
 printf "set -g mouse on\n" >> ~/.tmux.conf.local
@@ -83,7 +85,7 @@ mkdir -v -p ~/rc.d/sh/pre \
 if [ ! -e ~/.youtube-vlc ]; then
     git clone https://github.com/kflu/youtube-vlc.git ~/.youtube-vlc
 fi
-ln -v -s -f ~/.youtube-vlc/bin/youtube-vlc ~/install/share/bin/youtube-vlc
+ln -s -f ~/.youtube-vlc/bin/youtube-vlc ~/install/share/bin/youtube-vlc
 
 cd $oldpath
 
