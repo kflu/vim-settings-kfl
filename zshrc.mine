@@ -2,8 +2,8 @@
 
 # get path of the script being `source`'d. Per [1], `$0` works for zsh, not bash 
 # [1]: https://unix.stackexchange.com/a/4673/38968
-SCRIPT=`realpath $0`
-DIR=`dirname $SCRIPT`
+# Mon Sep  7 00:25:27 PDT 2020: stopped using realpath - not supported on NetBSD
+DIR="$(cd $(dirname "$0"); pwd)"
 
 source "$DIR/common.sh"
 source_rc ~/rc.d/zsh/pre '*'

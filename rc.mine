@@ -1,8 +1,7 @@
 #!/bin/sh
 # shell-neutral rc settings
 
-SCRIPT=`realpath $0`
-DIR=`dirname $SCRIPT`
+DIR="$(cd "$(dirname "$0")"; pwd)"
 
 source "$DIR/common.sh"
 source_rc ~/rc.d/sh/pre '*'
