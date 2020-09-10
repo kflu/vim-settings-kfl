@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-SCRIPT=`realpath $0`
-DIR=`dirname $SCRIPT`
+DIR="$( cd "`dirname "$0"`"; pwd )"
 ln -s -f "$DIR"/COPY_TO_HOME/_vimrc ~/.vimrc
 
 mkdir ~/vundle
