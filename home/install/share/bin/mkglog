@@ -9,13 +9,11 @@ main() {
 
     # gopher without map displays timestamp by default so no need time
     # local entry_fn="$(date +%Y-%m-%d-%H:%M:%S)_$(echo "$title" | sed -E 's/[^0-9a-zA-Z]/_/g').txt"
-    local entry_fn="$GOPHER_LOG_DIR/$(echo "$title" | sed -E 's/[^0-9a-zA-Z]/_/g').txt"
+    # local entry_fn="$GOPHER_LOG_DIR/$(echo "$title" | sed -E 's/[^0-9a-zA-Z]/_/g').txt"
+    local entry_fn="$GOPHER_LOG_DIR/$(date +%Y%m%d-%H:%M:%S) $title"
     [ -e "$entry_fn" ] && { echo "$entry_fn already exists"; exit 1; }
 
     local tmp="$(mktemp)"
-    echo                                 >> "$tmp"
-    echo '----'                          >> "$tmp"
-    echo '# vim: set ts=8 noexpandtab :' >> "$tmp"
     local hash="$(cksum "$tmp")"
     trap "$(cat <<EOF
         [ -e "$tmp" ] && rm "$tmp"
