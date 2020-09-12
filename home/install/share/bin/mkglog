@@ -13,7 +13,8 @@ main() {
     [ -e "$entry_fn" ] && { echo "$entry_fn already exists"; exit 1; }
 
     local tmp="$(mktemp)"
-    echo                                  >> "$tmp"
+    echo                                 >> "$tmp"
+    echo '----'                          >> "$tmp"
     echo '# vim: set ts=8 noexpandtab :' >> "$tmp"
     local hash="$(cksum "$tmp")"
     trap "$(cat <<EOF
