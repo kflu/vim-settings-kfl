@@ -19,9 +19,9 @@ export PATH="$HOME/.dotnet/tools":"$PATH"
 
 # EDITOR is used by tmux to infer if vi-mode should be used
 # So try to set it
-if command -v vim; then
+if command -v vim >/dev/null; then
     export EDITOR=`command -v vim`
-elif command -v vi; then
+elif command -v vi >/dev/null; then
     export EDITOR=`command -v vi`
 fi
 
