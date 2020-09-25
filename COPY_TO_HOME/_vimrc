@@ -557,7 +557,10 @@ function s:Main()
     " last window will always have a status line. This is needed by vim-airline
     set laststatus=2
     set directory+=$TEMP
-    set encoding=utf-8
+    " Try file encodings in this order
+    " https://www.zhihu.com/question/22363620
+    set fileencodings=ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1
+
     set nowrap " Do not wrap long lines
     set vb            " Use visual bell instead of beep
     set linebreak       " break line at word boundary
