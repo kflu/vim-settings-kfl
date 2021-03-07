@@ -46,14 +46,13 @@ Plug 'tpope/vim-dispatch'
 Plug 'szw/vim-maximizer' " Maximize and restores windows <F3> to toggle
 Plug 'djoshea/vim-autoread' " detect external file changes
 
-" ----- snipmate, snippets and the dependencies -----
-Plug 'garbas/vim-snipmate' " the main snipmate plugin
-Plug 'honza/vim-snippets' " snippets for snipmate
-" Dependencies
-Plug 'marcweber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
-
 Plug 'mileszs/ack.vim' " use ag or ack
+
+" LSP support
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " ----- language support -----
 Plug 'plasticboy/vim-markdown'
@@ -67,12 +66,6 @@ Plug 'wannesm/wmgraphviz.vim' "graphviz
 " Plug 'fsharp/vim-fsharp'
 " Plug 'OrangeT/vim-csharp' " Disable csharp as it errors when running under console (vim)
 Plug 'solarnz/thrift.vim'
-
-" LSP support
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " Disable gitgutter - after update it asks to get the gitgutter_grep which I
 " don't want to.
@@ -94,6 +87,11 @@ Plug 'wannesm/wmgraphviz.vim'
 " Diff two directories and files in them
 Plug 'will133/vim-dirdiff'
 
+Plug '907th/vim-auto-save'
+Plug 'jez/vim-better-sml'
+Plug 'wlangstroth/vim-racket'
+Plug 'MicahElliott/vrod'
+
 
 " ----- Themes -----
 " Plug 'altercation/vim-colors-solarized'
@@ -102,6 +100,13 @@ Plug 'kflu/vim-colors-solarized'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'junegunn/goyo.vim'  " Distraction free writing
 Plug 'dhruvasagar/vim-table-mode'
+
+" Send to REPL
+Plug 'jpalardy/vim-slime'
+
+if has('nvim')
+    " NeoVim specific plugins
+endif
 
 
 call plug#end()
@@ -458,7 +463,7 @@ function s:ConfigureThrift()
 endfunction
 
 function s:ConfigureMarkdown()
-    setlocal wrap tw=80
+    setlocal wrap tw=0
 
     " Disable comments formatting. *, - are treated as comments and interfer
     " with markdown list formatting Since markdown doesn't have comments, this
@@ -577,7 +582,9 @@ function s:Main()
     set nofen
 
     set display+=lastline "with this, the last line will not have @ chars.
-    set ttymouse=xterm2
+    if !has('nvim')
+        set ttymouse=xterm2
+    endif
     set wildmenu     " Show menu for command line autocomplete
     set ignorecase
     set smartcase
@@ -659,6 +666,8 @@ function s:Main()
     " executable. So I have to use a hard coded browser.
     command -nargs=+ G !start "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "https://www.google.com/search?q=<args>"
     command -nargs=+ DD !start "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "http://devdocs.io\#q=<args>"
+
+    command Vimrc e ~/.vimrc
     " ------------------------- CUSTOM COMMANDS -------------------------
 
     " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
@@ -742,7 +751,43 @@ function s:Main()
 
     " By default use coding tab setting
     call s:ConfigCoding()
+    
+    let g:lsp_log_file = expand('~/vim-lsp.log')
+    let g:slime_target = "vimterminal"
 
 endfunction
 
 call s:Main()
+nnoremap j gj
+nnoremap k gk
+
+au BufRead,BufNewFile *.fs set filetype=fsharp
+
+function! s:on_lsp_buffer_enabled() abort
+    " setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> gh <plug>(lsp-hover)
+    inoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    inoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+    
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
