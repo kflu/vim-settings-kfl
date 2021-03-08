@@ -101,6 +101,8 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'junegunn/goyo.vim'  " Distraction free writing
 Plug 'dhruvasagar/vim-table-mode'
 
+Plug 'luochen1990/rainbow'
+
 " Send to REPL
 Plug 'jpalardy/vim-slime'
 
@@ -630,6 +632,15 @@ function s:Main()
     " ------------------------- KEY MAPPINGS -------------------------
     " Danger: quit without saving
     map XX :qa!<Enter>
+
+    " Save in insert mode
+    inoremap <c-x><c-s> <c-\><c-o>:w<cr>
+    " Save in normal mode
+    nnoremap <c-x><c-s> :w<cr>
+
+    " FZF command palette
+    nnoremap <Leader>p :Commands<cr>
+
     " Pressing <Leader> twice put you in command mode
     map <Leader><Leader> :
     map <C-Tab> <C-W><C-W>
@@ -754,6 +765,7 @@ function s:Main()
     
     let g:lsp_log_file = expand('~/vim-lsp.log')
     let g:slime_target = "vimterminal"
+    let g:rainbow_active = 1
 
 endfunction
 
