@@ -763,7 +763,6 @@ function s:Main()
     " By default use coding tab setting
     call s:ConfigCoding()
     
-    let g:lsp_log_file = expand('~/vim-lsp.log')
     let g:slime_target = "vimterminal"
     let g:rainbow_active = 1
 
