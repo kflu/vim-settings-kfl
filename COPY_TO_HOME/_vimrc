@@ -125,11 +125,6 @@ set nocompatible
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-if has("vms")
-    set nobackup        " do not keep a backup file, use versions instead
-else
-    set backup 	      " keep a backup file
-endif
 set history=50        " keep 50 lines of command line history
 set ruler        " show the cursor position all the time
 set showcmd        " display incomplete commands
@@ -551,10 +546,14 @@ function s:Main()
     " Disable right scrollbar - I don't use it often
     set guioptions-=r
 
+    " ----
+    " Disabled due to privacy issue on pubnix
+    " ----
+    set nobackup
     " Move backup files out of sight
     " https://stackoverflow.com/a/2828550/695964
-    set backupdir-=.
-    set backupdir^=~/tmp//,/tmp//,$TEMP//
+    " set backupdir-=.
+    " set backupdir^=~/tmp//,/tmp//,$TEMP//
 
     " Map ChangeFontSize() to hot keys
     let g:mapleader = " "
