@@ -56,6 +56,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " ----- language support -----
 Plug 'plasticboy/vim-markdown'
+Plug 'ferrine/md-img-paste.vim' " Paste images in markdown 
 Plug 'kchmck/vim-coffee-script' " syntax, tasks, linting (via syntactic & coffeelint)
 Plug 'chrisbra/csv.vim'
 " Tempororily disabled due to the lack of useness.
@@ -472,6 +473,10 @@ function s:ConfigureMarkdown()
 
     set breakindent " soft wrapped lines are indented too
     let &showbreak = '↳ ' " visual line break indicator
+
+    " Command to paste image at current location
+    command! Imgpaste call mdip#MarkdownClipboardImage()
+
 endfunction
 
 function s:ConfigureOmniSharp()
