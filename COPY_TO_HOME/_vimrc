@@ -475,7 +475,7 @@ function s:ConfigureMarkdown()
     let &showbreak = '↳ ' " visual line break indicator
 
     " Command to paste image at current location
-    command! Imgpaste call mdip#MarkdownClipboardImage()
+    command! Mdimg call mdip#MarkdownClipboardImage()
 
 endfunction
 
