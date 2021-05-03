@@ -477,6 +477,9 @@ function s:ConfigureMarkdown()
     " Command to paste image at current location
     command! Mdimg call mdip#MarkdownClipboardImage()
 
+    " vim-markdown settings:
+    let g:vim_markdown_conceal_code_blocks = 0  " do not hide code block marks
+
 endfunction
 
 function s:ConfigureOmniSharp()
