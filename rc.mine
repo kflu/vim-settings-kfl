@@ -1,10 +1,6 @@
 #!/bin/sh
 # shell-neutral rc settings
 
-DIR="$(cd "$(dirname "$0")"; pwd)"
-
-source "$DIR/common.sh"
-source_rc ~/rc.d/sh/pre '*'
 [ `uname` = "Linux" ] && alias ls="ls --color=auto"
 alias l="ls -l"
 alias ll="ls -la"
@@ -15,7 +11,7 @@ alias vvv="xclip -sel clipboard -o"
 alias vman="MANPAGER='vim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 alias gvman="MANPAGER='gvim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 
-export PATH="$HOME/install/usr/bin":"$HOME/install/share/bin":"$PATH"
+export PATH="$HOME/.local/bin":"$HOME/install/usr/bin":"$HOME/install/share/bin":"$PATH"
 export PATH="$HOME/.dotnet/tools":"$PATH"
 
 # EDITOR is used by tmux to infer if vi-mode should be used
@@ -44,7 +40,6 @@ set_dpi() {
     printf "done\n"
 }
 
-source_rc ~/rc.d/sh/post '*'
 
 RES_MBP=1680x1050
 RES_ACER_HOME=2560x1440
