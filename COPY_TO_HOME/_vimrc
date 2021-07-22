@@ -76,12 +76,8 @@ Plug 'vim-scripts/LargeFile' " load large files more efficiently
 Plug 'vim-scripts/DrawIt' " draw ASCII arts
 
 " fzf the fuzzy searcher
-" Assume fzf is already installed via git:
-" https://github.com/junegunn/fzf#using-git
-" If fzf is installed in other fashion, this needs to be changed.
-" fzf is so useful that its installation should be automated
-" So below setting may change in the future.
-Plug '~/.fzf'
+" fzf binary needs to be installed separately
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'wannesm/wmgraphviz.vim'
 
