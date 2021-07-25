@@ -1,7 +1,11 @@
 # bash specific settings go here
 
-# https://stackoverflow.com/a/246128/695964
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+test ! -t 0 && return
+
+# get path of the script being `source`'d. For bash, `$0` doesn't give you
+# current script's path if it's `source`'d. Per [1], use `$BASH_SOURCE`.
+# [1]: https://unix.stackexchange.com/a/4673/38968
+DIR=`dirname $BASH_SOURCE`
 
 light_green="\[\e[1;32m\]"
 light_red="\[\e[1;31m\]"
@@ -29,12 +33,12 @@ export PROMPT_COMMAND=prompt_command
 
 
 source "$DIR/common.sh"
-source_rc ~/rc.d/sh/pre '*'
 source_rc ~/rc.d/bash/pre '*'
+source_rc ~/rc.d/sh/pre '*'
 source $DIR/rc.mine        # shell-neutral settings
 export PS1="[\u@\h \w]$ "
-source_rc ~/rc.d/sh/post '*'
 source_rc ~/rc.d/bash/post '*'
+source_rc ~/rc.d/sh/post '*'
 
 printf "==== DONE ====\n"
 
