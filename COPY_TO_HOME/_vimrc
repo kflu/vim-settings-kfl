@@ -31,10 +31,10 @@ Plug 'kflu/vim-mark' " mark keywords with colors
 Plug 'tpope/vim-surround' " surrounding text blocks with parenthesis
 Plug 'tpope/vim-repeat' " use . to repeat plugin ops, like the ones in surround
 Plug 'easymotion/vim-easymotion'
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive', { 'tag': 'v3.0' }
 Plug 'jlfwong/vim-mercenary'  " HG GUI
 
-Plug 'bling/vim-airline' " status line
+Plug 'vim-airline/vim-airline', { 'tag': 'v0.11' } " status line
 Plug 'scrooloose/nerdtree'
 Plug 'kien/ctrlp.vim' " fuzzy search
 Plug 'scrooloose/syntastic' " Syntax checking (lint) framework
@@ -805,3 +805,5 @@ augroup lsp_install
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+let g:lsp_diagnostics_echo_cursor = 1
