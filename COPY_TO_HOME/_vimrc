@@ -49,7 +49,7 @@ Plug 'djoshea/vim-autoread' " detect external file changes
 Plug 'mileszs/ack.vim' " use ag or ack
 
 " LSP support
-Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/vim-lsp', { 'tag': 'v0.1.4' }
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
@@ -807,3 +807,5 @@ augroup lsp_install
 augroup END
 
 let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_highlights_enabled = 0
+let g:lsp_diagnostics_virtual_text_enabled = 0
