@@ -1,5 +1,7 @@
 # zsh specific settings
 
+test ! -t 0 && return
+
 # get path of the script being `source`'d. Per [1], `$0` works for zsh, not bash 
 # [1]: https://unix.stackexchange.com/a/4673/38968
 # Mon Sep  7 00:25:27 PDT 2020: stopped using realpath - not supported on NetBSD
@@ -7,12 +9,15 @@ DIR="$(cd $(dirname "$0"); pwd)"
 
 source "$DIR/common.sh"
 source_rc ~/rc.d/zsh/pre '*'
+source_rc ~/rc.d/sh/pre '*'
 source $DIR/rc.mine
+
+autoload -U colors && colors
 NEWLINE=$'\n'
 # Fix jumpy prompt (use `%{reset_color%}`: https://stackoverflow.com/a/10644062/695964
-export PS1="$BG[018]$FG[015][%n@%M %~] %(?.$fg[green].$fg[red])%#%{$reset_color%} ${NEWLINE}$FG[201]>>> %{$reset_color%}"
-source_rc ~/rc.d/zsh/post '*'
+export PS1="[%n@%M %~] %(?.$fg[green].$fg[red])%#%{$reset_color%} ${NEWLINE}$fg[cyan]>>> %{$reset_color%}"
 
-printf "==== DONE ====\n"
+source_rc ~/rc.d/zsh/post '*'
+source_rc ~/rc.d/sh/post '*'
 
 # vim: set ft=sh:

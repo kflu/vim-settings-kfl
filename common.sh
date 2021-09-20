@@ -8,7 +8,6 @@ source_rc() {
             (*~) ;;
             (.*~) ;;
             (*) 
-                printf "sourcing $fn\n"
                 source $fn
                 ;;
         esac

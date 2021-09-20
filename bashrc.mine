@@ -1,5 +1,7 @@
 # bash specific settings go here
 
+test ! -t 0 && return
+
 # get path of the script being `source`'d. For bash, `$0` doesn't give you
 # current script's path if it's `source`'d. Per [1], use `$BASH_SOURCE`.
 # [1]: https://unix.stackexchange.com/a/4673/38968
@@ -32,10 +34,10 @@ export PROMPT_COMMAND=prompt_command
 
 source "$DIR/common.sh"
 source_rc ~/rc.d/bash/pre '*'
+source_rc ~/rc.d/sh/pre '*'
 source $DIR/rc.mine        # shell-neutral settings
 export PS1="[\u@\h \w]$ "
 source_rc ~/rc.d/bash/post '*'
-
-printf "==== DONE ====\n"
+source_rc ~/rc.d/sh/post '*'
 
 # vim: set ft=sh:
