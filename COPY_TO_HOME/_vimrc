@@ -23,6 +23,8 @@ filetype off " required
 set rtp+=~/vim-plug/vim-plug
 call plug#begin('~/vim-plug')
 
+Plug 'ojroques/vim-oscyank'
+
 " Disable tagbar - very slow when loading file in some folders
 Plug 'majutsushi/tagbar' " Right hand side nav bar for code
 Plug 'kflu/vim-mark' " mark keywords with colors
@@ -34,10 +36,11 @@ Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive', { 'tag': 'v3.0' }
 Plug 'jlfwong/vim-mercenary'  " HG GUI
 
-Plug 'vim-airline/vim-airline', { 'tag': 'v0.11' } " status line
+" Plug 'vim-airline/vim-airline', { 'tag': 'v0.11' } " status line
 Plug 'scrooloose/nerdtree'
-Plug 'kien/ctrlp.vim' " fuzzy search
-Plug 'scrooloose/syntastic' " Syntax checking (lint) framework
+" Plug 'kien/ctrlp.vim' " fuzzy search
+" Plug 'scrooloose/syntastic' " Syntax checking (lint) framework
+Plug 'neomake/neomake'
 Plug 'nathanaelkane/vim-indent-guides' " Show visual indication of indentation <Leader>ig
 Plug 'terryma/vim-expand-region' " expand selection progressively. use +/_ to expand/reduce selection
 Plug 'tpope/vim-dispatch'
@@ -102,6 +105,9 @@ Plug 'luochen1990/rainbow'
 
 " Send to REPL
 Plug 'jpalardy/vim-slime'
+
+Plug 'roxma/vim-tmux-clipboard'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 
 if has('nvim')
     " NeoVim specific plugins
@@ -549,6 +555,7 @@ function s:Main()
     set noswapfile
     " Disable right scrollbar - I don't use it often
     set guioptions-=r
+    set hidden
 
     " ----
     " Disabled due to privacy issue on pubnix
@@ -643,6 +650,8 @@ function s:Main()
 
     " FZF command palette
     nnoremap <Leader>p :Commands<cr>
+    nnoremap <Leader>f :Files<cr>
+    nnoremap <Leader>b :Buffers<cr>
 
     " Pressing <Leader> twice put you in command mode
     map <Leader><Leader> :
@@ -766,7 +775,6 @@ function s:Main()
     " By default use coding tab setting
     call s:ConfigCoding()
     
-    let g:slime_target = "vimterminal"
     let g:rainbow_active = 1
 
 endfunction
@@ -786,11 +794,13 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
     nmap <buffer> gr <plug>(lsp-references)
     nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gp <plug>(lsp-peek-definition)
     nmap <buffer> gt <plug>(lsp-type-definition)
     nmap <buffer> <leader>rn <plug>(lsp-rename)
     nmap <buffer> [g <plug>(lsp-previous-diagnostic)
     nmap <buffer> ]g <plug>(lsp-next-diagnostic)
     nmap <buffer> gh <plug>(lsp-hover)
+    nmap <buffer> <leader>d <plug>(lsp-document-diagnostics) <bar> <c-w><c-p>
     inoremap <buffer> <expr><c-f> lsp#scroll(+4)
     inoremap <buffer> <expr><c-d> lsp#scroll(-4)
 
@@ -807,5 +817,28 @@ augroup lsp_install
 augroup END
 
 let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_diagnostics_echo_delay = 200
 let g:lsp_diagnostics_highlights_enabled = 0
 let g:lsp_diagnostics_virtual_text_enabled = 0
+let g:lsp_diagnostics_virtual_text_insert_mode_enabled = 0
+let g:lsp_diagnostics_float_cursor = 0
+let g:lsp_diagnostics_float_delay = 200
+
+let g:slime_target = 'tmux'
+let g:slime_no_mappings = 1
+xmap <Leader>s <Plug>SlimeRegionSend
+nmap <Leader>s <Plug>SlimeParagraphSend
+
+" Removes DrawIt mappings
+autocmd VimEnter * unmap <leader>di
+autocmd VimEnter * unmap <leader>ds
+
+
+function s:ConfigureNeomakeOnBufEnter()
+    NeomakeDisableBuffer
+    if &filetype == "sh"
+        NeomakeEnableBuffer
+    endif
+endfunction
+autocmd BufEnter silent! * call s:ConfigureNeomakeOnBufEnter()
+call neomake#configure#automake('nrwi', 500)
