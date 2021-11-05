@@ -787,6 +787,7 @@ function s:Main()
     command Here NERDTreeFind
 
     call s:ConfigureNeomake()
+    call s:ConfigureSlime()
 
 endfunction
 
@@ -833,10 +834,13 @@ endfunction
 
 au BufRead,BufNewFile *.fs set filetype=fsharp
 
-let g:slime_target = 'tmux'
-let g:slime_no_mappings = 1
-xmap <Leader>s <Plug>SlimeRegionSend
-nmap <Leader>s <Plug>SlimeParagraphSend
+
+fun s:ConfigureSlime()
+    let g:slime_target = 'tmux'
+    let g:slime_no_mappings = 1
+    xmap <Leader>s <Plug>SlimeRegionSend
+    nmap <Leader>s <Plug>SlimeParagraphSend
+endfun
 
 " Removes DrawIt mappings
 autocmd VimEnter * unmap <leader>di
@@ -849,8 +853,11 @@ fun s:ConfigureNeomake()
             NeomakeEnableBuffer
         endif
     endfunction
-    autocmd BufEnter * call s:ConfigureNeomakeOnBufEnter()
+    autocmd BufEnter * silent! call s:ConfigureNeomakeOnBufEnter()
     call neomake#configure#automake('nrwi', 500)
 endfun
 
 call s:Main()
+
+nnoremap <c-e> 2<c-e>
+nnoremap <c-y> 2<c-y>
