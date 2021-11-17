@@ -788,6 +788,7 @@ function s:Main()
 
     call s:ConfigureNeomake()
     call s:ConfigureSlime()
+    call s:ConfigurePyreLsp()
 
 endfunction
 
@@ -855,6 +856,16 @@ fun s:ConfigureNeomake()
     endfunction
     autocmd BufEnter * silent! call s:ConfigureNeomakeOnBufEnter()
     call neomake#configure#automake('nrwi', 500)
+endfun
+
+fun s:ConfigurePyreLsp()
+    if executable('pyre')
+        au User lsp_setup call lsp#register_server({
+                    \ 'name': 'pyre',
+                    \ 'cmd': {server_info->['pyre', 'persistent']},
+                    \ 'allowlist': ['python']
+                    \ })
+    endif
 endfun
 
 call s:Main()
