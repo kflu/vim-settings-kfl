@@ -59,6 +59,13 @@ fi
     cp "$HOME/.tmux/.tmux.conf.local" "$HOME"
     printf "\n" >> "$HOME/.tmux.conf.local"
     printf "set -g mouse on\n" >> "$HOME/.tmux.conf.local"
+
+	# `!` to send selection to shell command
+	cat <<'EOF' >> "$HOME/.tmux.conf.local"
+bind-key -T copy-mode   !  command-prompt -p "cmd:" "send-keys -X copy-selection-no-clear \; run-shell \"tmux show-buffer | %1\" "
+bind-key -T copy-mode-vi   !  command-prompt -p "cmd:" "send-keys -X copy-selection-no-clear \; run-shell \"tmux show-buffer | %1\" "
+EOF
+
 )
 
 mkdir -p \
