@@ -795,8 +795,9 @@ function s:Main()
 endfunction
 
 function s:ConfigureVimLsp()
-    call mkdir('/tmp/vim-lsp', 'p')
-    let g:lsp_log_file = expand('/tmp/vim-lsp/vim-lsp.' . getpid() . '.log')
+    " Only enable logging when debugging - this causes lag in insert mode:
+    " call mkdir('/tmp/vim-lsp', 'p')
+    " let g:lsp_log_file = expand('/tmp/vim-lsp/vim-lsp.' . getpid() . '.log')
 
     let g:lsp_diagnostics_echo_cursor = 1
     let g:lsp_diagnostics_echo_delay = 200
