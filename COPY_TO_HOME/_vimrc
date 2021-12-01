@@ -784,7 +784,7 @@ function s:Main()
     let g:rainbow_active = 1
     nnoremap j gj
     nnoremap k gk
-    command Here NERDTreeFind
+    command Here NERDTree %:h
 
     call s:ConfigureNeomake()
     call s:ConfigureSlime()
