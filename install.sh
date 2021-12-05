@@ -13,13 +13,17 @@ has_git() {
 
 # Install files under in $1/ to $2/ via symlink
 install_links() (
-    local src="$1"; shift
-    local dest="$1"; shift
+    mkdir -p "$HOME/.local/share/bin"
+    mkdir -p "$HOME/.local/share/man"
+    mkdir -p "$HOME/.local/bin"
 
-    cd "$src"
+    src="$1"; shift
+    dest="$1"; shift
+
+    cd "$src" || return 1
     find . -type f | while read fn; do
-        local ln_src="`pwd`/$fn"
-        local ln_dest="$dest/$fn"
+        ln_src="`pwd`/$fn"
+        ln_dest="$dest/$fn"
         mkdir -p "$( dirname "$ln_dest" )"
         echo "$ln_src => $ln_dest"
         ln -s -f "$ln_src" "$ln_dest"
@@ -51,14 +55,17 @@ fi
 
 ( # --- set up tmux ---
     has_git || err "[err] git not found: cannot set up tmux"
-    cd $HOME
+    cd "$HOME" || return 1
     if ! [ -d ~/.tmux ]; then
         git clone https://github.com/kflu/.tmux.git
     fi
     ln -s -f .tmux/.tmux.conf "$HOME/.tmux.conf"
     cp "$HOME/.tmux/.tmux.conf.local" "$HOME"
-    printf "\n" >> "$HOME/.tmux.conf.local"
-    printf "set -g mouse on\n" >> "$HOME/.tmux.conf.local"
+
+    {
+        printf "\n"
+        printf "set -g mouse on\n"
+    } >> "$HOME/.tmux.conf.local"
 
 	# `!` to send selection to shell command
 	cat <<'EOF' >> "$HOME/.tmux.conf.local"
@@ -82,10 +89,19 @@ mkdir -p \
 # printf 'bind -Tcopy-mode-vi M-y send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c" \; display-message "copied to system clipboard"' >> ~/.tmux.conf.local
 # printf "\n" >> ~/.tmux.conf.local
 
+( # -- fzf --
+    echo "Installing fzf..."
+    cd "$HOME" || return 1
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
+)
+
 ( # --- youtube-vlc ----
+    echo "Installing youtube-vlc..."
+    cd "$HOME" || return 1
     has_git || err "[err] git not found: cannot set up youtube-vlc"
     if [ ! -e ~/.youtube-vlc ]; then
         git clone https://github.com/kflu/youtube-vlc.git ~/.youtube-vlc
     fi
-    ln -s -f ~/.youtube-vlc/bin/youtube-vlc ~/.local/share/bin/youtube-vlc
+    ln -s -f ~/.youtube-vlc/bin/youtube-vlc ~/.local/share/bin
 )
