@@ -95,6 +95,7 @@ Plug 'MicahElliott/vrod'
 
 " Switch .cpp and .h
 Plug 'kflu/a.vim'
+Plug 'kflu/paste_mode.vim'
 
 
 " ----- Themes -----
@@ -790,7 +791,7 @@ function s:Main()
     call s:ConfigureSlime()
     call s:ConfigurePyreLsp()
 
-    command P call s:PasteInsert()
+    command! P call paste_mode#PasteInsert()
 
 endfunction
 
@@ -869,17 +870,6 @@ fun s:ConfigurePyreLsp()
                     \ 'allowlist': ['python']
                     \ })
     endif
-endfun
-
-fun s:PasteInsert()
-    " automatically enter and leave paste mode
-    let old_paste_val = &paste
-    fun! PasteOnLeaveInsert() closure
-        let &paste = old_paste_val
-    endfun
-    autocmd InsertLeave * ++once call PasteOnLeaveInsert()
-    set paste
-    startinsert! | call feedkeys("\<CR>")
 endfun
 
 call s:Main()
