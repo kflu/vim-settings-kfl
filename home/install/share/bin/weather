@@ -1,6 +1,0 @@
-#!/bin/sh
-
-# weather1=$(curl -s 'wttr.in/seattle?0QF')
-weather2=$(curl -s 'wttr.in/seattle?1QnF' | tail -10)
-# paste -d '    ' <(echo "$weather2") <(echo "$weather1") | cut -c1-$COLUMNS
-echo "$weather2"

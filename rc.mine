@@ -12,7 +12,7 @@ alias vvv="xclip -sel clipboard -o"
 alias vman="MANPAGER='vim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 alias gvman="MANPAGER='gvim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 
-export PATH="$HOME/.local/bin":"$HOME/install/usr/bin":"$HOME/install/share/bin":"$PATH"
+export PATH="$HOME/.local/bin":"$HOME/.local/usr/bin":"$HOME/.local/share/bin":"$PATH"
 export PATH="$HOME/.dotnet/tools":"$PATH"
 
 # EDITOR is used by tmux to infer if vi-mode should be used
