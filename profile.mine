@@ -4,8 +4,8 @@
 # http://stackoverflow.com/a/20969082/695964
 export LC_ALL="en_US.UTF-8"
 
-export PATH="$HOME/install/bin":$PATH
-export MANPATH="$HOME/install/share/man":$MANPATH
+export PATH="$HOME/.local/bin":$PATH
+export MANPATH="$HOME/.local/share/man":$MANPATH
 
 if [ $0 = -bash ]; then
     if [[ $- == *i* ]]; then  # bash syntax
