@@ -73,11 +73,19 @@ mkdir -p \
 # printf 'bind -Tcopy-mode-vi M-y send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c" \; display-message "copied to system clipboard"' >> ~/.tmux.conf.local
 # printf "\n" >> ~/.tmux.conf.local
 
+(  # -- oh my zsh --
+    echo "Installing ohmyzsh..."
+
+    CHSH=no \
+    RUNZSH=no \
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+)
+
 ( # -- fzf --
     echo "Installing fzf..."
     cd "$HOME" || return 1
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install
+    ~/.fzf/install --all
 )
 
 ( # --- youtube-vlc ----
