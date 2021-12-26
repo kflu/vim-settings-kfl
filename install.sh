@@ -33,22 +33,6 @@ install_links() (
 install_links "$DIR/home" "$HOME"
 touch ~/.Xresources.dpi
 
-if [ ! -f ~/.profile ] || ! grep -q "profile.mine" ~/.profile; then
-    printf "\n. $DIR/profile.mine\n" >> ~/.profile
-fi
-
-if [ ! -f ~/.zprofile ] || ! grep -q "profile.mine" ~/.zprofile; then
-    printf "\nsource $DIR/profile.mine\n" >> ~/.zprofile
-fi
-
-if [ ! -f ~/.zshrc ] || ! grep -q "zshrc.mine" ~/.zshrc; then
-    printf "\nsource $DIR/zshrc.mine\n" >> ~/.zshrc
-fi
-
-if [ ! -f ~/.bashrc ] || ! grep -q "bashrc.mine" ~/.bashrc; then
-    printf "\nsource $DIR/bashrc.mine\n" >> ~/.bashrc
-fi
-
 # ---------
 # ADDITIONAL PACKAGES
 # ---------
@@ -105,3 +89,21 @@ mkdir -p \
     fi
     ln -s -f ~/.youtube-vlc/bin/youtube-vlc ~/.local/share/bin
 )
+
+
+if [ ! -f ~/.profile ] || ! grep -q "profile.mine" ~/.profile; then
+    printf "\n. $DIR/profile.mine\n" >> ~/.profile
+fi
+
+if [ ! -f ~/.zprofile ] || ! grep -q "profile.mine" ~/.zprofile; then
+    printf "\nsource $DIR/profile.mine\n" >> ~/.zprofile
+fi
+
+if [ ! -f ~/.zshrc ] || ! grep -q "zshrc.mine" ~/.zshrc; then
+    printf "\nsource $DIR/zshrc.mine\n" >> ~/.zshrc
+fi
+
+if [ ! -f ~/.bashrc ] || ! grep -q "bashrc.mine" ~/.bashrc; then
+    printf "\nsource $DIR/bashrc.mine\n" >> ~/.bashrc
+fi
+
