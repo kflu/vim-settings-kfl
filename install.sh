@@ -73,6 +73,13 @@ mkdir -p \
 # printf 'bind -Tcopy-mode-vi M-y send -X copy-pipe "xclip -i -sel p -f | xclip -i -sel c" \; display-message "copied to system clipboard"' >> ~/.tmux.conf.local
 # printf "\n" >> ~/.tmux.conf.local
 
+(  # -- vim settings --
+    echo "Installing vim-settings-kfl"
+    cd "$HOME" || return 1
+    git clone https://github.com/kflu/vim-settings-kfl.git
+    "$HOME/vim-settings-kfl/install.sh"
+)
+
 (  # -- oh my zsh --
     echo "Installing ohmyzsh..."
 
