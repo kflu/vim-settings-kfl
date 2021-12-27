@@ -17,7 +17,6 @@
 set nocompatible " be iMproved, required
 filetype off " required
 
-set rtp+=~/vim-plug/vim-plug
 call plug#begin('~/vim-plug')
 
 Plug 'ojroques/vim-oscyank'
