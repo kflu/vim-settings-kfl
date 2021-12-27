@@ -616,12 +616,12 @@ function s:Main()
     " ------------------------- GUI settings -------------------------
     if has("gui_running")
         set go-=T
-        colo PaperColor | set bg=dark
+        silent! colo PaperColor | set bg=dark
         call s:ConfigureFont()
         autocmd GUIEnter * winsize 100 40
     else
         " Use vimdiff to test theme under console
-        colo PaperColor | set bg=dark
+        silent! colo PaperColor | set bg=dark
     endif
     " ------------------------- GUI settings -------------------------
 
@@ -848,8 +848,8 @@ fun s:ConfigureSlime()
 endfun
 
 " Removes DrawIt mappings
-autocmd VimEnter * unmap <leader>di
-autocmd VimEnter * unmap <leader>ds
+autocmd VimEnter * silent! unmap! <leader>di
+autocmd VimEnter * silent! unmap! <leader>ds
 
 fun s:ConfigureNeomake()
     function s:ConfigureNeomakeOnBufEnter()
@@ -859,7 +859,7 @@ fun s:ConfigureNeomake()
         endif
     endfunction
     autocmd BufEnter * silent! call s:ConfigureNeomakeOnBufEnter()
-    call neomake#configure#automake('nrwi', 500)
+    silent! call neomake#configure#automake('nrwi', 500)
 endfun
 
 fun s:ConfigurePyreLsp()
