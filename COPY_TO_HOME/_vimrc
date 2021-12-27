@@ -13,12 +13,9 @@
 
 " When started as "evim", evim.vim will already have done these settings.
 
-" ------------------------- VUNDLE SETUP -------------------------
+" ------------------------- Plugin SETUP -------------------------
 set nocompatible " be iMproved, required
 filetype off " required
-
-" set the runtime path to include Vundle and initialize
-" vim-settings-kfl should git clone Vundle.vim into ~/vundle
 
 set rtp+=~/vim-plug/vim-plug
 call plug#begin('~/vim-plug')
@@ -122,7 +119,7 @@ endif
 call plug#end()
 
 filetype plugin indent on    " required
-" ------------------------- VUNDLE SETUP -------------------------
+" ------------------------- Plugin SETUP -------------------------
 
 " ------------------------- EXAMPLE SETTINGS -------------------------
 if v:progname =~? "evim"

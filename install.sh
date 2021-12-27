@@ -1,10 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 DIR="$( cd "`dirname "$0"`"; pwd )"
-ln -s -f "$DIR"/COPY_TO_HOME/_vimrc ~/.vimrc
-
-mkdir ~/vundle
-git clone https://github.com/gmarik/Vundle.vim.git ~/vundle/Vundle.vim
+ln -s -f "$DIR"/COPY_TO_HOME/_vimrc "$HOME/.vimrc"
 
 # cloning vim-plug repo into `autoload` folder because vim-plug repo has 
 # `plug.vim` in the repo's root (this is different than Vundle)
