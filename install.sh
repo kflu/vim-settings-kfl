@@ -77,7 +77,7 @@ mkdir -p \
     echo "Installing vim-settings-kfl"
     cd "$HOME" || return 1
     git clone https://github.com/kflu/vim-settings-kfl.git
-    "$HOME/vim-settings-kfl/install.sh"
+    sh "$HOME/vim-settings-kfl/install.sh"
 )
 
 (  # -- oh my zsh --
