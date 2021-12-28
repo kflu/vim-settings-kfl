@@ -79,18 +79,48 @@ EOF
     ~/.fzf/install --all
 )
 
-if [ ! -f ~/.profile ] || ! grep -q "profile.mine" ~/.profile; then
-    printf "\nsource $DIR/profile.mine\n" >> ~/.profile
-fi
+# Update file content enclosed by $marker. If marker enclosure doesn't exist,
+# append the enclosure, and put content in it.
+# It ensures the $file to exist by touching it.
+uppend_file_content() {
+    file="$1"; shift
+    marker="$1"; shift
+    content="$1"; shift
 
-if [ ! -f ~/.zprofile ] || ! grep -q "profile.mine" ~/.zprofile; then
-    printf "\nsource $DIR/profile.mine\n" >> ~/.zprofile
-fi
+    touch "$file"
+    tmp="$file.uppend_file_content.$(date +"%Y%m%d_%H%M%S")"
+    cp "$file" "$tmp"
+    echo "[uppend_file_content] Backed up to $tmp"
 
-if [ ! -f ~/.zshrc ] || ! grep -q "zshrc.mine" ~/.zshrc; then
-    printf "\nsource $DIR/zshrc.mine\n" >> ~/.zshrc
-fi
+    (
+    cat <<EOF
 
-if [ ! -f ~/.bashrc ] || ! grep -q "bashrc.mine" ~/.bashrc; then
-    printf "\nsource $DIR/bashrc.mine\n" >> ~/.bashrc
-fi
+has_marker = False
+state = ""
+for line in open("$tmp").read().splitlines():
+    if not state:
+        print(line)
+        if "$marker" in line:
+            state = "BEGIN"
+    elif state == "BEGIN":
+        if "$marker" in line:
+            state = ""
+            has_marker = True
+            print("""$content""")
+            print(line)  # closing marker
+    else:
+        assert False, state
+
+if not has_marker:
+    print("$marker")
+    print("""$content""")
+    print("$marker")
+
+EOF
+    ) | python3 >"$file"
+}
+
+uppend_file_content ~/.profile "# == profile.mine == " "source $DIR/profile.mine"
+uppend_file_content ~/.zprofile "# == profile.mine ==" "source $DIR/profile.mine"
+uppend_file_content ~/.zshrc "# == zshrc.mine ==" "source $DIR/zshrc.mine"
+uppend_file_content ~/.bashrc "# == bashrc.mine ==" "source $DIR/bashrc.mine"
