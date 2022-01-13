@@ -804,6 +804,9 @@ function s:ConfigureVimLsp()
     let g:lsp_diagnostics_float_cursor = 1
     let g:lsp_diagnostics_float_delay = 2000
 
+    " Do not prompt for installing LSP servers
+    let g:lsp_settings_enable_suggestions = 0
+
     augroup lsp_install
         au!
         autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
