@@ -97,17 +97,19 @@ logout_mac() {
 }
 
 
-# makes a post in current dir
-# mkpost [-t title]
 mkpost() (
     USAGE="$(cat <<'EOF'
-mkpost [-t title]
+mkpost [-t title] [-f]
+    -t: use `title` in the directory/file name
+    -f: do not create directory, just a file
 EOF
 )"
-    while getopts 't:h' opt; do
+    while getopts 't:hf' opt; do
         case "$opt" in
             t)
                 title="$OPTARG";;
+            f)
+                create_file=1;;
             h|*)
                 echo "$USAGE" >&2; exit 0;;
         esac
@@ -125,11 +127,21 @@ EOF
     fi
 
     ts="$(date +"%Y-%m-%d")"
-    fn="$ts-$title.md"
+    name="$ts-$title"
 
-    echo "Creating file: $fn"
-    touch "$fn"
+    if test -z "$create_file"; then
+        mkdir -p "$name"
+        fn="$name/post.md"
+    else
+        fn="$name.md"
+    fi
 
+    test -e "$fn" || {
+        echo "Creating file: $fn"
+        touch "$fn"
+    }
+
+    echo "Editing file: $fn"
     "${EDITOR:-vim}" "$fn"
 )
 
