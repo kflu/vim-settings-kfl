@@ -97,4 +97,41 @@ logout_mac() {
 }
 
 
+# makes a post in current dir
+# mkpost [-t title]
+mkpost() (
+    USAGE="$(cat <<'EOF'
+mkpost [-t title]
+EOF
+)"
+    while getopts 't:h' opt; do
+        case "$opt" in
+            t)
+                title="$OPTARG";;
+            h|*)
+                echo "$USAGE" >&2; exit 0;;
+        esac
+    done
+    shift $((OPTIND-1))
+
+    if test -z "$title"; then
+        printf "Title: "
+        read -r title
+    fi
+
+    if test -z "$title"; then
+        echo "Must give a title" >&2
+        exit 1
+    fi
+
+    ts="$(date +"%Y-%m-%d")"
+    fn="$ts-$title.md"
+
+    echo "Creating file: $fn"
+    touch "$fn"
+
+    "${EDITOR:-vim}" "$fn"
+)
+
+
 # vim========== set ft=sh
