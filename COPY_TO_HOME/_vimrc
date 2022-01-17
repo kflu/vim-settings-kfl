@@ -30,7 +30,7 @@ Plug 'tpope/vim-surround' " surrounding text blocks with parenthesis
 Plug 'tpope/vim-repeat' " use . to repeat plugin ops, like the ones in surround
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive', { 'tag': 'v3.0' }
-Plug 'jlfwong/vim-mercenary'  " HG GUI
+Plug 'kflu/vim-mercenary'
 
 Plug 'vim-airline/vim-airline', { 'tag': 'v0.11' } " status line
 Plug 'scrooloose/nerdtree'
@@ -73,7 +73,6 @@ Plug 'solarnz/thrift.vim'
 " Plug 'airblade/vim-gitgutter' " Show git status in sign column
 Plug 'kshenoy/vim-signature' " Display markers
 Plug 'vim-scripts/LargeFile' " load large files more efficiently
-Plug 'vim-scripts/DrawIt' " draw ASCII arts
 
 " fzf the fuzzy searcher
 " fzf binary needs to be installed separately
@@ -785,9 +784,11 @@ function s:Main()
 
     call s:ConfigureNeomake()
     call s:ConfigureSlime()
-    call s:ConfigurePyreLsp()
+
 
     command! P call paste_mode#PasteInsert()
+
+    call s:ConfigureTagbar()
 
     call s:SourceSite()
 
@@ -855,7 +856,7 @@ autocmd VimEnter * silent! unmap! <leader>ds
 fun s:ConfigureNeomake()
     function s:ConfigureNeomakeOnBufEnter()
         NeomakeDisableBuffer
-        if &filetype == "sh"
+        if &filetype == "sh" || &filetype == "python"
             NeomakeEnableBuffer
         endif
     endfunction
@@ -863,14 +864,9 @@ fun s:ConfigureNeomake()
     silent! call neomake#configure#automake('nrwi', 500)
 endfun
 
-fun s:ConfigurePyreLsp()
-    if executable('pyre')
-        au User lsp_setup call lsp#register_server({
-                    \ 'name': 'pyre',
-                    \ 'cmd': {server_info->['pyre', 'persistent']},
-                    \ 'allowlist': ['python']
-                    \ })
-    endif
+fun s:ConfigureTagbar()
+    set updatetime=500
+    let g:tagbar_sort=0
 endfun
 
 fun s:SourceSite()
