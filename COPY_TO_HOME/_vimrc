@@ -877,7 +877,6 @@ fun s:SourceSite()
     let dir = expand('$HOME/.vim/rc')
     call system('mkdir -p '.dir)
     for rc in glob(dir.'/*', 0, 1)
-        echom 'sourcing: '.rc
         exec 'source '.rc
     endfor
 endfunc
