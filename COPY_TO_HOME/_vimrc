@@ -879,5 +879,15 @@ endfunc
 
 call s:Main()
 
+" Edits the realpath of a symlink
+fun FollowLink_FollowLink() abort
+    let bfn = resolve(expand('%'))
+    " We need to completely wipeout the buffer before editing the real path.
+    " Otherwise vim keeps opening the symlink.
+    bwipeout
+    exe 'edit '.bfn
+endfun
+command FL call FollowLink_FollowLink()
+
 nnoremap <c-e> 2<c-e>
 nnoremap <c-y> 2<c-y>
