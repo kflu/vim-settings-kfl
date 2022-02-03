@@ -6,7 +6,7 @@ DIR="$(cd "$(dirname "$0")" && pwd)"
 # Install files under in $1/ to $2/ via symlink
 install_links() (
     mkdir -p "$HOME/.local/share/bin"
-    mkdir -p "$HOME/.local/share/man"
+    mkdir -p "$HOME/.local/share/ref"
     mkdir -p "$HOME/.local/bin"
 
     src="$1"; shift

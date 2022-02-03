@@ -10,3 +10,5 @@ Vim mode
 | forward              | ctrl-.     |            |            |
 | backward             | ctrl-,     |            |            |
 | goto def             | ctrl-T     |            |            |
+
+vim: ft=markdown tw=80 cc=80

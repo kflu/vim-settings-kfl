@@ -72,8 +72,8 @@ Redirect both stdout & stderr:
 
 Remarks:
 
-`[x]>&[y]` copies file descriptor `y` to `x`. DON'T think of redirection, but copy.
-Therefore, the redirection order matters:
+`[x]>&[y]` copies file descriptor `y` to `x`. DON'T think of redirection, but
+copy.  Therefore, the redirection order matters:
 
 `ls foo > /dev/null 2>&1` means:
 
@@ -91,3 +91,6 @@ So effectively:
 [case]: http://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_13#tag_02_09_04_05
 [getopts]: https://wiki.bash-hackers.org/howto/getopts_tutorial
 [getopts_man]: https://pubs.opengroup.org/onlinepubs/9699919799/utilities/getopts.html
+
+
+vim: ft=markdown tw=80 cc=80

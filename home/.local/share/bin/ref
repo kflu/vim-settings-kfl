@@ -1,0 +1,14 @@
+#!/bin/sh
+
+DIR="$(cd "$(dirname "$0")" && pwd)"
+REF_DIR="$DIR/../ref"
+
+item="$1"; shift
+
+(
+cd "$REF_DIR" || {
+    >&2 echo "E: No direction $REF_DIR"
+    exit 2
+}
+"${PAGER:-less}" "$(find . -maxdepth 1 -name "$item*" | head -1)"
+)
