@@ -1,0 +1,15 @@
+Python Post-Mortem Debugging Decorator:
+
+def pm(func):
+    import functools, pdb
+
+    @functools.wraps(func)
+    def func2(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except Exception as e:
+            pdb.post_mortem(e.__traceback__)
+
+   raise
+    return func2
+
