@@ -556,6 +556,7 @@ function s:Main()
     " Disable right scrollbar - I don't use it often
     set guioptions-=r
     set hidden
+    set nowrapscan  " disable search wrap
 
     " ----
     " Disabled due to privacy issue on pubnix
