@@ -848,6 +848,22 @@ fun s:ConfigureSlime()
     let g:slime_no_mappings = 1
     xmap <Leader>s <Plug>SlimeRegionSend
     nmap <Leader>s <Plug>SlimeParagraphSend
+
+    fun ToggleSlimeIpy()
+        if exists('g:slime_python_ipython')
+            unlet g:slime_python_ipython
+            echo "g:slime_python_ipython OFF"
+        else
+            let g:slime_python_ipython = 1
+            echo "g:slime_python_ipython ON"
+        endif
+    endfun
+
+    " Toggle ipython support
+    command IPY  call ToggleSlimeIpy()
+
+    " Turn it on by default
+    let g:slime_python_ipython = 1
 endfun
 
 " Removes DrawIt mappings
