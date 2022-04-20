@@ -92,6 +92,8 @@ Plug 'MicahElliott/vrod'
 Plug 'kflu/a.vim'
 Plug 'kflu/paste_mode.vim'
 
+Plug 'MattesGroeger/vim-bookmarks'
+
 
 " ----- Themes -----
 " Plug 'altercation/vim-colors-solarized'
@@ -556,7 +558,7 @@ function s:Main()
     " Disable right scrollbar - I don't use it often
     set guioptions-=r
     set hidden
-    set nowrapscan  " disable search wrap
+    set wrapscan  " disable search wrap
 
     " ----
     " Disabled due to privacy issue on pubnix
@@ -671,7 +673,7 @@ function s:Main()
 
     " ------------------------- CUSTOM COMMANDS -------------------------
     " copy file name to system clipboard (verified on Windows)
-    command Cpfn let @* = expand("%:p")
+    command Cpfn call <SID>CopyFileName()
     command Hsbar call s:ToggleHorizontalScrollbar()
     command CD cd %:p:h
     command LCD lcd %:p:h
@@ -793,6 +795,10 @@ function s:Main()
 
     call s:SourceSite()
 
+    call s:ConfigureVimMark()
+
+    let g:bookmark_auto_save = 1
+
 endfunction
 
 function s:ConfigureVimLsp()
@@ -893,6 +899,22 @@ fun s:SourceSite()
         exec 'source '.rc
     endfor
 endfunc
+
+fun s:ConfigureVimMark()
+    " Use 18 colors instead of 6
+    let g:mwDefaultHighlightingPalette = 'extended'
+endfun
+
+fun <SID>CopyFileName()
+    let fn = expand("%:p")
+    let @* = fn
+    if exists('*OSCYankString')
+        call OSCYankString(fn)
+    endif
+    if executable('tmux')
+        call system('tmux loadb -', fn)
+    endif
+endfun
 
 call s:Main()
 
