@@ -92,6 +92,8 @@ Plug 'MicahElliott/vrod'
 Plug 'kflu/a.vim'
 Plug 'kflu/paste_mode.vim'
 
+Plug 'MattesGroeger/vim-bookmarks'
+
 
 " ----- Themes -----
 " Plug 'altercation/vim-colors-solarized'
@@ -556,6 +558,7 @@ function s:Main()
     " Disable right scrollbar - I don't use it often
     set guioptions-=r
     set hidden
+    set wrapscan  " disable search wrap
 
     " ----
     " Disabled due to privacy issue on pubnix
@@ -670,7 +673,7 @@ function s:Main()
 
     " ------------------------- CUSTOM COMMANDS -------------------------
     " copy file name to system clipboard (verified on Windows)
-    command Cpfn let @* = expand("%:p")
+    command Cpfn call <SID>CopyFileName()
     command Hsbar call s:ToggleHorizontalScrollbar()
     command CD cd %:p:h
     command LCD lcd %:p:h
@@ -792,6 +795,10 @@ function s:Main()
 
     call s:SourceSite()
 
+    call s:ConfigureVimMark()
+
+    let g:bookmark_auto_save = 1
+
 endfunction
 
 function s:ConfigureVimLsp()
@@ -847,6 +854,22 @@ fun s:ConfigureSlime()
     let g:slime_no_mappings = 1
     xmap <Leader>s <Plug>SlimeRegionSend
     nmap <Leader>s <Plug>SlimeParagraphSend
+
+    fun ToggleSlimeIpy()
+        if exists('g:slime_python_ipython')
+            unlet g:slime_python_ipython
+            echo "g:slime_python_ipython OFF"
+        else
+            let g:slime_python_ipython = 1
+            echo "g:slime_python_ipython ON"
+        endif
+    endfun
+
+    " Toggle ipython support
+    command IPY  call ToggleSlimeIpy()
+
+    " Turn it on by default
+    let g:slime_python_ipython = 1
 endfun
 
 " Removes DrawIt mappings
@@ -876,6 +899,22 @@ fun s:SourceSite()
         exec 'source '.rc
     endfor
 endfunc
+
+fun s:ConfigureVimMark()
+    " Use 18 colors instead of 6
+    let g:mwDefaultHighlightingPalette = 'extended'
+endfun
+
+fun <SID>CopyFileName()
+    let fn = expand("%:p")
+    let @* = fn
+    if exists('*OSCYankString')
+        call OSCYankString(fn)
+    endif
+    if executable('tmux')
+        call system('tmux loadb -', fn)
+    endif
+endfun
 
 if !exists('g:vscode')
     call s:Main()
