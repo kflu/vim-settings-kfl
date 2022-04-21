@@ -921,7 +921,9 @@ fun <SID>CopyFileName()
     endif
 endfun
 
-call s:Main()
+if !exists('g:vscode')
+    call s:Main()
+endif
 
 " Edits the realpath of a symlink
 fun FollowLink_FollowLink() abort
