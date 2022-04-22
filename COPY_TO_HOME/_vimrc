@@ -626,9 +626,14 @@ function s:Main()
     call s:ConfigureTags()
     call s:ConfigureCscope()
 
-    " Adding 'p' for quickfix window to preview files
+    " Mappings for quickfix window. note qf cannot be modified, so we can
+    " re-use any key that modifies the buffer (e.g., pPaAiI), without worrying
+    " we'd hijack some useful keys.
     if has('autocmd') && has('quickfix')
+        " Preview and stay in quickfix window
         au BufWinEnter quickfix exe 'map <buffer> p <CR><C-W>p'
+        " Follow link and close quickfix (i: go _in_)
+        au BufWinEnter quickfix exe 'nnoremap <buffer> i <CR>:ccl<CR>'
     endif
 
     " ------------------------- OMNI COMPLETION SETTINGS -------------------------
