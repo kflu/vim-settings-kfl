@@ -20,6 +20,7 @@ filetype off " required
 call plug#begin('~/vim-plug')
 
 Plug 'ojroques/vim-oscyank'
+Plug '~/work/osc_yank_regmon'
 
 " Disable tagbar - very slow when loading file in some folders
 Plug 'majutsushi/tagbar' " Right hand side nav bar for code
@@ -809,7 +810,33 @@ function s:Main()
     cnoreabbrev bma BookmarkAnnotate
     cnoreabbrev bmm BookmarkToggle
 
+    call s:ConfigureBG()
+
 endfunction
+
+fun! s:ConfigureBG()
+    " Timer to periodically check and update 'bg' setting
+    func Vimrc_CheckBG(job_id)
+        let fn = expand('~/.bg')
+        if filereadable(fn)
+            let lines = readfile(fn)
+            if len(lines) > 0
+                exe 'set bg=' . lines[0]
+            endif
+        endif
+    endfun
+    call Vimrc_CheckBG(0)
+    call timer_start(3000, 'Vimrc_CheckBG', {'repeat': -1})
+
+    " update bg across all vim instances
+    func <SID>BGUpdateAll(val)
+        exe 'set bg=' . a:val
+        call writefile([a:val], expand('~/.bg'))
+    endfun
+
+    command! BG if &bg == 'light' | call <SID>BGUpdateAll('dark') | else | call <SID>BGUpdateAll('light') | endif
+endfun
+
 
 function s:ConfigureVimLsp()
     " Only enable logging when debugging - this causes lag in insert mode:
