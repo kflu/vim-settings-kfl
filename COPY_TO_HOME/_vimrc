@@ -699,8 +699,6 @@ function s:Main()
     " executable. So I have to use a hard coded browser.
     command -nargs=+ G !start "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "https://www.google.com/search?q=<args>"
     command -nargs=+ DD !start "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "http://devdocs.io\#q=<args>"
-
-    command Vimrc e ~/.vimrc
     " ------------------------- CUSTOM COMMANDS -------------------------
 
     " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
@@ -966,6 +964,33 @@ fun FollowLink_FollowLink() abort
     exe 'edit '.bfn
 endfun
 command FL call FollowLink_FollowLink()
+
+fun s:_Scratch()
+    fun <SID>Scratch()
+        set buftype=nofile
+        file *SCRATCH*
+    endfun
+    command -nargs=0 ScratchOn call <SID>Scratch()
+    command -nargs=0 ScratchNew new | call <SID>Scratch()
+endfun
+call s:_Scratch()
+
+fun s:_Vimrc()
+    if !exists(expand('*<SID>VimrcSource'))
+        fun <SID>VimrcSource()
+            so ~/.vimrc
+        endfun
+    endif
+
+    fun <SID>VimrcEdit()
+        e ~/.vimrc
+    endfun
+
+    command -nargs=0 RCS call <SID>VimrcSource()
+    command -nargs=0 RCE call <SID>VimrcEdit()
+    command -nargs=0 Vimrc call <SID>VimrcEdit()
+endfun
+call s:_Vimrc()
 
 fun ShowLines(lines)
     " higlight given line range specs
