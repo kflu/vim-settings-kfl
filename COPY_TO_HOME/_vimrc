@@ -631,10 +631,12 @@ function s:Main()
     " re-use any key that modifies the buffer (e.g., pPaAiI), without worrying
     " we'd hijack some useful keys.
     if has('autocmd') && has('quickfix')
-        " Preview and stay in quickfix window
-        au BufWinEnter quickfix exe 'map <buffer> p <CR><C-W>p'
         " Follow link and close quickfix (i: go _in_)
-        au BufWinEnter quickfix exe 'nnoremap <buffer> i <CR>:ccl<CR>'
+        au BufWinEnter quickfix exe 'nnoremap <buffer> <Enter> <esc>:.cc<cr>:ccl<CR>'
+        " Original <Enter> behavior: go to but keep qf window open
+        au BufWinEnter quickfix exe 'nnoremap <buffer> i <esc>:.cc<CR>'
+        " Preview and stay in quickfix window
+        au BufWinEnter quickfix exe 'nnoremap <buffer> p <esc>:.cc<cr><C-W>p'
     endif
 
     " ------------------------- OMNI COMPLETION SETTINGS -------------------------
