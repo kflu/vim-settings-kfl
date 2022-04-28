@@ -967,5 +967,30 @@ fun FollowLink_FollowLink() abort
 endfun
 command FL call FollowLink_FollowLink()
 
+fun ShowLines(lines)
+    " higlight given line range specs
+    " 1-2, 3-4, 5, 7-8
+    silent! sign undefine lino
+    sign define lino text=co
+    let linelist = []
+    for line_range in split(a:lines, ',')
+        let line_range = trim(line_range)
+        let start_end = split(line_range, '-')
+        if len(start_end) == 1
+            let start = start_end[0]
+            let end = start_end[0]
+        else
+            let start = start_end[0]
+            let end = start_end[1]
+        endif
+        let linelist = linelist + range(start, end)
+    endfor
+
+    for id in range(len(linelist))
+        let line = linelist[id]
+        exe printf('sign place %d line=%d name=lino', id+1, line)
+    endfor
+endfun
+
 nnoremap <c-e> 2<c-e>
 nnoremap <c-y> 2<c-y>
