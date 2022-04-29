@@ -20,6 +20,7 @@ filetype off " required
 call plug#begin('~/vim-plug')
 
 Plug 'ojroques/vim-oscyank'
+Plug '~/work/osc_yank_regmon'
 
 " Disable tagbar - very slow when loading file in some folders
 Plug 'majutsushi/tagbar' " Right hand side nav bar for code
@@ -626,9 +627,16 @@ function s:Main()
     call s:ConfigureTags()
     call s:ConfigureCscope()
 
-    " Adding 'p' for quickfix window to preview files
+    " Mappings for quickfix window. note qf cannot be modified, so we can
+    " re-use any key that modifies the buffer (e.g., pPaAiI), without worrying
+    " we'd hijack some useful keys.
     if has('autocmd') && has('quickfix')
-        au BufWinEnter quickfix exe 'map <buffer> p <CR><C-W>p'
+        " Follow link and close quickfix (i: go _in_)
+        au BufWinEnter quickfix exe 'nnoremap <buffer> <Enter> <esc>:.cc<cr>:ccl<CR>'
+        " Original <Enter> behavior: go to but keep qf window open
+        au BufWinEnter quickfix exe 'nnoremap <buffer> i <esc>:.cc<CR>'
+        " Preview and stay in quickfix window
+        au BufWinEnter quickfix exe 'nnoremap <buffer> p <esc>:.cc<cr><C-W>p'
     endif
 
     " ------------------------- OMNI COMPLETION SETTINGS -------------------------
@@ -693,8 +701,6 @@ function s:Main()
     " executable. So I have to use a hard coded browser.
     command -nargs=+ G !start "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "https://www.google.com/search?q=<args>"
     command -nargs=+ DD !start "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" "http://devdocs.io\#q=<args>"
-
-    command Vimrc e ~/.vimrc
     " ------------------------- CUSTOM COMMANDS -------------------------
 
     " ------------------------- FILE TYPE SPECIFIC CONFIGURATIONS -------------------------
@@ -797,11 +803,42 @@ function s:Main()
 
     call s:ConfigureVimMark()
 
+    " vim-bookmarks
     let g:bookmark_auto_save = 1
+    let g:bookmark_no_default_key_mappings = 1
+    cnoreabbrev bml BookmarkShowAll
+    cnoreabbrev bma BookmarkAnnotate
+    cnoreabbrev bmm BookmarkToggle
+
+    call s:ConfigureBG()
 
     command DT r !date
 
 endfunction " Main
+
+fun! s:ConfigureBG()
+    " Timer to periodically check and update 'bg' setting
+    func Vimrc_CheckBG(job_id)
+        let fn = expand('~/.bg')
+        if filereadable(fn)
+            let lines = readfile(fn)
+            if len(lines) > 0
+                exe 'set bg=' . lines[0]
+            endif
+        endif
+    endfun
+    call Vimrc_CheckBG(0)
+    call timer_start(3000, 'Vimrc_CheckBG', {'repeat': -1})
+
+    " update bg across all vim instances
+    func <SID>BGUpdateAll(val)
+        exe 'set bg=' . a:val
+        call writefile([a:val], expand('~/.bg'))
+    endfun
+
+    command! BG if &bg == 'light' | call <SID>BGUpdateAll('dark') | else | call <SID>BGUpdateAll('light') | endif
+endfun
+
 
 function s:ConfigureVimLsp()
     " Only enable logging when debugging - this causes lag in insert mode:
@@ -931,6 +968,51 @@ fun FollowLink_FollowLink() abort
     exe 'edit '.bfn
 endfun
 command FL call FollowLink_FollowLink()
+
+fun s:_Scratch()
+    fun <SID>Scratch()
+        set buftype=nofile
+        file *SCRATCH*
+    endfun
+    command -nargs=0 ScratchOn call <SID>Scratch()
+    command -nargs=0 ScratchNew new | call <SID>Scratch()
+endfun
+call s:_Scratch()
+
+fun s:_Vimrc()
+    command -bang -nargs=0 Vimrc
+                \ if '<bang>' == '!'
+                \ |     so ~/.vimrc
+                \ | else
+                \ |     e ~/.vimrc
+                \ | endif
+endfun
+call s:_Vimrc()
+
+fun ShowLines(lines)
+    " higlight given line range specs
+    " 1-2, 3-4, 5, 7-8
+    silent! sign undefine lino
+    sign define lino text=co
+    let linelist = []
+    for line_range in split(a:lines, ',')
+        let line_range = trim(line_range)
+        let start_end = split(line_range, '-')
+        if len(start_end) == 1
+            let start = start_end[0]
+            let end = start_end[0]
+        else
+            let start = start_end[0]
+            let end = start_end[1]
+        endif
+        let linelist = linelist + range(start, end)
+    endfor
+
+    for id in range(len(linelist))
+        let line = linelist[id]
+        exe printf('sign place %d line=%d name=lino', id+1, line)
+    endfor
+endfun
 
 nnoremap <c-e> 2<c-e>
 nnoremap <c-y> 2<c-y>
