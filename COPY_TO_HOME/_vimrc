@@ -978,19 +978,12 @@ endfun
 call s:_Scratch()
 
 fun s:_Vimrc()
-    if !exists(expand('*<SID>VimrcSource'))
-        fun <SID>VimrcSource()
-            so ~/.vimrc
-        endfun
-    endif
-
-    fun <SID>VimrcEdit()
-        e ~/.vimrc
-    endfun
-
-    command -nargs=0 RCS call <SID>VimrcSource()
-    command -nargs=0 RCE call <SID>VimrcEdit()
-    command -nargs=0 Vimrc call <SID>VimrcEdit()
+    command -bang -nargs=0 Vimrc
+                \ if '<bang>' == '!'
+                \ |     so ~/.vimrc
+                \ | else
+                \ |     e ~/.vimrc
+                \ | endif
 endfun
 call s:_Vimrc()
 
