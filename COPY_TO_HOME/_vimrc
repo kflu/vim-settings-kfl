@@ -799,7 +799,9 @@ function s:Main()
 
     let g:bookmark_auto_save = 1
 
-endfunction
+    command DT r !date
+
+endfunction " Main
 
 function s:ConfigureVimLsp()
     " Only enable logging when debugging - this causes lag in insert mode:
