@@ -13,114 +13,115 @@
 
 " When started as "evim", evim.vim will already have done these settings.
 
-" ------------------------- Plugin SETUP -------------------------
 set nocompatible " be iMproved, required
-filetype off " required
 
-call plug#begin('~/vim-plug')
-
-Plug 'ojroques/vim-oscyank'
-Plug '~/work/osc_yank_regmon'
-
-" Disable tagbar - very slow when loading file in some folders
-Plug 'majutsushi/tagbar' " Right hand side nav bar for code
-Plug 'kflu/vim-mark' " mark keywords with colors
-" delimitMate turns out quite annoying. Try disable it (20190106)
-" Plug 'Raimondi/delimitMate' " parenthesis auto closing and jumping
-Plug 'tpope/vim-surround' " surrounding text blocks with parenthesis
-Plug 'tpope/vim-repeat' " use . to repeat plugin ops, like the ones in surround
-Plug 'easymotion/vim-easymotion'
-Plug 'tpope/vim-fugitive', { 'tag': 'v3.0' }
-Plug 'kflu/vim-mercenary'
-
-Plug 'vim-airline/vim-airline', { 'tag': 'v0.11' } " status line
-Plug 'scrooloose/nerdtree'
-" Plug 'kien/ctrlp.vim' " fuzzy search
-" Plug 'scrooloose/syntastic' " Syntax checking (lint) framework
-Plug 'neomake/neomake'
-Plug 'nathanaelkane/vim-indent-guides' " Show visual indication of indentation <Leader>ig
-Plug 'terryma/vim-expand-region' " expand selection progressively. use +/_ to expand/reduce selection
-Plug 'tpope/vim-dispatch'
-" Plug 'OmniSharp/omnisharp-vim'
-" Plug 'ervandew/supertab'     " disable b/c it's annoying conflict with tab
-Plug 'szw/vim-maximizer' " Maximize and restores windows <F3> to toggle
-Plug 'djoshea/vim-autoread' " detect external file changes
-
-Plug 'mileszs/ack.vim' " use ag or ack
-
-" LSP support
-Plug 'prabirshrestha/vim-lsp', { 'tag': 'v0.1.4' }
-Plug 'mattn/vim-lsp-settings'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-
-" ----- language support -----
-Plug 'plasticboy/vim-markdown'
-Plug 'ferrine/md-img-paste.vim' " Paste images in markdown 
-Plug 'kchmck/vim-coffee-script' " syntax, tasks, linting (via syntactic & coffeelint)
-Plug 'chrisbra/csv.vim'
-Plug 'Vimjas/vim-python-pep8-indent'
-" Tempororily disabled due to the lack of useness.
-" Plug 'ternjs/tern_for_vim' " Js code completion
-Plug 'pangloss/vim-javascript'
-" Plug 'vim-scripts/paredit.vim'
-Plug 'wannesm/wmgraphviz.vim' "graphviz
-" Plug 'fsharp/vim-fsharp'
-" Plug 'OrangeT/vim-csharp' " Disable csharp as it errors when running under console (vim)
-Plug 'solarnz/thrift.vim'
-
-" Disable gitgutter - after update it asks to get the gitgutter_grep which I
-" don't want to.
-" Plug 'airblade/vim-gitgutter' " Show git status in sign column
-Plug 'kshenoy/vim-signature' " Display markers
-Plug 'vim-scripts/LargeFile' " load large files more efficiently
-
-" fzf the fuzzy searcher
-" fzf binary needs to be installed separately
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'wannesm/wmgraphviz.vim'
-
-" Diff two directories and files in them
-Plug 'will133/vim-dirdiff'
-
-Plug '907th/vim-auto-save'
-Plug 'jez/vim-better-sml'
-Plug 'wlangstroth/vim-racket'
-Plug 'MicahElliott/vrod'
-
-" Switch .cpp and .h
-Plug 'kflu/a.vim'
-Plug 'kflu/paste_mode.vim'
-
-Plug 'MattesGroeger/vim-bookmarks'
-
-
-" ----- Themes -----
-" Plug 'altercation/vim-colors-solarized'
-" Use my fork before altercation/solarized/issues/252 is fixed
-Plug 'kflu/vim-colors-solarized'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'junegunn/goyo.vim'  " Distraction free writing
-Plug 'dhruvasagar/vim-table-mode'
-
-Plug 'luochen1990/rainbow'
-
-" Send to REPL
-Plug 'jpalardy/vim-slime'
-
-Plug 'roxma/vim-tmux-clipboard'
-Plug 'tmux-plugins/vim-tmux-focus-events'
-
-if has('nvim')
-    " NeoVim specific plugins
-endif
-
-
-call plug#end()
-
-filetype plugin indent on    " required
 " ------------------------- Plugin SETUP -------------------------
+fun s:plugins()
+    filetype off " required
+    call plug#begin('~/vim-plug')
+
+    Plug 'ojroques/vim-oscyank'
+    Plug '~/work/osc_yank_regmon'
+
+    " Disable tagbar - very slow when loading file in some folders
+    Plug 'majutsushi/tagbar' " Right hand side nav bar for code
+    Plug 'kflu/vim-mark' " mark keywords with colors
+    " delimitMate turns out quite annoying. Try disable it (20190106)
+    " Plug 'Raimondi/delimitMate' " parenthesis auto closing and jumping
+    Plug 'tpope/vim-surround' " surrounding text blocks with parenthesis
+    Plug 'tpope/vim-repeat' " use . to repeat plugin ops, like the ones in surround
+    Plug 'easymotion/vim-easymotion'
+    Plug 'tpope/vim-fugitive', { 'tag': 'v3.0' }
+    Plug 'kflu/vim-mercenary'
+
+    Plug 'vim-airline/vim-airline', { 'tag': 'v0.11' } " status line
+    Plug 'scrooloose/nerdtree'
+    " Plug 'kien/ctrlp.vim' " fuzzy search
+    " Plug 'scrooloose/syntastic' " Syntax checking (lint) framework
+    Plug 'neomake/neomake'
+    Plug 'nathanaelkane/vim-indent-guides' " Show visual indication of indentation <Leader>ig
+    Plug 'terryma/vim-expand-region' " expand selection progressively. use +/_ to expand/reduce selection
+    Plug 'tpope/vim-dispatch'
+    " Plug 'OmniSharp/omnisharp-vim'
+    " Plug 'ervandew/supertab'     " disable b/c it's annoying conflict with tab
+    Plug 'szw/vim-maximizer' " Maximize and restores windows <F3> to toggle
+    Plug 'djoshea/vim-autoread' " detect external file changes
+
+    Plug 'mileszs/ack.vim' " use ag or ack
+
+    " LSP support
+    Plug 'prabirshrestha/vim-lsp', { 'tag': 'v0.1.4' }
+    Plug 'mattn/vim-lsp-settings'
+    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+    " ----- language support -----
+    Plug 'plasticboy/vim-markdown'
+    Plug 'ferrine/md-img-paste.vim' " Paste images in markdown 
+    Plug 'kchmck/vim-coffee-script' " syntax, tasks, linting (via syntactic & coffeelint)
+    Plug 'chrisbra/csv.vim'
+    Plug 'Vimjas/vim-python-pep8-indent'
+    " Tempororily disabled due to the lack of useness.
+    " Plug 'ternjs/tern_for_vim' " Js code completion
+    Plug 'pangloss/vim-javascript'
+    " Plug 'vim-scripts/paredit.vim'
+    Plug 'wannesm/wmgraphviz.vim' "graphviz
+    " Plug 'fsharp/vim-fsharp'
+    " Plug 'OrangeT/vim-csharp' " Disable csharp as it errors when running under console (vim)
+    Plug 'solarnz/thrift.vim'
+
+    " Disable gitgutter - after update it asks to get the gitgutter_grep which I
+    " don't want to.
+    " Plug 'airblade/vim-gitgutter' " Show git status in sign column
+    Plug 'kshenoy/vim-signature' " Display markers
+    Plug 'vim-scripts/LargeFile' " load large files more efficiently
+
+    " fzf the fuzzy searcher
+    " fzf binary needs to be installed separately
+    Plug 'junegunn/fzf'
+    Plug 'junegunn/fzf.vim'
+    Plug 'wannesm/wmgraphviz.vim'
+
+    " Diff two directories and files in them
+    Plug 'will133/vim-dirdiff'
+
+    Plug '907th/vim-auto-save'
+    Plug 'jez/vim-better-sml'
+    Plug 'wlangstroth/vim-racket'
+    Plug 'MicahElliott/vrod'
+
+    " Switch .cpp and .h
+    Plug 'kflu/a.vim'
+    Plug 'kflu/paste_mode.vim'
+
+    Plug 'MattesGroeger/vim-bookmarks'
+
+
+    " ----- Themes -----
+    " Plug 'altercation/vim-colors-solarized'
+    " Use my fork before altercation/solarized/issues/252 is fixed
+    Plug 'kflu/vim-colors-solarized'
+    Plug 'NLKNguyen/papercolor-theme'
+    Plug 'junegunn/goyo.vim'  " Distraction free writing
+    Plug 'dhruvasagar/vim-table-mode'
+
+    Plug 'luochen1990/rainbow'
+
+    " Send to REPL
+    Plug 'jpalardy/vim-slime'
+
+    Plug 'roxma/vim-tmux-clipboard'
+    Plug 'tmux-plugins/vim-tmux-focus-events'
+
+    if has('nvim')
+        " NeoVim specific plugins
+    endif
+
+    call plug#end()
+
+    filetype plugin indent on    " required
+endfun " ------------------------- Plugin SETUP -------------------------
+call s:plugins()
 
 " ------------------------- EXAMPLE SETTINGS -------------------------
 if v:progname =~? "evim"
