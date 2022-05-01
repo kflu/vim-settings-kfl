@@ -595,11 +595,10 @@ function s:Main()
     set winminheight=0
     set winminwidth=0
 
-    set foldmethod=indent
-    if (has('gui_running'))
-        set foldcolumn=4
-    endif
-    set foldminlines=0 " allow folding 1-liner
+    " if (has('gui_running'))
+    "     set foldcolumn=4
+    " endif
+    " set foldminlines=0 " allow folding 1-liner
     set nofen
 
     set display+=lastline "with this, the last line will not have @ chars.
@@ -848,7 +847,11 @@ fun! s:ConfigureBG()
 
     command! BG if &bg == 'light' | call <SID>BGUpdateAll('dark') | else | call <SID>BGUpdateAll('light') | endif
 endfun
-call s:ConfigureBG()
+try
+    call s:ConfigureBG()
+catch /.*/
+    echom 'Error configure BG ' .. v:exception
+endtry
 
 function s:ConfigureVimLsp()
     " Only enable logging when debugging - this causes lag in insert mode:
