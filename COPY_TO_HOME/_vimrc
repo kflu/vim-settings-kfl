@@ -13,10 +13,9 @@
 
 " When started as "evim", evim.vim will already have done these settings.
 
-set nocompatible " be iMproved, required
-
 " ------------------------- Plugin SETUP -------------------------
 fun s:plugins()
+    set nocompatible " be iMproved, required
     filetype off " required
     call plug#begin('~/vim-plug')
 
@@ -121,7 +120,12 @@ fun s:plugins()
 
     filetype plugin indent on    " required
 endfun " ------------------------- Plugin SETUP -------------------------
-call s:plugins()
+try
+    call s:plugins()
+catch /.*/
+    echom 'Error loading plugins: ' .. v:exception
+endtry
+
 
 " ------------------------- EXAMPLE SETTINGS -------------------------
 if v:progname =~? "evim"
