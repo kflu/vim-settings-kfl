@@ -810,13 +810,18 @@ function s:Main()
     cnoreabbrev bma BookmarkAnnotate
     cnoreabbrev bmm BookmarkToggle
 
-    call s:ConfigureBG()
-
     command DT r !date
 
 endfunction " Main
 
 fun! s:ConfigureBG()
+    if get(g:, 'configure_bg_done', 0)
+        " this function should only be called once
+        " (to ensure we don't start the timer multiple times)
+        return
+    endif
+    let g:configure_bg_done = 1
+
     " Timer to periodically check and update 'bg' setting
     func Vimrc_CheckBG(job_id)
         let fn = expand('~/.bg')
@@ -838,7 +843,7 @@ fun! s:ConfigureBG()
 
     command! BG if &bg == 'light' | call <SID>BGUpdateAll('dark') | else | call <SID>BGUpdateAll('light') | endif
 endfun
-
+call s:ConfigureBG()
 
 function s:ConfigureVimLsp()
     " Only enable logging when debugging - this causes lag in insert mode:
@@ -1013,6 +1018,20 @@ fun ShowLines(lines)
         exe printf('sign place %d line=%d name=lino', id+1, line)
     endfor
 endfun
+
+fun s:ft_note_markdown()
+    fun <SID>ft_note_markdown_autocmd()
+        fun <SID>ft_note_markdown_insert_dt_title()
+            " insert text: '# datetime' above current line
+            let line = line('.') - 1
+            let text = printf('# %s', trim(system('date')))
+            call append(line, [text])
+        endfun
+        nnoremap <leader>dt <esc>:call <SID>ft_note_markdown_insert_dt_title()<cr>
+    endfun
+    au FileType note.markdown call <SID>ft_note_markdown_autocmd()
+endfun
+call s:ft_note_markdown()
 
 nnoremap <c-e> 2<c-e>
 nnoremap <c-y> 2<c-y>
