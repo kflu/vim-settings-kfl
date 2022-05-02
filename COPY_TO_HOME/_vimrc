@@ -816,6 +816,12 @@ function s:Main()
 
     command DT r !date
 
+    try
+        call s:ConfigureBG()
+    catch /.*/
+        echom 'Error configure BG ' .. v:exception
+    endtry
+
 endfunction " Main
 
 fun! s:ConfigureBG()
@@ -847,11 +853,6 @@ fun! s:ConfigureBG()
 
     command! BG if &bg == 'light' | call <SID>BGUpdateAll('dark') | else | call <SID>BGUpdateAll('light') | endif
 endfun
-try
-    call s:ConfigureBG()
-catch /.*/
-    echom 'Error configure BG ' .. v:exception
-endtry
 
 function s:ConfigureVimLsp()
     " Only enable logging when debugging - this causes lag in insert mode:
@@ -968,10 +969,6 @@ fun <SID>CopyFileName()
     endif
 endfun
 
-if !exists('g:vscode')
-    call s:Main()
-endif
-
 " Edits the realpath of a symlink
 fun FollowLink_FollowLink() abort
     let bfn = resolve(expand('%'))
@@ -1043,3 +1040,7 @@ call s:ft_note_markdown()
 
 nnoremap <c-e> 2<c-e>
 nnoremap <c-y> 2<c-y>
+
+if !exists('g:vscode')
+    call s:Main()
+endif
