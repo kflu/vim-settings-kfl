@@ -1024,19 +1024,24 @@ fun ShowLines(lines)
     endfor
 endfun
 
-fun s:ft_note_markdown()
-    fun <SID>ft_note_markdown_autocmd()
-        fun <SID>ft_note_markdown_insert_dt_title()
+fun s:ft_note()
+    fun <SID>ft_note_autocmd()
+        fun! <SID>ft_note_insert_dt_title()
             " insert text: '# datetime' above current line
             let line = line('.') - 1
             let text = printf('# %s', trim(system('date')))
             call append(line, [text])
         endfun
-        nnoremap <leader>dt <esc>:call <SID>ft_note_markdown_insert_dt_title()<cr>
+        nnoremap <leader>dt <esc>:call <SID>ft_note_insert_dt_title()<cr>
     endfun
-    au FileType note.markdown call <SID>ft_note_markdown_autocmd()
+    augroup ft_note
+        au!
+        " TODO: put 'note' in a filetype plugin so we don't need to enable
+        " it this way
+        au FileType *.note,note.*,*.note.* call <SID>ft_note_autocmd()
+    augroup END
 endfun
-call s:ft_note_markdown()
+call s:ft_note()
 
 nnoremap <c-e> 2<c-e>
 nnoremap <c-y> 2<c-y>
