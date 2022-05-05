@@ -1055,9 +1055,12 @@ fun s:ft_note()
         " TODO: put 'note' in a filetype plugin so we don't need to enable
         " it this way
         au FileType *.note,note.*,*.note.* call <SID>ft_note_autocmd()
+        au BufWrite,VimLeave * if &ft =~ 'note' | mkview | endif
+        au BufWinEnter       * if &ft =~ 'note' | silent loadview | endif
     augroup END
 endfun
 call s:ft_note()
+
 
 nnoremap <c-e> 2<c-e>
 nnoremap <c-y> 2<c-y>
