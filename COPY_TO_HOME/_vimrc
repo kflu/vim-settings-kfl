@@ -471,7 +471,9 @@ function s:ConfigureThrift()
 endfunction
 
 function s:ConfigureMarkdown()
+    
     setlocal wrap tw=0
+    let g:vim_markdown_folding_disabled = 1
 
     " Disable comments formatting. *, - are treated as comments and interfer
     " with markdown list formatting Since markdown doesn't have comments, this
