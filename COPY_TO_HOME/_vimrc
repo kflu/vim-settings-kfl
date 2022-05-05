@@ -637,12 +637,26 @@ function s:Main()
     " re-use any key that modifies the buffer (e.g., pPaAiI), without worrying
     " we'd hijack some useful keys.
     if has('autocmd') && has('quickfix')
-        " Follow link and close quickfix (i: go _in_)
-        au BufWinEnter quickfix exe 'nnoremap <buffer> <Enter> <esc>:.cc<cr>:ccl<CR>'
-        " Original <Enter> behavior: go to but keep qf window open
-        au BufWinEnter quickfix exe 'nnoremap <buffer> i <esc>:.cc<CR>'
-        " Preview and stay in quickfix window
-        au BufWinEnter quickfix exe 'nnoremap <buffer> p <esc>:.cc<cr><C-W>p'
+
+        fun! <SID>onEnterQuickfixWin()
+            " figure out if current win is quickfix list or location list:
+            " https://stackoverflow.com/a/53491991/695964
+            if getwininfo(win_getid())[0]['loclist']
+                let gotoCmd = '.ll'
+                let closeCmd = 'lcl'
+            else
+                let gotoCmd = '.cc'
+                let closeCmd = 'ccl'
+            endif
+
+            " Follow link and close quickfix (i: go _in_)
+            exe printf('nnoremap <buffer> <Enter> <esc>:.%s<cr>:%s<CR>', gotoCmd, closeCmd)
+            " Original <Enter> behavior: go to but keep qf window open
+            exe printf('nnoremap <buffer> i <esc>:.%s<CR>', gotoCmd)
+            " Preview and stay in quickfix window
+            exe printf('nnoremap <buffer> p <esc>:.%s<cr><C-W>p', gotoCmd)
+        endfun
+        au BufWinEnter quickfix call <SID>onEnterQuickfixWin()
     endif
 
     " ------------------------- OMNI COMPLETION SETTINGS -------------------------
