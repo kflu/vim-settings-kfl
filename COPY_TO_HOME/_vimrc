@@ -621,12 +621,12 @@ function s:Main()
     " ------------------------- GUI settings -------------------------
     if has("gui_running")
         set go-=T
-        silent! colo PaperColor | set bg=dark
+        silent! colo PaperColor
         call s:ConfigureFont()
         autocmd GUIEnter * winsize 100 40
     else
         " Use vimdiff to test theme under console
-        silent! colo PaperColor | set bg=dark
+        silent! colo PaperColor
     endif
     " ------------------------- GUI settings -------------------------
 
