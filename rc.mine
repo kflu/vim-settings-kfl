@@ -146,5 +146,7 @@ EOF
     "${EDITOR:-vim}" "$fn"
 )
 
+. "$DIR"/lib/recipe
+
 
 # vim========== set ft=sh

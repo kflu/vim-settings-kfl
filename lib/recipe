@@ -1,0 +1,50 @@
+#!/bin/sh
+#
+# Helper functions to define recipes.
+# 
+# The recipe file consists of recipe functions that wil
+# write helpful things to the stdout. So logging of 
+# recipe functions must not use stdout.
+# 
+# Writing recipe functions:
+# 
+#     _recipe_qemu_cpu() {
+#         # set num of CPUs
+#         echo "-smp $1"
+#     }
+#     recipe_add _recipe_qemu_cpu cpu
+# 
+# Using recipe file:
+# 
+#     recipe ./qemu.recipe
+# 
+# This command will define aliases with prefix "r," and you 
+# can call them like:
+# 
+#     qemu_system `r,cpu 4`
+
+
+# Adds a recipe
+# <this> func_name alias_name
+recipe_add() {
+    _func_name="${1:?func name}"
+    _alias_name="${2:?alias name}"
+    alias r,"$_alias_name"="$_func_name"
+    echo "Added recipe r,$_alias_name : $_func_name"
+}
+
+# Cleans up all the recipes
+recipe_clean() {
+    alias | grep '^r,' | while read line
+    do
+        unalias "${line%%=*}"
+    done
+}
+
+# Use recipes
+# <this> [recipe_file] ...
+recipe() {
+    for rec in "$@"; do
+        . "$rec"
+    done
+}
