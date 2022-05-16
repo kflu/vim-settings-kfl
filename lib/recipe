@@ -24,13 +24,22 @@
 #     qemu_system `r,cpu 4`
 
 
+# Use recipes
+# <this> [recipe_file] ...
+recipe_source() {
+    for rec in "$@"; do
+        . "$rec"
+    done
+}
+
 # Adds a recipe
-# <this> func_name alias_name
+# <this> func_name namespace
 recipe_add() {
     _func_name="${1:?func name}"
-    _alias_name="${2:?alias name}"
-    alias r,"$_alias_name"="$_func_name"
-    echo "Added recipe r,$_alias_name : $_func_name"
+    _namespace="${2:?namespace}"
+    _alias_name=rr,"$_namespace"
+    alias "$_alias_name"="$_func_name"
+    echo "Added recipe "$_alias_name" : $_func_name"
 }
 
 # Cleans up all the recipes
@@ -41,10 +50,35 @@ recipe_clean() {
     done
 }
 
-# Use recipes
-# <this> [recipe_file] ...
-recipe() {
-    for rec in "$@"; do
-        . "$rec"
+# Uses any recipes that contains keyword
+# Pulls the matched recipes into "r," namespace
+# <this> <keyword>
+recipe_use() {
+    _pattern="${1:?pattern}"
+    alias | grep '^rr,' | while read line
+    do
+        case "$line" in
+            *"$_pattern"*) 
+                _alias="${line%%=*}"
+                _rhs="${line#*=}"
+                _recipe_root_name="${_alias##*,}"
+                _new_alias=r,"$_recipe_root_name"
+                echo "Using alias: $_new_alias => $_rhs"
+                alias "$_new_alias"="$_rhs"
+                ;;
+        esac
     done
+}
+
+recipe_source_dir() {
+    _source_dir="${1:-"$HOME/.recipes"}"
+    _source_dir="$(realpath "$_source_dir")"
+    if test -d "$_source_dir"; then
+        find "$_source_dir" -type f -or -type l | while read fn
+        do
+            recipe_source "$fn"
+        done
+    else
+        1>&2 echo "E: recipe source dir isn't a directory"
+    fi
 }

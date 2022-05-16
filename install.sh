@@ -80,6 +80,10 @@ EOF
     ~/.fzf/install --all
 )
 
+( # -- recipes --
+    ln -s -f "$DIR/recipes" "$HOME/.recipes"
+)
+
 # Update file content enclosed by $marker. If marker enclosure doesn't exist,
 # append the enclosure, and put content in it.
 # It ensures the $file to exist by touching it.
