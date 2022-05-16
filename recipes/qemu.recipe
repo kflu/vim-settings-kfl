@@ -26,3 +26,10 @@ _recipe_qemu_disk() {
     echo -hda "${1:?disk img}"
 }
 recipe_add _recipe_qemu_disk qemu,disk
+
+_recipe_qemu_help() {
+    ${PAGER:-cat} <<'EOF'
+TODO: qemu help
+EOF
+}
+recipe_add _recipe_qemu_help qemu,HELP
