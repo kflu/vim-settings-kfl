@@ -29,7 +29,12 @@ recipe_add _recipe_qemu_disk qemu,disk
 
 _recipe_qemu_help() {
     ${PAGER:-cat} <<'EOF'
-TODO: qemu help
+qemu-img create <file.img> <size>[M|G]
+qemu-system-<arch> <args...>
+    arch: x86_64
+    args: use the other qemu recipes
 EOF
 }
 recipe_add _recipe_qemu_help qemu,HELP
+
+# vim: ft=sh

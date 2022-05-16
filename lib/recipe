@@ -39,7 +39,7 @@ recipe_add() {
     _namespace="${2:?namespace}"
     _alias_name=rr,"$_namespace"
     alias "$_alias_name"="$_func_name"
-    echo "Added recipe "$_alias_name" : $_func_name"
+    printf "Added recipe: %-20s <= %s\n" "$_alias_name" "$_func_name"
 }
 
 # Cleans up all the recipes
@@ -64,7 +64,7 @@ recipe_use() {
                 _rhs="${line#*=}"
                 _recipe_root_name="${_alias##*,}"
                 _new_alias=r,"$_recipe_root_name"
-                echo "Using alias: $_new_alias => $_rhs"
+                printf "Using alias: %-10s => %s\n" "$_new_alias" "$_rhs"
                 alias "$_new_alias"="$_rhs"
                 ;;
         esac
