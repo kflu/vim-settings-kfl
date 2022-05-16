@@ -686,7 +686,11 @@ function s:Main()
     let g:fzf_preview_window = [] " disable fzf preview window
 
     " Pressing <Leader> twice put you in command mode
-    map <Leader><Leader> :
+    noremap <Leader><Leader> :
+    nnoremap ; :
+    vnoremap ; :
+    nnoremap , ;
+    vnoremap , ;
     map <C-Tab> <C-W><C-W>
 
     " Quick escape from insert mode
