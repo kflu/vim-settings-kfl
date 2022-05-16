@@ -52,6 +52,7 @@ recipe_clean() {
 
 # Uses any recipes that contains keyword
 # Pulls the matched recipes into "r," namespace
+#
 # <this> <keyword>
 recipe_use() {
     _pattern="${1:?pattern}"
@@ -70,6 +71,10 @@ recipe_use() {
     done
 }
 
+# Recursively sources all the recipe from dir
+#
+# <this> [dir]
+#   dir: default to ~/.recipes
 recipe_source_dir() {
     _source_dir="${1:-"$HOME/.recipes"}"
     _source_dir="$(realpath "$_source_dir")"
