@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# Print given pid and its all descendent pids
+# <this> <pid>
+
+pidtree() (
+    # lines of "parent child"
+    _PID_GRAPH="$(ps -e -o ppid= -o pid=)"
+
+    _walk() {
+        echo $1
+        # iterate direct children of "$1"
+        # awk: if the parent field matches $1, then print child field
+        echo "$_PID_GRAPH" | awk -F' ' "\$1==\"$1\" {print \$2;}" | while read child_pid; do
+            _walk "$child_pid"
+        done
+    }
+
+    for i in "$@"; do _walk $i; done
+)
+
+pidtree "$@"
