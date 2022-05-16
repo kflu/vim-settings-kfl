@@ -1,5 +1,17 @@
 #!/bin/sh
 
+
+_recipe_qemu_help() {
+    ${PAGER:-cat} <<'EOF'
+qemu-img create <file.img> <size>[M|G]
+qemu-system-<arch> <args...>
+    arch: x86_64
+    args: use the other qemu recipes
+EOF
+}
+recipe_add _recipe_qemu_help qemu,HELP
+
+
 _recipe_qemu_cpu() {
     echo -smp "${1:-1}"
 }
@@ -27,14 +39,9 @@ _recipe_qemu_disk() {
 }
 recipe_add _recipe_qemu_disk qemu,disk
 
-_recipe_qemu_help() {
-    ${PAGER:-cat} <<'EOF'
-qemu-img create <file.img> <size>[M|G]
-qemu-system-<arch> <args...>
-    arch: x86_64
-    args: use the other qemu recipes
-EOF
+_recipe_qemu_cdrom() {
+    echo -cdrom "${1:?CD ROM iso}"
 }
-recipe_add _recipe_qemu_help qemu,HELP
+recipe_add _recipe_qemu_cdrom qemu,cdrom
 
 # vim: ft=sh
