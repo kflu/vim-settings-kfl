@@ -1065,6 +1065,15 @@ fun s:ft_note()
 endfun
 call s:ft_note()
 
+" 
+" Experimental: Tue May 17 10:41:51 PDT 2022
+"
+fun s:ConfigureCursorShape()
+    let &t_SI = "\e[6 q"
+    let &t_EI = "\e[2 q"
+endfunc
+call s:ConfigureCursorShape()
+
 
 nnoremap <c-e> 2<c-e>
 nnoremap <c-y> 2<c-y>
