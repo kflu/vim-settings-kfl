@@ -1067,6 +1067,7 @@ call s:ft_note()
 
 " 
 " Experimental: Tue May 17 10:41:51 PDT 2022
+" https://stackoverflow.com/a/42118416/695964
 "
 fun s:ConfigureCursorShape()
     let &t_SI = "\e[6 q"
