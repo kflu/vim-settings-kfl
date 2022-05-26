@@ -152,4 +152,8 @@ EOF
     recipe_source_dir
 } >/dev/null 2>&1
 
+dt() {
+    date +%Y%m%d:%H%M%S
+}
+
 # vim========== set ft=sh
