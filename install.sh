@@ -82,6 +82,7 @@ EOF
 
 ( # -- recipes --
     ln -s -f "$DIR/recipes" "$HOME/.recipes"
+    ln  -s -f "$DIR/rr" "$HOME/rr"
 )
 
 # Update file content enclosed by $marker. If marker enclosure doesn't exist,

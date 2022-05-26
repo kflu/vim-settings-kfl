@@ -156,4 +156,22 @@ dt() {
     date +%Y%m%d:%H%M%S
 }
 
-# vim========== set ft=sh
+# {{{ RECIPE V2
+path_add() {
+    : "${1:?dir to be added}"
+    PATH="$PATH":"$(realpath "$1")"
+}
+path_rm() {
+    PATH="${PATH%:*}"
+}
+path_import() {
+    : "${1:?dir to be added}"
+    _dir="$(realpath "$1")"
+    command ls "$_dir" | while read -r fn; do
+        echo "r,$fn"="$_dir/$fn"
+        alias "r,$fn"="$_dir/$fn"
+    done
+}
+# }}}
+
+# vim========== set ft=sh fdm=marker
