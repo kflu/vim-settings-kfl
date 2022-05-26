@@ -44,4 +44,9 @@ _recipe_qemu_cdrom() {
 }
 recipe_add _recipe_qemu_cdrom qemu,cdrom
 
+_recipe_qemu_sound() {
+    echo -soundhw all
+}
+recipe_add _recipe_qemu_sound qemu,sound
+
 # vim: ft=sh
