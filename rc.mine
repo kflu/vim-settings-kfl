@@ -1,7 +1,9 @@
-#!/bin/sh
+#!/bin/false
+# shellcheck shell=sh
 # shell-neutral rc settings
 
-DIR="$(cd "$(dirname "$0")"; pwd)"
+this="${BASH_SOURCE:-"$0"}"
+DIR="$(cd "$(dirname "$this")"; pwd)"
 
 [ `uname` = "Linux" ] && alias ls="ls --color=auto"
 alias ll="ls -l"
@@ -176,4 +178,4 @@ recipe_alias() {
 }
 # }}}
 
-# vim========== set ft=sh fdm=marker
+# vim: ft=sh fdm=marker
