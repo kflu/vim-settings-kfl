@@ -164,12 +164,14 @@ path_add() {
 path_rm() {
     PATH="${PATH%:*}"
 }
-path_import() {
+recipe_alias() {
     : "${1:?dir to be added}"
-    _dir="$(realpath "$1")"
-    command ls "$_dir" | while read -r fn; do
-        echo "r,$fn"="$_dir/$fn"
-        alias "r,$fn"="$_dir/$fn"
+
+    find "$1" -type f -or -type l | while read -r fn; do
+        fn2="${fn#"$1"}"
+        alias_name="$(echo "${fn2#/}" | tr '/' ',')"
+        echo "r,$alias_name"="$(realpath "$fn")"
+        alias "r,$alias_name"="$(realpath "$fn")"
     done
 }
 # }}}
