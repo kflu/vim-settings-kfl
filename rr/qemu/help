@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/bin/cat
 
 qemu-img create <file.img> <size>[M|G]
 qemu-system-<arch> <args...>
     arch: x86_64
     args: use the other qemu recipes
+
+vim: ft=txt

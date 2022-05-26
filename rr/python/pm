@@ -1,3 +1,6 @@
+#!/bin/cat
+
+
 def pm(func):
     """Python Post-Mortem Debugging Decorator"""
     import functools, pdb

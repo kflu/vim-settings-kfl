@@ -1,3 +1,5 @@
+#!/bin/cat
+
     USAGE=$(cat <<EOF
     Usage:
         [-r <doc_root>] doc
