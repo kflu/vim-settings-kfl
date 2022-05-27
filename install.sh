@@ -41,7 +41,7 @@ mkdir -p \
 ( # --- set up tmux ---
     cd "$HOME" || return 1
     if ! [ -d ~/.tmux ]; then
-        git clone https://github.com/kflu/.tmux.git
+        git clone https://github.com/gpakosz/.tmux.git
     fi
     ln -s -f .tmux/.tmux.conf "$HOME/.tmux.conf"
     cp "$HOME/.tmux/.tmux.conf.local" "$HOME"
@@ -54,6 +54,13 @@ mkdir -p \
 
 	# `!` to send selection to shell command
 	cat <<'EOF' >> "$HOME/.tmux.conf.local"
+tmux_conf_copy_to_os_clipboard=true
+set -sg repeat-time 400                   # increase repeat timeout
+
+# Revert .tmux.conf's use of screen-compatible prefix c-a
+set -Ug prefix2
+unbind C-a
+
 bind-key -T copy-mode   !  command-prompt -p "cmd:" "send-keys -X copy-selection-no-clear \; run-shell \"tmux show-buffer | %1\" "
 bind-key -T copy-mode-vi   !  command-prompt -p "cmd:" "send-keys -X copy-selection-no-clear \; run-shell \"tmux show-buffer | %1\" "
 
