@@ -55,6 +55,18 @@ mkdir -p \
 	cat <<'EOF' >> "$HOME/.tmux.conf.local"
 bind-key -T copy-mode   !  command-prompt -p "cmd:" "send-keys -X copy-selection-no-clear \; run-shell \"tmux show-buffer | %1\" "
 bind-key -T copy-mode-vi   !  command-prompt -p "cmd:" "send-keys -X copy-selection-no-clear \; run-shell \"tmux show-buffer | %1\" "
+
+# Make tmux copy mode more persistent:
+#
+# - copy action does not escape copy mode
+# - pressing esc key does not escape copy mode (use 'q' isntead)
+#
+# Must wrap binding in `run -b 'tmux ...'` in order to override ones already
+# defined in .tmux.conf
+# See: https://github.com/gpakosz/.tmux/issues/571
+run -b 'tmux bind-key -T copy-mode-vi Escape     send-keys -X clear-selection 2> /dev/null || true'
+run -b 'tmux bind-key -T copy-mode-vi q          send-keys -X cancel 2> /dev/null || true'
+run -b 'tmux bind -T copy-mode-vi y send -X copy-selection 2> /dev/null || true'
 EOF
 )
 
