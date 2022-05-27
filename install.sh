@@ -88,6 +88,7 @@ EOF
 # Update file content enclosed by $marker. If marker enclosure doesn't exist,
 # append the enclosure, and put content in it.
 # It ensures the $file to exist by touching it.
+# <this> <file> <marker> <content_in_markers>
 uppend_file_content() {
     file="$1"; shift
     marker="$1"; shift
@@ -99,34 +100,33 @@ uppend_file_content() {
     echo "[uppend_file_content] Backed up to $tmp"
 
     (
-    cat <<EOF
-
-has_marker = False
-state = ""
-for line in open("$tmp").read().splitlines():
-    if not state:
-        print(line)
-        if "$marker" in line:
-            state = "BEGIN"
-    elif state == "BEGIN":
-        if "$marker" in line:
-            state = ""
-            has_marker = True
-            print("""$content""")
-            print(line)  # closing marker
-    else:
-        assert False, state
-
-if not has_marker:
-    print("$marker")
-    print("""$content""")
-    print("$marker")
-
-EOF
-    ) | python3 >"$file"
+        has_marker=
+        state=
+        while read -r line; do
+            case "$state" in
+                '')
+                    echo "$line"
+                    { echo "$line" | grep -Fq "$marker"; } && state=BEGIN
+                    ;;
+                BEGIN)
+                    { echo "$line" | grep -Fq "$marker"; } && {
+                        state=
+                        has_marker=1
+                        echo "$content"
+                        echo "$line"  # closing marker
+                    }
+                    ;;
+            esac
+        done <"$tmp"
+        [ -z "$has_marker" ] && {
+            echo "$marker"
+            echo "$content"
+            echo "$marker"
+        }
+    ) >"$file"
 }
 
-uppend_file_content ~/.profile "# == profile.mine == " "source $DIR/profile.mine"
+uppend_file_content ~/.profile "# == profile.mine ==" "source $DIR/profile.mine"
 uppend_file_content ~/.zprofile "# == profile.mine ==" "source $DIR/profile.mine"
 uppend_file_content ~/.zshrc "# == zshrc.mine ==" "source $DIR/zshrc.mine"
 uppend_file_content ~/.bashrc "# == bashrc.mine ==" "source $DIR/bashrc.mine"
