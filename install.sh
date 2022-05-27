@@ -1,5 +1,6 @@
 #!/bin/sh
 # shellcheck disable=SC2059
+set -euf
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
@@ -73,7 +74,7 @@ EOF
 (  # -- vim settings --
     echo "Installing vim-settings-kfl"
     cd "$HOME" || return 1
-    git clone https://github.com/kflu/vim-settings-kfl.git
+    git clone https://github.com/kflu/vim-settings-kfl.git || true
     sh "$HOME/vim-settings-kfl/install.sh"
 )
 
@@ -82,13 +83,13 @@ EOF
 
     CHSH=no \
     RUNZSH=no \
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
 )
 
 ( # -- fzf --
     echo "Installing fzf..."
     cd "$HOME" || return 1
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf || true
     ~/.fzf/install --all
 )
 
@@ -101,7 +102,7 @@ EOF
 # append the enclosure, and put content in it.
 # It ensures the $file to exist by touching it.
 # <this> <file> <marker> <content_in_markers>
-uppend_file_content() {
+uppend_file_content() (
     file="$1"; shift
     marker="$1"; shift
     content="$1"; shift
@@ -130,13 +131,13 @@ uppend_file_content() {
                     ;;
             esac
         done <"$tmp"
-        [ -z "$has_marker" ] && {
+        if [ -z "$has_marker" ]; then
             echo "$marker"
             echo "$content"
             echo "$marker"
-        }
+        fi
     ) >"$file"
-}
+)
 
 uppend_file_content ~/.profile "# == profile.mine ==" "source $DIR/profile.mine"
 uppend_file_content ~/.zprofile "# == profile.mine ==" "source $DIR/profile.mine"
