@@ -58,7 +58,7 @@ tmux_conf_copy_to_os_clipboard=true
 set -sg repeat-time 400                   # increase repeat timeout
 
 # Revert .tmux.conf's use of screen-compatible prefix c-a
-set -Ug prefix2
+set -ug prefix2
 unbind C-a
 
 bind-key -T copy-mode   !  command-prompt -p "cmd:" "send-keys -X copy-selection-no-clear \; run-shell \"tmux show-buffer | %1\" "
