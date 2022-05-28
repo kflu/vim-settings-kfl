@@ -19,8 +19,8 @@ NEWLINE=$'\n'
 # Fix corrupted/jumpy prompt (use `%{...%}` to escape ANSI: https://stackoverflow.com/a/10644062/695964
 export PS1="%B[%n@%M %~]%b %(?.%{$fg[green]%}.%{$fg[red]%})%#%{$reset_color%} ${NEWLINE}%{$fg[cyan]%}>>> %{$reset_color%}"
 
-zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
+## zstyle ':completion:*' menu select
+## zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
 
 # To fix path completion doesn't work after '=' sign, e.g. cmd foo=<tab>
 # https://www.zsh.org/mla/users/2002/msg00741.html

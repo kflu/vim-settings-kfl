@@ -54,6 +54,8 @@ mkdir -p \
 
 	# `!` to send selection to shell command
 	cat <<'EOF' >> "$HOME/.tmux.conf.local"
+
+# {{{ linux-settings-kfl
 tmux_conf_copy_to_os_clipboard=true
 set -sg repeat-time 400                   # increase repeat timeout
 
@@ -75,6 +77,7 @@ bind-key -T copy-mode-vi   !  command-prompt -p "cmd:" "send-keys -X copy-select
 run -b 'tmux bind-key -T copy-mode-vi Escape     send-keys -X clear-selection 2> /dev/null || true'
 run -b 'tmux bind-key -T copy-mode-vi q          send-keys -X cancel 2> /dev/null || true'
 run -b 'tmux bind -T copy-mode-vi y send -X copy-selection 2> /dev/null || true'
+# }}} linux-settings-kfl
 EOF
 )
 
