@@ -100,12 +100,12 @@ EOF
     echo "Installing fzf..."
     cd "$HOME" || return 1
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf || true
-    ~/.fzf/install --all
+    ~/.fzf/install --all || true
 )
 
 ( # -- recipes --
-    ln -s -f "$DIR/recipes" "$HOME/.recipes"
-    ln  -s -f "$DIR/rr" "$HOME/rr"
+    ln -s -f "$DIR/recipes" "$HOME/.recipes" || true
+    ln  -s -f "$DIR/rr" "$HOME/rr" || true
 )
 
 # Update file content enclosed by $marker. If marker enclosure doesn't exist,

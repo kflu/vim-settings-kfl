@@ -1,0 +1,12 @@
+#!/bin/sh
+# syncs local directory to remote.
+set -x
+
+: ${dir:?'directory to backup'}
+: ${remote:?'user@host:~user/path'}
+: ${port:=22}
+
+# trailing slash in rsync means 'the content of', so remove it.
+dir="$dir%/"
+
+rsync -avz --bwlimit=$((5*1024)) -e "ssh -p ${port}" --progress "$dir" "$remote" "$@"
