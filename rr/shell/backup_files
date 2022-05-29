@@ -9,4 +9,5 @@ set -x
 # trailing slash in rsync means 'the content of', so remove it.
 dir="$dir%/"
 
-rsync -avz --bwlimit=$((5*1024)) -e "ssh -p ${port}" --progress "$dir" "$remote" "$@"
+rsync -avz --bwlimit=$((5*1024)) -e "ssh -p ${port}" --progress "$dir" "$remote" "$@" \
+&& mv "$dir" "U $dir"
