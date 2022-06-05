@@ -33,4 +33,6 @@ setopt no_equals
 source_rc ~/rc.d/zsh/post '*'
 source_rc ~/rc.d/sh/post '*'
 
+bindkey -e
+
 # vim: set ft=sh:
