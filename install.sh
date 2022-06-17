@@ -54,6 +54,8 @@ mkdir -p \
 
 	# `!` to send selection to shell command
 	cat <<'EOF' >> "$HOME/.tmux.conf.local"
+
+# {{{ linux-settings-kfl
 tmux_conf_copy_to_os_clipboard=true
 set -sg repeat-time 400                   # increase repeat timeout
 
@@ -75,35 +77,36 @@ bind-key -T copy-mode-vi   !  command-prompt -p "cmd:" "send-keys -X copy-select
 run -b 'tmux bind-key -T copy-mode-vi Escape     send-keys -X clear-selection 2> /dev/null || true'
 run -b 'tmux bind-key -T copy-mode-vi q          send-keys -X cancel 2> /dev/null || true'
 run -b 'tmux bind -T copy-mode-vi y send -X copy-selection 2> /dev/null || true'
+# }}} linux-settings-kfl
 EOF
 )
 
 (  # -- vim settings --
     echo "Installing vim-settings-kfl"
     cd "$HOME" || return 1
-    git clone https://github.com/kflu/vim-settings-kfl.git || true
+    git clone https://github.com/kflu/vim-settings-kfl.git
     sh "$HOME/vim-settings-kfl/install.sh"
-)
+) || true
 
 (  # -- oh my zsh --
     echo "Installing ohmyzsh..."
 
     CHSH=no \
     RUNZSH=no \
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
-)
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+) || true
 
 ( # -- fzf --
     echo "Installing fzf..."
     cd "$HOME" || return 1
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf || true
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install --all
-)
+) || true
 
 ( # -- recipes --
     ln -s -f "$DIR/recipes" "$HOME/.recipes"
-    ln  -s -f "$DIR/rr" "$HOME/rr"
-)
+    ln -s "$DIR/rr" "$HOME/rr"
+) || true
 
 # Update file content enclosed by $marker. If marker enclosure doesn't exist,
 # append the enclosure, and put content in it.

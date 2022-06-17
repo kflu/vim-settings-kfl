@@ -1,0 +1,11 @@
+#!/bin/cat
+
+# How to apply a patch
+
+0. Check the patch file content to know what files are there.
+    grep '^+++ ' <${patch}
+1. `cd` to the correct directory where the patch's relative paths should work
+2. patch -p0 <${patch}
+
+
+* not specifying `-p` will get a flattened list of patched files.
