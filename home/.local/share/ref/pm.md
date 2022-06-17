@@ -8,6 +8,5 @@ def pm(func):
             return func(*args, **kwargs)
         except Exception as e:
             pdb.post_mortem(e.__traceback__)
-
-    raise
+            raise
     return func2
