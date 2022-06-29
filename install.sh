@@ -65,6 +65,8 @@ unbind C-a
 
 bind-key -T copy-mode   !  command-prompt -p "cmd:" "send-keys -X copy-selection-no-clear \; run-shell \"tmux show-buffer | %1\" "
 bind-key -T copy-mode-vi   !  command-prompt -p "cmd:" "send-keys -X copy-selection-no-clear \; run-shell \"tmux show-buffer | %1\" "
+# easy swapping panes
+bind-key -T prefix  C-s display-panes \; command-prompt -p "<pane1>:,<pane2>:" "swap-pane -s %1 -t %2"
 
 # Make tmux copy mode more persistent:
 #
