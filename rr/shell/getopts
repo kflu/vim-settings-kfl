@@ -1,7 +1,8 @@
-while getopts 'hr:' opt; do
-    case "$opt" in
-        r)    root="$OPTARG" ;;
-        h|*)  echo "Usage: __" >&2; exit 1 ;;
-    esac
-done
+USAGE="$(cat <<EOF
+EOF
+)"
+while getopts 'hr:' opt; do case "$opt" in
+    r)    root="$OPTARG" ;;
+    h|*)  echo "$USAGE" >&2; exit 1 ;;
+esac done
 shift $((OPTIND-1))
