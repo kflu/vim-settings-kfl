@@ -16,6 +16,17 @@ if [ -n "$sound_enable" ]; then
     sound_flags="-soundhw all"
 fi
 
+if [ -n "$flash_file" ]; then
+    flash_flags="\
+        -device piix3-usb-uhci \
+        -drive id=pendrive,file="$flash_file",format=raw,if=none \
+        -device usb-storage,drive=pendrive \
+        -boot menu=on \
+"
+
+fi
+echo \
+
 cmd="$(cat <<'EOF'
 $qemu_cmd \
 -smp "$cpu_count" \
