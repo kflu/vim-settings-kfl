@@ -4,6 +4,12 @@ USAGE="$(cat <<EOF
 -d <disk_file> [-m <mem>] [-c <cpus>] [-D]
 
 -D: dry run
+
+All Settings
+=============
+$(
+<"$0" grep -E '^ *:'
+)
 EOF
 )"
 while getopts 'hDd:c:m:' opt; do case "$opt" in
@@ -15,6 +21,8 @@ while getopts 'hDd:c:m:' opt; do case "$opt" in
 esac done
 shift $((OPTIND-1))
 
+
+: "${qemu_cmd:="qemu-system-x86_64"}"
 : "${cpu_count:=1}"
 : "${disk_file:?}"
 : "${mem:="1G"}"
@@ -40,8 +48,6 @@ if [ -n "$flash_file" ]; then
 -boot menu=on \
 '
 fi
-
-: "${qemu_cmd:="qemu-system-x86_64"}"
 
 cmd="$(cat <<'EOF'
 $qemu_cmd \
