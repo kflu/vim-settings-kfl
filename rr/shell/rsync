@@ -1,13 +1,37 @@
 #!/bin/sh
 # syncs local directory to remote.
-set -x
 
-: ${dir:?'directory to backup'}
+USAGE="$(cat <<EOF
+$0 -r <remote> -d <sync_dir> [-p <port>] [-l <bw_limit (kBps)>]
+
+remote:             user@host:~user/path
+sync_dir:           Do NOT add tailing slash '/' (means the content of  the dir), or i'll remove it.
+port:               default to 22
+bw_limit (kBps):    number of kB/s. default to 5MB/s
+
+$( <"$0" grep -E '^ *: ' )
+EOF
+)"
+while getopts 'hr:d:p:l:' opt; do case "$opt" in
+    r)    remote="$OPTARG" ;;
+    p)    port="$OPTARG" ;;
+    d)    sync_dir="$OPTARG" ;;
+    l)    bw_limit="$OPTARG" ;;
+    h|*)  echo "$USAGE" >&2; exit 1 ;;
+esac done
+shift $((OPTIND-1))
+
+
+: ${sync_dir:?'directory to backup'}
 : ${remote:?'user@host:~user/path'}
 : ${port:=22}
+: ${bw_limit:=$((5*1024))}
 
 # trailing slash in rsync means 'the content of', so remove it.
-dir="${dir%/}"
+sync_dir="${sync_dir%/}"
 
-rsync -avz --bwlimit=$((5*1024)) -e "ssh -p ${port}" --progress "$dir" "$remote" "$@" \
-&& mv "$dir" "U $dir"
+(
+set -x
+rsync -avz --bwlimit="$bw_limit" -e "ssh -p ${port}" --progress "$sync_dir" "$remote" "$@" \
+&& mv "$sync_dir" "U $sync_dir"
+)
