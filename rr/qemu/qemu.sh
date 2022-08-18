@@ -27,7 +27,7 @@ shift $((OPTIND-1))
 : "${disk_file:?}"
 : "${mem:="1G"}"
 : "${cdrom_iso:=}"
-: "${sound_enable:=1}"
+: "${sound_enable=1}"
 
 if [ -n "$cdrom_iso" ]; then
     # shellcheck disable=2034
@@ -57,6 +57,7 @@ $qemu_cmd \
 $cdrom_flags \
 $sound_flags \
 $flash_flags \
+"$@" \
 # END
 EOF
 )"
