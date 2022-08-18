@@ -2,26 +2,30 @@
 # syncs local directory to remote.
 
 USAGE="$(cat <<EOF
-$0 -r <remote> -d <sync_dir> [-p <port>] [-l <bw_limit (kBps)>]
+$0 -r <remote> -d <sync_dir> [-p <port>] [-l <bw_limit (kBps)>] [-c <rc_file>]
 
 remote:             user@host:~user/path
 sync_dir:           Do NOT add tailing slash '/' (means the content of  the dir), or i'll remove it.
 port:               default to 22
 bw_limit (kBps):    number of kB/s. default to 5MB/s
+rc_file:            shell script to source for settings
+
 
 $( <"$0" grep -E '^ *: ' )
 EOF
 )"
-while getopts 'hr:d:p:l:' opt; do case "$opt" in
+while getopts 'hr:d:p:l:c:' opt; do case "$opt" in
     r)    remote="$OPTARG" ;;
     p)    port="$OPTARG" ;;
     d)    sync_dir="$OPTARG" ;;
     l)    bw_limit="$OPTARG" ;;
+    c)    rc="$OPTARG" ;;
     h|*)  echo "$USAGE" >&2; exit 1 ;;
 esac done
 shift $((OPTIND-1))
 
 
+if [ -e "$rc" ]; then . "$rc"; fi
 : ${sync_dir:?'directory to backup'}
 : ${remote:?'user@host:~user/path'}
 : ${port:=22}
