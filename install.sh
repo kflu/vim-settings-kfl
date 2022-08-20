@@ -56,6 +56,12 @@ mkdir -p \
 	cat <<'EOF' >> "$HOME/.tmux.conf.local"
 
 # {{{ linux-settings-kfl
+
+# Customized left/right pane style, disables funky unicode characters so tmux
+# displays properly with double width east asian encodings
+tmux_conf_theme_status_left="#S | #{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
+tmux_conf_theme_status_right=" %R , %d %b | #{username}#{root} | #{hostname} "
+
 tmux_conf_copy_to_os_clipboard=true
 set -sg repeat-time 400                   # increase repeat timeout
 
