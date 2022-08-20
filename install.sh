@@ -85,6 +85,12 @@ bind-key -T prefix  C-s display-panes \; command-prompt -p "<pane1>:,<pane2>:" "
 run -b 'tmux bind-key -T copy-mode-vi Escape     send-keys -X clear-selection 2> /dev/null || true'
 run -b 'tmux bind-key -T copy-mode-vi q          send-keys -X cancel 2> /dev/null || true'
 run -b 'tmux bind -T copy-mode-vi y send -X copy-selection 2> /dev/null || true'
+
+# Use ASCII chars for pane separators. -q to noop for older tmux where it's not
+# supported
+set -gq pane-border-lines simple
+
+
 # }}} linux-settings-kfl
 EOF
 )
