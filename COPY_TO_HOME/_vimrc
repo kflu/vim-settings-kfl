@@ -858,12 +858,15 @@ fun! s:ConfigureBG()
         if filereadable(fn)
             let lines = readfile(fn)
             if len(lines) > 0
-                exe 'set bg=' . lines[0]
+                let bg = trim(lines[0])
+                if &bg != bg
+                    exe 'set bg=' . lines[0]
+                endif
             endif
         endif
     endfun
     call Vimrc_CheckBG(0)
-    call timer_start(3000, 'Vimrc_CheckBG', {'repeat': -1})
+    "call timer_start(3000, 'Vimrc_CheckBG', {'repeat': -1})
 
     " update bg across all vim instances
     func <SID>BGUpdateAll(val)
@@ -1053,6 +1056,7 @@ fun s:ft_note()
             call append(line, [text])
         endfun
         nnoremap <leader>dt <esc>:call <SID>ft_note_insert_dt_title()<cr>
+        nnoremap <leader>-- <esc>o<esc>70a-<esc>
     endfun
     augroup ft_note
         au!
@@ -1082,3 +1086,4 @@ nnoremap <c-y> 2<c-y>
 if !exists('g:vscode')
     call s:Main()
 endif
+
