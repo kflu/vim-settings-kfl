@@ -27,7 +27,7 @@ shift $((OPTIND-1))
 : "${disk_file:?}"
 : "${mem:="1G"}"
 : "${cdrom_iso:=}"
-: "${sound_enable=1}"
+: "${sound_enable=}"
 
 if [ -n "$cdrom_iso" ]; then
     # shellcheck disable=2034
