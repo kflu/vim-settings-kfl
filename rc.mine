@@ -31,8 +31,6 @@ fi
 # https://stackoverflow.com/a/11200998/695964
 export WORDCHARS='"*?_-.[]~=&;!#$%^(){}<>|'"'"
 
-umask 077
-
 godo() {
     eval "nohup $@ > /dev/null 2>&1 &"
 }
