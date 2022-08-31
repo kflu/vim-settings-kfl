@@ -823,7 +823,9 @@ function s:Main()
 
     call s:ConfigureTagbar()
 
-    call s:SourceSite()
+    if !s:IsWindows()
+        call s:SourceSite()
+    endif
 
     call s:ConfigureVimMark()
 
@@ -1057,6 +1059,7 @@ fun s:ft_note()
         endfun
         nnoremap <leader>dt <esc>:call <SID>ft_note_insert_dt_title()<cr>
         nnoremap <leader>-- <esc>o<esc>70a-<esc>
+        nnoremap <leader>== <esc>o<esc>70a=<esc>
     endfun
     augroup ft_note
         au!
