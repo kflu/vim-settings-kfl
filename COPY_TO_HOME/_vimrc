@@ -196,10 +196,11 @@ function s:IsWindows()
 endfunction
 
 function s:SetFontWindows()
-    set guifont=DejaVu_Sans_Mono:h9,
+    set guifont=
+                \Consolas:h9,
+                \DejaVu_Sans_Mono:h9,
                 \Bitstream_Vera_Sans_Mono:h9,
                 \Monaco:h9,
-                \Consolas:h9,
                 \Lucida_Console:h9,
                 \Courier_New:h9,
 endfunction
@@ -749,6 +750,10 @@ function s:Main()
         " Make sure we use findstr on Windows, no matter if grep is there or not
         set grepprg=findstr\ /N
 
+        " Windows viewdir is on system path, regular user cannot write to it
+        " https://groups.google.com/g/vim_dev/c/5AftH0uBqTs?pli=1
+        set viewdir=$HOME/.vim/view
+
         " Don't source mswin, as it introduces too many keybindings that can
         " be otherwise used
         " source $VIMRUNTIME/mswin.vim " Add support for copy/paste/cut/undo
@@ -1066,8 +1071,13 @@ fun s:ft_note()
         " TODO: put 'note' in a filetype plugin so we don't need to enable
         " it this way
         au FileType *.note,note.*,*.note.* call <SID>ft_note_autocmd()
-        au BufWrite,VimLeave * if &ft =~ 'note' | mkview | endif
-        au BufWinEnter       * if &ft =~ 'note' | silent loadview | endif
+        if !s:IsWindows()
+            " view related functionality has some problem with windows
+            " e.g., viewdir is on system path, and others. So disable it
+            " when on windows
+            au BufWrite,VimLeave * if &ft =~ 'note' | mkview | endif
+            au BufWinEnter       * if &ft =~ 'note' | silent loadview | endif
+        endif
     augroup END
 endfun
 call s:ft_note()
