@@ -86,6 +86,10 @@ run -b 'tmux bind-key -T copy-mode-vi Escape     send-keys -X clear-selection 2>
 run -b 'tmux bind-key -T copy-mode-vi q          send-keys -X cancel 2> /dev/null || true'
 run -b 'tmux bind -T copy-mode-vi y send -X copy-selection 2> /dev/null || true'
 
+# copy-pipe, but do NOT cancel the selection
+run -b 'tmux bind-key -T copy-mode    MouseDragEnd1Pane    send-keys -X copy-pipe'
+run -b 'tmux bind-key -T copy-mode-vi MouseDragEnd1Pane    send-keys -X copy-pipe'
+
 # Use ASCII chars for pane separators. -q to noop for older tmux where it's not
 # supported
 set -gq pane-border-lines simple
