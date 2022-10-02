@@ -5,7 +5,7 @@ USAGE="$(cat <<EOF
 $0 -r <remote> -d <sync_dir> [-p <port>] [-l <bw_limit (kBps)>] [-c <rc_file>]
 
 remote:             user@host:~user/path
-sync_dir:           Do NOT add tailing slash '/' (means the content of  the dir), or i'll remove it.
+sync_dir:           Do NOT add tailing slash '/' (means the content of  the dir), or I will remove it.
 port:               default to 22
 bw_limit (kBps):    number of kB/s. default to 5MB/s
 rc_file:            shell script to source for settings
