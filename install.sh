@@ -90,6 +90,9 @@ run -b 'tmux bind -T copy-mode-vi y send -X copy-selection 2> /dev/null || true'
 run -b 'tmux bind-key -T copy-mode    MouseDragEnd1Pane    send-keys -X copy-pipe'
 run -b 'tmux bind-key -T copy-mode-vi MouseDragEnd1Pane    send-keys -X copy-pipe'
 
+# tmux.conf hijacked pref-m to be toggle mouse. I need marking pane more.
+run -b 'tmux bind-key m select-pane -m'
+
 # Use ASCII chars for pane separators. -q to noop for older tmux where it's not
 # supported
 set -gq pane-border-lines simple
