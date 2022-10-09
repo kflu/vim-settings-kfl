@@ -2,7 +2,7 @@
 # syncs local directory to remote.
 
 USAGE="$(cat <<EOF
-$0 -r <remote> -d <sync_dir> [-p <port>] [-l <bw_limit (kBps)>] [-c <rc_file>]
+$(basename "$0") -r <remote> -d <sync_dir> [-p <port>] [-l <bw_limit (kBps)>] [-c <rc_file>]
 
 remote:             user@host:~user/path
 sync_dir:           Do NOT add tailing slash '/' (means the content of  the dir), or I will remove it.
@@ -25,7 +25,11 @@ esac done
 shift $((OPTIND-1))
 
 
-if [ -e "$rc" ]; then . "$rc"; fi
+: ${rc:=$(pwd)/.rsync.sh.rc}
+if [ -e "$rc" ]; then
+    2>&1 echo "Sourcing $rc"
+    . "$rc"
+fi
 : ${sync_dir:?'directory to backup'}
 : ${remote:?'user@host:~user/path'}
 : ${port:=22}
