@@ -1126,7 +1126,6 @@ fun s:ConfigureHgFilesMode()
     let fp = expand("<cfile>")
     let hgroot = system('hg root')->trim()
     let fp = hgroot . '/' . fp
-    echom "file: " . fp
     windo diffoff | exec 'e ' . fp | only | HGdiff .^
   endfun
 
