@@ -1100,3 +1100,8 @@ if !exists('g:vscode')
     call s:Main()
 endif
 
+fun g:HGshow()
+    new | call <SID>Scratch() | file HG_SHOW
+    let res = systemlist( 'for x in $(hg show --stat -T "{files}\\n" | head -1); do echo "$(hg root)/$x" ; done' )
+    call append(0, res)
+endfun
