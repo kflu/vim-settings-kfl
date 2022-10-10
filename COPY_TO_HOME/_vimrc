@@ -1100,15 +1100,34 @@ if !exists('g:vscode')
     call s:Main()
 endif
 
-fun <SID>HGFiles()
-    new | call <SID>Scratch() | file HG_SHOW
-    let cmd =<< EOF
-for x in $(hg show --stat -T '{files}\n' | head -1); do 
-    echo "$(hg root)/$x"
-done
-EOF
-    let res = systemlist(join(cmd, "\n"))
-    " let res = systemlist('for x in $(hg show --stat -T "{files}\\n" | head -1); do echo "$(hg root)/$x" ; done' )
-    call append(0, res)
-endfun
-command -nargs=0 HGFiles call <SID>HGFiles()
+fun s:ConfigureHgFilesMode()
+
+  " ---- frontend
+  command HGfiles call <SID>HGF2()
+  fun <SID>HGF2()
+    new **HG FILES**
+    set buftype=nofile
+    call append(0, systemlist('hg show --stat'))
+    set filetype=hgfiles
+  endfun
+
+  " ---- mode
+  fun <SID>hg_files_mode()
+    nnoremap <enter> <esc>:call <SID>hg_files_diff_file()<enter>
+  endfun
+
+  augroup hgfiles
+    au!
+    au FileType hgfiles call <SID>hg_files_mode()
+  augroup END
+
+  " ---- mappings
+  fun <SID>hg_files_diff_file()
+    let fp = expand("<cfile>")
+    let hgroot = system('hg root')->trim()
+    let fp = hgroot . '/' . fp
+    echom "file: " . fp
+    windo diffoff | exec 'e ' . fp | only | HGdiff .^
+  endfun
+
+endfun | call s:ConfigureHgFilesMode()
