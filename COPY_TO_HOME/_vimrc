@@ -1113,7 +1113,7 @@ fun s:ConfigureHgFilesMode()
 
   " ---- mode
   fun <SID>hg_files_mode()
-    nnoremap <enter> <esc>:call <SID>hg_files_diff_file()<enter>
+    nnoremap <buffer> <enter> <esc>:call <SID>hg_files_diff_file()<enter>
   endfun
 
   augroup hgfiles
