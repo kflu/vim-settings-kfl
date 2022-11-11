@@ -1103,11 +1103,11 @@ endif
 fun s:ConfigureHgFilesMode()
 
   " ---- frontend
-  command HGfiles call <SID>HGF2()
-  fun <SID>HGF2()
+  command -nargs=1 HGfiles call <SID>HGF2('<args>')
+  fun <SID>HGF2(rev = '.')
     new **HG FILES**
     set buftype=nofile
-    call append(0, systemlist('hg show --stat'))
+    call append(0, systemlist('hg show --stat ' . a:rev))
     set filetype=hgfiles
   endfun
 
