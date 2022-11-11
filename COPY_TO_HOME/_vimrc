@@ -1106,14 +1106,17 @@ fun s:ConfigureHgFilesMode()
   command HGfiles call <SID>HGF2()
   fun <SID>HGF2()
     new **HG FILES**
-    set buftype=nofile
     call append(0, systemlist('hg show --stat'))
-    set filetype=hgfiles
+    setlocal buftype=nofile
+    setlocal filetype=hgfiles
+    setlocal nomodifiable
+    setlocal readonly
   endfun
 
   " ---- mode
   fun <SID>hg_files_mode()
-    nnoremap <buffer> <enter> <esc>:call <SID>hg_files_diff_file()<enter>
+    nnoremap <buffer> d <esc>:call <SID>hg_files_diff_file()<enter>
+    nnoremap <buffer> <enter> <esc>:call <SID>hg_files_edit_file()<enter>
   endfun
 
   augroup hgfiles
@@ -1126,7 +1129,18 @@ fun s:ConfigureHgFilesMode()
     let fp = expand("<cfile>")
     let hgroot = system('hg root')->trim()
     let fp = hgroot . '/' . fp
-    windo diffoff | exec 'e ' . fp | only | HGdiff .^
+    windo diffoff 
+    tabnew
+    exec 'e ' . fp
+    HGdiff .^
+  endfun
+
+  fun <SID>hg_files_edit_file()
+    let fp = expand("<cfile>")
+    let hgroot = system('hg root')->trim()
+    let fp = hgroot . '/' . fp
+    tabnew
+    exec 'e ' . fp
   endfun
 
 endfun | call s:ConfigureHgFilesMode()
