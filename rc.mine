@@ -178,4 +178,33 @@ recipe_alias() {
 }
 # }}}
 
+getpath() (
+    /bin/sh -s -- "$@" <<'GETPATH'
+    unset OPTIND
+    USAGE="$(cat <<EOF
+getpath [-t <type>] <path>
+
+where type: scp
+EOF
+    )"
+    while getopts 'ht:' opt; do case "$opt" in
+        t)    type="$OPTARG" ;;
+        h|*)  echo "$USAGE" >&2; exit 1 ;;
+    esac done
+    shift $((OPTIND-1))
+
+    path="$1"
+
+    case "$type" in
+        scp|*)
+            rpath="$(realpath "$path")"
+            rhome="$(realpath "$HOME")"
+            echo "scp://$(hostname)/~$(whoami)/${rpath##$rhome}"
+            ;;
+    esac
+GETPATH
+
+)
+
+
 # vim: ft=sh fdm=marker
