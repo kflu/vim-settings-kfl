@@ -4,11 +4,36 @@
 
 ! #include ".Xresources.dpi"
 
-! ================ XTERM =====================
-!xterm*faceName: DejaVu Sans Mono Book
-! xterm*faceName: Mono
-! xterm*faceSize: 10
-! XTerm*utf8: 1
+! XTERM
+! ======================================================================
+
+
+! SENSIBLE DEFAULTS
+! ------------------
+
+! To make tmux c-b c-h go to prev window work:
+XTerm*ptyInitialErase:  true
+XTerm*locale:           false
+XTerm*utf8:             true
+XTerm*scrollTtyOutput:  false
+XTerm*scrollKey:        true
+XTerm*bellIsUrgent:     false
+XTerm*visualBell:       true
+XTerm*metaSendsEscape:  true
+
+
+! KEY MAPPING
+! -----------
+
+XTerm*translations: #override \n\
+    Ctrl Shift <Key>P: scroll-back(1, halfpage) \n\
+    Ctrl Shift <Key>N: scroll-forw(1, halfpage) \n\
+    Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key> -: smaller-vt-font() \n\
+    Ctrl Shift <Key> =: larger-vt-font() \n\
+    Ctrl Shift <Key> m: popup-menu(vtMenu)
+
 
 ! {{{ COLOR SCHEME
 
@@ -40,8 +65,6 @@
 #define Selected_Text_Color #000000
 #define Selection_Color #b5d5ff
 
-XTerm*visualBell:   true
-
 XTerm*color0:      Ansi_0_Color
 XTerm*color1:      Ansi_1_Color
 XTerm*color2:      Ansi_2_Color
@@ -66,29 +89,5 @@ XTerm*background:  Background_Color
 XTerm*cursorColor: Cursor_Color
 
 ! }}}
-
-! Sensible defaults
-XTerm*locale: false
-XTerm*utf8: true
-XTerm*scrollTtyOutput: false
-XTerm*scrollKey: true
-XTerm*bellIsUrgent: true
-XTerm*metaSendsEscape: true
-
-! Styling
-XTerm*faceName: DejavuSansMono
-XTerm*boldMode: false
-XTerm*faceSize: 10
-XTerm*internalBorder: 6
-XTerm*borderWidth: 3
-
-XTerm*translations: #override \n\
-    Ctrl Shift <Key>P: scroll-back(1, halfpage) \n\
-    Ctrl Shift <Key>N: scroll-forw(1, halfpage) \n\
-    Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
-    Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
-    Ctrl Shift <Key> -: smaller-vt-font() \n\
-    Ctrl Shift <Key> =: larger-vt-font() \n\
-    Ctrl Shift <Key> m: popup-menu(vtMenu)
 
 ! vim: fdm=marker
