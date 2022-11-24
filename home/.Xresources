@@ -2,81 +2,87 @@
 ! Scheme: Chris Kempson (http://chriskempson.com)
 
 
-#include ".Xresources.dpi"
+! #include ".Xresources.dpi"
 
 ! ================ XTERM =====================
 !xterm*faceName: DejaVu Sans Mono Book
 ! xterm*faceName: Mono
 ! xterm*faceSize: 10
 ! XTerm*utf8: 1
-! 
-! ! https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/xrdb/Builtin%20Dark.xrdb
-! #define Ansi_0_Color #000000
-! #define Ansi_1_Color #bb0000
-! #define Ansi_10_Color #55ff55
-! #define Ansi_11_Color #ffff55
-! #define Ansi_12_Color #5555ff
-! #define Ansi_13_Color #ff55ff
-! #define Ansi_14_Color #55ffff
-! #define Ansi_15_Color #ffffff
-! #define Ansi_2_Color #00bb00
-! #define Ansi_3_Color #bbbb00
-! #define Ansi_4_Color #0000bb
-! #define Ansi_5_Color #bb00bb
-! #define Ansi_6_Color #00bbbb
-! #define Ansi_7_Color #bbbbbb
-! #define Ansi_8_Color #555555
-! #define Ansi_9_Color #ff5555
-! #define Background_Color #000000
-! #define Badge_Color #ff0000
-! #define Bold_Color #ffffff
-! #define Cursor_Color #ff0000
-! #define Cursor_Guide_Color #a6e8ff
-! #define Cursor_Text_Color #ffffff
-! #define Foreground_Color #bbbbbb
-! #define Link_Color #0645ad
-! #define Selected_Text_Color #000000
-! #define Selection_Color #b5d5ff
-! 
-! XTerm*color0:      Ansi_0_Color
-! XTerm*color1:      Ansi_1_Color
-! XTerm*color2:      Ansi_2_Color
-! XTerm*color3:      Ansi_3_Color
-! XTerm*color4:      Ansi_4_Color
-! XTerm*color5:      Ansi_5_Color
-! XTerm*color6:      Ansi_6_Color
-! XTerm*color7:      Ansi_7_Color
-! XTerm*color8:      Ansi_8_Color
-! XTerm*color9:      Ansi_9_Color
-! XTerm*color10:     Ansi_10_Color
-! XTerm*color11:     Ansi_11_Color
-! XTerm*color12:     Ansi_12_Color
-! XTerm*color13:     Ansi_13_Color
-! XTerm*color14:     Ansi_14_Color
-! XTerm*color15:     Ansi_15_Color
-! XTerm*colorBD:     Bold_Color
-! XTerm*colorIT:     Italic_Color
-! XTerm*colorUL:     Underline_Color
-! XTerm*foreground:  Foreground_Color
-! XTerm*background:  Background_Color
-! XTerm*cursorColor: Cursor_Color
+
+! {{{ COLOR SCHEME
+
+! https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/xrdb/Builtin%20Dark.xrdb
+#define Ansi_0_Color #000000
+#define Ansi_1_Color #bb0000
+#define Ansi_10_Color #55ff55
+#define Ansi_11_Color #ffff55
+#define Ansi_12_Color #5555ff
+#define Ansi_13_Color #ff55ff
+#define Ansi_14_Color #55ffff
+#define Ansi_15_Color #ffffff
+#define Ansi_2_Color #00bb00
+#define Ansi_3_Color #bbbb00
+#define Ansi_4_Color #0000bb
+#define Ansi_5_Color #bb00bb
+#define Ansi_6_Color #00bbbb
+#define Ansi_7_Color #bbbbbb
+#define Ansi_8_Color #555555
+#define Ansi_9_Color #ff5555
+#define Background_Color #000000
+#define Badge_Color #ff0000
+#define Bold_Color #ffffff
+#define Cursor_Color #ff0000
+#define Cursor_Guide_Color #a6e8ff
+#define Cursor_Text_Color #ffffff
+#define Foreground_Color #bbbbbb
+#define Link_Color #0645ad
+#define Selected_Text_Color #000000
+#define Selection_Color #b5d5ff
+
+XTerm*visualBell:   true
+
+XTerm*color0:      Ansi_0_Color
+XTerm*color1:      Ansi_1_Color
+XTerm*color2:      Ansi_2_Color
+XTerm*color3:      Ansi_3_Color
+XTerm*color4:      Ansi_4_Color
+XTerm*color5:      Ansi_5_Color
+XTerm*color6:      Ansi_6_Color
+XTerm*color7:      Ansi_7_Color
+XTerm*color8:      Ansi_8_Color
+XTerm*color9:      Ansi_9_Color
+XTerm*color10:     Ansi_10_Color
+XTerm*color11:     Ansi_11_Color
+XTerm*color12:     Ansi_12_Color
+XTerm*color13:     Ansi_13_Color
+XTerm*color14:     Ansi_14_Color
+XTerm*color15:     Ansi_15_Color
+XTerm*colorBD:     Bold_Color
+XTerm*colorIT:     Italic_Color
+XTerm*colorUL:     Underline_Color
+XTerm*foreground:  Foreground_Color
+XTerm*background:  Background_Color
+XTerm*cursorColor: Cursor_Color
+
+! }}}
 
 ! Sensible defaults
-XTerm.vt100.locale: false
-XTerm.vt100.utf8: true
-XTerm.vt100.scrollTtyOutput: false
-XTerm.vt100.scrollKey: true
-XTerm.vt100.bellIsUrgent: true
-XTerm.vt100.metaSendsEscape: true
+XTerm*locale: false
+XTerm*utf8: true
+XTerm*scrollTtyOutput: false
+XTerm*scrollKey: true
+XTerm*bellIsUrgent: true
+XTerm*metaSendsEscape: true
 
 ! Styling
-XTerm.vt100.faceName: DejavuSansMono
-XTerm.vt100.boldMode: false
-XTerm.vt100.faceSize: 10
-XTerm.vt100.internalBorder: 6
-XTerm.borderWidth: 3
+XTerm*faceName: DejavuSansMono
+XTerm*boldMode: false
+XTerm*faceSize: 10
+XTerm*internalBorder: 6
+XTerm*borderWidth: 3
 
-XTerm.vt100.translations: #override \n\
+XTerm*translations: #override \n\
     Ctrl Shift <Key>P: scroll-back(1, halfpage) \n\
     Ctrl Shift <Key>N: scroll-forw(1, halfpage) \n\
     Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
@@ -85,83 +91,4 @@ XTerm.vt100.translations: #override \n\
     Ctrl Shift <Key> =: larger-vt-font() \n\
     Ctrl Shift <Key> m: popup-menu(vtMenu)
 
-
-
-! ================ RXVT =====================
-
-URxvt.depth:                32
-URxvt.geometry:             128x30
-! URxvt.transparent:          false
-! URxvt.fading:               0
-! URxvt.urgentOnBell:         true
-! URxvt.visualBell:           true
-! URxvt.loginShell:           true
-! URxvt.saveLines:            50
-! URxvt.internalBorder:       3
-! URxvt.lineSpace:            0
-
-! Fonts
-URxvt.allow_bold:           true
-URxvt*font: xft:Monospace:pixelsize=14
-
-! Fix font space
-URxvt*letterSpace: -1
-
-! Scrollbar
-URxvt.scrollBar:            false       // use tmux
-URxvt.scrollBar_right:      true
-URxvt.scrollStyle:          plain
-
-! Perl extensions
-! URxvt.perl-ext-common:      default,matcher
-! URxvt.matcher.button:       1
-! URxvt.urlLauncher:          firefox
-
-URxvt*color0:       Ansi_0_Color
-URxvt*color1:       Ansi_1_Color
-URxvt*color2:       Ansi_2_Color
-URxvt*color3:       Ansi_3_Color
-URxvt*color4:       Ansi_4_Color
-URxvt*color5:       Ansi_5_Color
-URxvt*color6:       Ansi_6_Color
-URxvt*color7:       Ansi_7_Color
-URxvt*color8:       Ansi_8_Color
-URxvt*color9:       Ansi_9_Color
-URxvt*color10:      Ansi_10_Color
-URxvt*color11:      Ansi_11_Color
-URxvt*color12:      Ansi_12_Color
-URxvt*color13:      Ansi_13_Color
-URxvt*color14:      Ansi_14_Color
-URxvt*color15:      Ansi_15_Color
-URxvt*colorBD:      Bold_Color
-URxvt*colorIT:      Italic_Color
-URxvt*colorUL:      Underline_Color
-URxvt*foreground:   Foreground_Color
-URxvt*background:   Background_Color
-URxvt*cursorColor:  Cursor_Color
-
-! Cursor
-URxvt.cursorBlink:          true
-URxvt.cursorUnderline:      false
-
-! Pointer
-URxvt.pointerBlank:         true
-
-URxvt.keysym.Shift-Control-V: eval:paste_clipboard
-URxvt.keysym.Shift-Control-C: eval:selection_to_clipboard
-
-! Disable those two modes which impacts ctrl-shift-v for pasting
-! https://www.reddit.com/r/urxvt/comments/35x03n/if_youve_been_vexed_by_urxvts_picture_insert_mode/
-URxvt.iso14755: false
-URxvt.iso14755_52: false
-
-! https://github.com/majutsushi/urxvt-font-size
-URxvt.keysym.C-plus:    font-size:increase
-URxvt.keysym.C-equal:   font-size:increase
-URxvt.keysym.C-minus:   font-size:decrease
-URxvt.keysym.C-0:       font-size:reset
-
-URxvt.pointerColor: red
-URxvt.pointerColor2: white
-
-
+! vim: fdm=marker
