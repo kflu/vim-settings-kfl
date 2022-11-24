@@ -1,3 +1,5 @@
+#!/bin/false
+# shellcheck shell=bash
 # bash specific settings go here
 
 test ! -t 0 && return
@@ -7,17 +9,16 @@ test ! -t 0 && return
 # [1]: https://unix.stackexchange.com/a/4673/38968
 DIR=`dirname $BASH_SOURCE`
 
-light_green="\[\e[1;32m\]"
-light_red="\[\e[1;31m\]"
-yellow="\[\e[0;33m\]"
-gray="\[\e[0;37m\]"
-magenta="\[\e[0;95m\]"
-white="\[\e[38;5;15m\]"
-bg_blue="\e[48;5;18m\]"
-reset="\[\e[m\]"
-
 # Customize prompt
 prompt_command() {
+    local light_green="\[\e[1;32m\]"
+    local light_red="\[\e[1;31m\]"
+    local yellow="\[\e[0;33m\]"
+    local gray="\[\e[0;37m\]"
+    local magenta="\[\e[0;95m\]"
+    local white="\[\e[38;5;15m\]"
+    local bg_blue="\e[48;5;18m\]"
+    local reset="\[\e[m\]"
 
     local status="$?"
     local status_color=""

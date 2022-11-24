@@ -1,0 +1,4 @@
+#!/bin/sh
+
+: ${1:?num of CPUs}
+echo -smp "${1:-1}"

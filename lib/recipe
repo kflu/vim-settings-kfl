@@ -1,0 +1,89 @@
+#!/bin/sh
+#
+# Helper functions to define recipes.
+# 
+# The recipe file consists of recipe functions that wil
+# write helpful things to the stdout. So logging of 
+# recipe functions must not use stdout.
+# 
+# Writing recipe functions:
+# 
+#     _recipe_qemu_cpu() {
+#         # set num of CPUs
+#         echo "-smp $1"
+#     }
+#     recipe_add _recipe_qemu_cpu cpu
+# 
+# Using recipe file:
+# 
+#     recipe ./qemu.recipe
+# 
+# This command will define aliases with prefix "r," and you 
+# can call them like:
+# 
+#     qemu_system `r,cpu 4`
+
+
+# Use recipes
+# <this> [recipe_file] ...
+recipe_source() {
+    for rec in "$@"; do
+        . "$rec"
+    done
+}
+
+# Adds a recipe
+# <this> func_name namespace
+recipe_add() {
+    _func_name="${1:?func name}"
+    _namespace="${2:?namespace}"
+    _alias_name=rr,"$_namespace"
+    alias "$_alias_name"="$_func_name"
+    printf "Added recipe: %-20s <= %s\n" "$_alias_name" "$_func_name"
+}
+
+# Cleans up all the recipes
+recipe_clean() {
+    alias | grep '^r,' | while read line
+    do
+        unalias "${line%%=*}"
+    done
+}
+
+# Uses any recipes that contains keyword
+# Pulls the matched recipes into "r," namespace
+#
+# <this> <keyword>
+recipe_use() {
+    _pattern="${1:?pattern}"
+    alias | grep '^rr,' | while read line
+    do
+        case "$line" in
+            *"$_pattern"*) 
+                _alias="${line%%=*}"
+                _rhs="${line#*=}"
+                _recipe_root_name="${_alias##*,}"
+                _new_alias=r,"$_recipe_root_name"
+                printf "Using alias: %-10s => %s\n" "$_new_alias" "$_rhs"
+                alias "$_new_alias"="$_rhs"
+                ;;
+        esac
+    done
+}
+
+# Recursively sources all the recipe from dir
+#
+# <this> [dir]
+#   dir: default to ~/.recipes
+recipe_source_dir() {
+    _source_dir="${1:-"$HOME/.recipes"}"
+    _source_dir="$(realpath "$_source_dir")"
+    if test -d "$_source_dir"; then
+        find "$_source_dir" -type f -or -type l | while read fn
+        do
+            recipe_source "$fn"
+        done
+    else
+        1>&2 echo "E: recipe source dir isn't a directory"
+    fi
+}

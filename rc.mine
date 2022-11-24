@@ -1,7 +1,9 @@
-#!/bin/sh
+#!/bin/false
+# shellcheck shell=sh
 # shell-neutral rc settings
 
-DIR="$(cd "$(dirname "$0")"; pwd)"
+this="${BASH_SOURCE:-"$0"}"
+DIR="$(cd "$(dirname "$this")"; pwd)"
 
 [ `uname` = "Linux" ] && alias ls="ls --color=auto"
 alias ll="ls -l"
@@ -14,6 +16,7 @@ alias gvman="MANPAGER='gvim +MANPAGER -c \"set nomodifiable readonly\" -' man"
 
 export PATH="$HOME/.local/bin":"$HOME/.local/usr/bin":"$HOME/.local/share/bin":"$PATH"
 export PATH="$HOME/.dotnet/tools":"$PATH"
+export PATH=.:"$PATH"
 
 # EDITOR is used by tmux to infer if vi-mode should be used
 # So try to set it
@@ -145,5 +148,63 @@ EOF
     "${EDITOR:-vim}" "$fn"
 )
 
+# Recipes
+{
+    . "$DIR"/lib/recipe
+    recipe_source_dir
+} >/dev/null 2>&1
 
-# vim========== set ft=sh
+dt() {
+    date +%Y%m%d:%H%M%S
+}
+
+# {{{ RECIPE V2
+path_add() {
+    : "${1:?dir to be added}"
+    PATH="$PATH":"$(realpath "$1")"
+}
+path_rm() {
+    PATH="${PATH%:*}"
+}
+recipe_alias() {
+    : "${1:?dir to be added}"
+
+    find "$1" -type f -or -type l | while read -r fn; do
+        fn2="${fn#"$1"}"
+        alias_name="$(echo "${fn2#/}" | tr '/' ',')"
+        echo "r,$alias_name"="$(realpath "$fn")"
+        alias "r,$alias_name"="$(realpath "$fn")"
+    done
+}
+# }}}
+
+getpath() (
+    /bin/sh -s -- "$@" <<'GETPATH'
+    unset OPTIND
+    USAGE="$(cat <<EOF
+getpath [-t <type>] <path>
+
+where type: scp
+EOF
+    )"
+    while getopts 'ht:' opt; do case "$opt" in
+        t)    type="$OPTARG" ;;
+        h|*)  echo "$USAGE" >&2; exit 1 ;;
+    esac done
+    shift $((OPTIND-1))
+
+    path="$1"
+
+    case "$type" in
+        scp|*)
+            rpath="$(realpath "$path")"
+            rhome="$(realpath "$HOME")"
+            echo "scp://$(hostname)/~$(whoami)/${rpath##$rhome}"
+            ;;
+    esac
+GETPATH
+
+)
+
+
+# vim: ft=sh fdm=marker

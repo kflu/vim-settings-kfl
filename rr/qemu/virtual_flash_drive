@@ -1,0 +1,9 @@
+#!/bin/sh
+
+: "${1:?flash drive img}"
+
+echo \
+    -device piix3-usb-uhci \
+    -drive id=pendrive,file="$1",format=raw,if=none \
+    -device usb-storage,drive=pendrive \
+    -boot menu=on

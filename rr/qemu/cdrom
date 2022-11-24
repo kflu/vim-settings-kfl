@@ -1,0 +1,6 @@
+#!/bin/sh
+
+: ${1:?CD ROM ISO}
+echo -cdrom "${1:?CD ROM iso}"
+
+# vim: ft=sh

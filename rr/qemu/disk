@@ -1,0 +1,4 @@
+#!/bin/sh
+
+: ${1:?disk img}
+echo -hda "${1:?disk img}"

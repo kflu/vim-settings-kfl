@@ -1,3 +1,7 @@
+#!/bin/sh
+
+_recipe_python_pm() {
+    cat <<'EOF'
 def pm(func):
     """Python Post-Mortem Debugging Decorator"""
     import functools, pdb
@@ -8,5 +12,11 @@ def pm(func):
             return func(*args, **kwargs)
         except Exception as e:
             pdb.post_mortem(e.__traceback__)
-            raise
+
+    raise
     return func2
+EOF
+}
+recipe_add _recipe_python_pm python,pm
+
+# vim: ft=sh
