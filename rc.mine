@@ -208,7 +208,6 @@ GETPATH
 
 goog() (
     /bin/sh -s -- "$@" <<'GOOG'
-    unset OPTIND
     USAGE="$(cat <<EOF
 goog [-i] <term>
     -i: I'm feeling lucky
