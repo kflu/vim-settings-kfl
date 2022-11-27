@@ -1,6 +1,6 @@
 #!/bin/sh
 # shellcheck disable=SC2059
-set -euf
+set -eu
 
 DIR="$(cd "$(dirname "$0")" && pwd)"
 
@@ -21,9 +21,9 @@ install_links() (
         echo "$ln_src => $ln_dest"
         ln -s -f "$ln_src" "$ln_dest"
     done
-) 
-
+)
 install_links "$DIR/home" "$HOME"
+
 touch "$HOME/.Xresources.dpi"
 touch "$HOME/.Xresources.local"
 
@@ -129,6 +129,20 @@ EOF
     ln -s -f "$DIR/recipes" "$HOME/.recipes"
     ln -s "$DIR/rr" "$HOME/rr"
 ) || true
+
+(  # --- INSTALL FLUXBOX ---
+    mkdir -p "$HOME/.fluxbox"
+    # copy .fluxbox dir hier (trailing slash is important)
+    cp -R "$DIR/home_cp/.fluxbox/" "$HOME/.fluxbox"
+
+    cat <<FLUXBOX_INIT > ~/.fluxbox/init
+session.screen0.toolbar.tools: prevworkspace, workspacename, nextworkspace, iconbar, systemtray, clock, RootMenu
+session.menuFile: ~/.fluxbox/menu
+session.keyFile: ~/.fluxbox/keys
+# session.styleFile: $HOME/.fluxbox/styles/Dyne
+FLUXBOX_INIT
+)
+
 
 # Update file content enclosed by $marker. If marker enclosure doesn't exist,
 # append the enclosure, and put content in it.
