@@ -2,9 +2,8 @@
 ! Scheme: Chris Kempson (http://chriskempson.com)
 
 
-! #include ".Xresources.dpi"
-
 ! XTERM
+!  See man xterm and man X
 ! ======================================================================
 
 
@@ -20,7 +19,7 @@ XTerm*scrollKey:        true
 XTerm*bellIsUrgent:     false
 XTerm*visualBell:       true
 XTerm*metaSendsEscape:  true
-
+XTerm*allowWindowOps:   true
 
 ! KEY MAPPING
 ! -----------
@@ -64,6 +63,7 @@ XTerm*translations: #override \n\
 #define Link_Color #0645ad
 #define Selected_Text_Color #000000
 #define Selection_Color #b5d5ff
+#define Border_Color #ffffff
 
 XTerm*color0:      Ansi_0_Color
 XTerm*color1:      Ansi_1_Color
@@ -87,7 +87,14 @@ XTerm*colorUL:     Underline_Color
 XTerm*foreground:  Foreground_Color
 XTerm*background:  Background_Color
 XTerm*cursorColor: Cursor_Color
+! Use a contrasting border color so border is always shown, even if xterm BG is
+! same as desktop BG
+XTerm*borderColor: Border_Color
+XTerm*colorInnerBorder: true
 
 ! }}}
+
+#include ".Xresources.dpi"
+#include ".Xresources.local"
 
 ! vim: fdm=marker
