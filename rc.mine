@@ -225,6 +225,7 @@ EOF
 GOOG
 )
 alias googi="goog -i"
+alias posix="googi posix"
 
 
 # vim: ft=sh fdm=marker
