@@ -206,5 +206,26 @@ GETPATH
 
 )
 
+goog() (
+    /bin/sh -s -- "$@" <<'GOOG'
+    unset OPTIND
+    USAGE="$(cat <<EOF
+goog [-i] <term>
+    -i: I'm feeling lucky
+EOF
+    )"
+    while getopts 'hi' opt; do case "$opt" in
+        i)    lucky=1 ;;
+        h|*)  echo "$USAGE" >&2; exit 1 ;;
+    esac done
+    shift $((OPTIND-1))
+    term="${@:?search term}"
+    url="google.com/search?q=${term}"
+    [ -n "$lucky" ] && url="${url}&btnI=1"
+    w3m "$url"
+GOOG
+)
+alias googi="goog -i"
+
 
 # vim: ft=sh fdm=marker
