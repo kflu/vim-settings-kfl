@@ -91,6 +91,7 @@ XTerm*cursorColor: Cursor_Color
 ! same as desktop BG
 XTerm*borderColor: Border_Color
 XTerm*colorInnerBorder: true
+XTerm*internalBorder: 1
 
 ! }}}
 
