@@ -25,7 +25,7 @@ install_links() (
 
 install_links "$DIR/home" "$HOME"
 touch "$HOME/.Xresources.dpi"
-touch "$HOME/.Xclients'
+touch "$HOME/.Xresources.local"
 
 mkdir -p \
     "$HOME/rc.d/sh/pre" \
