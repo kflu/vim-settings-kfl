@@ -41,5 +41,5 @@ sync_dir="${sync_dir%/}"
 (
 set -x
 rsync -avz --bwlimit="$bw_limit" -e "ssh -p ${port}" --progress "$sync_dir" "$remote" "$@" \
-&& mv "$sync_dir" "U $sync_dir"
+&& mv "$sync_dir" "$(dirname "$sync_dir")/U_$(basename "$sync_dir")"
 )
