@@ -31,6 +31,13 @@ fi
 # https://stackoverflow.com/a/11200998/695964
 export WORDCHARS='"*?_-.[]~=&;!#$%^(){}<>|'"'"
 
+
+# xterm does support truecolor (https://tintin.mudhalla.net/info/truecolor/),
+# but doesn't advertise it by setting COLORTERM. This affects some mc themes
+# (e.g. seasons-*). So we set it if in xterm.
+[ -n "$XTERM_VERSION" ] && export COLORTERM=truecolor
+
+
 godo() {
     eval "nohup $@ > /dev/null 2>&1 &"
 }
@@ -226,6 +233,5 @@ GOOG
 )
 alias googi="goog -i"
 alias posix="googi posix"
-
 
 # vim: ft=sh fdm=marker
