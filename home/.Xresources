@@ -6,9 +6,11 @@
 !  See man xterm and man X
 ! ======================================================================
 
-
 ! SENSIBLE DEFAULTS
 ! ------------------
+
+! Use any fixed font. See https://askubuntu.com/a/161704/259343
+XTerm*faceName:     *-fixed-*-*-*-*-*
 
 ! To make tmux c-b c-h go to prev window work:
 XTerm*ptyInitialErase:  true
@@ -20,6 +22,7 @@ XTerm*bellIsUrgent:     false
 XTerm*visualBell:       true
 XTerm*metaSendsEscape:  true
 XTerm*allowWindowOps:   true
+XTerm*termName:         xterm-256color
 
 ! KEY MAPPING
 ! -----------
@@ -56,14 +59,13 @@ XTerm*translations: #override \n\
 #define Background_Color #000000
 #define Badge_Color #ff0000
 #define Bold_Color #ffffff
-#define Cursor_Color #ff0000
+#define Cursor_Color #bbbbbb
 #define Cursor_Guide_Color #a6e8ff
 #define Cursor_Text_Color #ffffff
 #define Foreground_Color #bbbbbb
 #define Link_Color #0645ad
 #define Selected_Text_Color #000000
 #define Selection_Color #b5d5ff
-#define Border_Color #ffffff
 
 XTerm*color0:      Ansi_0_Color
 XTerm*color1:      Ansi_1_Color
@@ -87,13 +89,15 @@ XTerm*colorUL:     Underline_Color
 XTerm*foreground:  Foreground_Color
 XTerm*background:  Background_Color
 XTerm*cursorColor: Cursor_Color
+
 ! Use a contrasting border color so border is always shown, even if xterm BG is
 ! same as desktop BG
-XTerm*borderColor: Border_Color
+XTerm*borderColor: #ffffff
 XTerm*colorInnerBorder: true
 XTerm*internalBorder: 1
 
 ! }}}
+
 
 #include ".Xresources.dpi"
 #include ".Xresources.local"
