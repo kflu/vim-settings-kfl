@@ -37,35 +37,61 @@ XTerm*translations: #override \n\
     Ctrl Shift <Key> m: popup-menu(vtMenu)
 
 
-! {{{ COLOR SCHEME
+! ! {{{ https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/xrdb/Builtin%20Dark.xrdb
+! #define Ansi_0_Color #000000
+! #define Ansi_1_Color #bb0000
+! #define Ansi_2_Color #00bb00
+! #define Ansi_3_Color #bbbb00
+! #define Ansi_4_Color #0000bb
+! #define Ansi_5_Color #bb00bb
+! #define Ansi_6_Color #00bbbb
+! #define Ansi_7_Color #bbbbbb
+! #define Ansi_8_Color #555555
+! #define Ansi_9_Color #ff5555
+! #define Ansi_10_Color #55ff55
+! #define Ansi_11_Color #ffff55
+! #define Ansi_12_Color #5555ff
+! #define Ansi_13_Color #ff55ff
+! #define Ansi_14_Color #55ffff
+! #define Ansi_15_Color #ffffff
+! #define Background_Color #000000
+! #define Badge_Color #ff0000
+! #define Bold_Color #ffffff
+! #define Cursor_Color #bbbbbb
+! #define Cursor_Guide_Color #a6e8ff
+! #define Cursor_Text_Color #ffffff
+! #define Foreground_Color #bbbbbb
+! #define Link_Color #0645ad
+! #define Selected_Text_Color #000000
+! #define Selection_Color #b5d5ff
+! ! }}}
 
-! https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/xrdb/Builtin%20Dark.xrdb
-#define Ansi_0_Color #000000
-#define Ansi_1_Color #bb0000
-#define Ansi_10_Color #55ff55
-#define Ansi_11_Color #ffff55
-#define Ansi_12_Color #5555ff
-#define Ansi_13_Color #ff55ff
-#define Ansi_14_Color #55ffff
-#define Ansi_15_Color #ffffff
-#define Ansi_2_Color #00bb00
-#define Ansi_3_Color #bbbb00
-#define Ansi_4_Color #0000bb
-#define Ansi_5_Color #bb00bb
-#define Ansi_6_Color #00bbbb
-#define Ansi_7_Color #bbbbbb
-#define Ansi_8_Color #555555
-#define Ansi_9_Color #ff5555
-#define Background_Color #000000
-#define Badge_Color #ff0000
-#define Bold_Color #ffffff
-#define Cursor_Color #bbbbbb
-#define Cursor_Guide_Color #a6e8ff
-#define Cursor_Text_Color #ffffff
-#define Foreground_Color #bbbbbb
-#define Link_Color #0645ad
-#define Selected_Text_Color #000000
-#define Selection_Color #b5d5ff
+! {{{ https://github.com/mbadolato/iTerm2-Color-Schemes/blob/master/xrdb/Solarized%20Dark%20Higher%20Contrast.xrdb
+#define Ansi_0_Color #002831
+#define Ansi_1_Color #d11c24
+#define Ansi_2_Color #6cbe6c
+#define Ansi_3_Color #a57706
+#define Ansi_4_Color #2176c7
+#define Ansi_5_Color #c61c6f
+#define Ansi_6_Color #259286
+#define Ansi_7_Color #eae3cb
+#define Ansi_8_Color #006488
+#define Ansi_9_Color #f5163b
+#define Ansi_10_Color #51ef84
+#define Ansi_11_Color #b27e28
+#define Ansi_12_Color #178ec8
+#define Ansi_13_Color #e24d8e
+#define Ansi_14_Color #00b39e
+#define Ansi_15_Color #fcf4dc
+#define Background_Color #001e27
+#define Bold_Color #b5d5d3
+#define Cursor_Color #f34b00
+#define Cursor_Text_Color #002831
+#define Foreground_Color #9cc2c3
+#define Selected_Text_Color #7a8f8e
+#define Selection_Color #003748
+! }}}
+
 
 XTerm*color0:      Ansi_0_Color
 XTerm*color1:      Ansi_1_Color
@@ -95,8 +121,6 @@ XTerm*cursorColor: Cursor_Color
 XTerm*borderColor: #ffffff
 XTerm*colorInnerBorder: true
 XTerm*internalBorder: 1
-
-! }}}
 
 
 #include ".Xresources.dpi"
