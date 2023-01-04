@@ -1,8 +1,12 @@
 #!/bin/sh
 set -e
-
 DIR="$( cd "`dirname "$0"`"; pwd )"
+
 case "$(uname -s)" in
+    *CYGWIN*)
+        vimrc="$HOME/.vimrc"
+        vimfiles="$HOME/.vim"
+        ;;
     *NT*)
         vimrc="$HOME/_vimrc"
         vimfiles="$HOME/vimfiles"
@@ -20,12 +24,14 @@ mkdir -p "$vimfiles"
 mkdir -p "$HOME/vim-plug"
 
 mkdir -p "$vimfiles/autoload" && \
-curl -fLo "$vimfiles/autoload/plug.vim" --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fL \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
+    >"$vimfiles/autoload/plug.vim"
 
 mkdir -p "$vimfiles/doc" && \
-curl -fLo "$vimfiles/doc/plug.txt" --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/doc/plug.txt
+curl -fL \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/doc/plug.txt \
+    >"$vimfiles/doc/plug.txt"
 
 # build helptags for vim-plug
 vim -es - <<EOF
