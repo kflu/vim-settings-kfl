@@ -1,22 +1,18 @@
 #!/bin/sh
-set -e
+
+USAGE="$(cat <<EOF
+EOF
+)"
+while getopts 'hv' opt; do case "$opt" in
+    v)    set -x ;;
+    h|*)  echo "$USAGE" >&2; exit 1 ;;
+esac done
+shift $((OPTIND-1))
+
 DIR="$( cd "`dirname "$0"`"; pwd )"
-
-case "$(uname -s)" in
-    *CYGWIN*)
-        vimrc="$HOME/.vimrc"
-        vimfiles="$HOME/.vim"
-        ;;
-    *NT*)
-        vimrc="$HOME/_vimrc"
-        vimfiles="$HOME/vimfiles"
-        ;;
-    *)
-        vimrc="$HOME/.vimrc"
-        vimfiles="$HOME/.vim"
-        ;;
-esac
-
+vimrc="$HOME/.vimrc"
+vimfiles="$HOME/.vim"
+ 
 ln -s -f "$DIR"/COPY_TO_HOME/_vimrc "$vimrc"
 mkdir -p "$vimfiles"
 # ~/vim-plug is where we put all the plugins managed by vim-plug
@@ -32,6 +28,17 @@ mkdir -p "$vimfiles/doc" && \
 curl -fL \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/doc/plug.txt \
     >"$vimfiles/doc/plug.txt"
+
+case "$(uname -s)" in
+    *NT*)
+        (
+        cd "$HOME"
+        ln "$(realpath .vimrc)" "$(realpath _vimrc)"
+        cmd /c mklink /d vimfiles .vim
+        )
+        ;;
+esac
+
 
 # build helptags for vim-plug
 vim -es - <<EOF
