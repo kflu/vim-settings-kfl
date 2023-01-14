@@ -605,7 +605,9 @@ function s:Main()
 
     set display+=lastline "with this, the last line will not have @ chars.
     if !has('nvim')
-        set ttymouse=xterm2
+        " Using sgr mouse so vim is clickable after column 220.
+        " See https://stackoverflow.com/a/19253251
+        set ttymouse=sgr
     endif
     set wildmenu     " Show menu for command line autocomplete
     set ignorecase
