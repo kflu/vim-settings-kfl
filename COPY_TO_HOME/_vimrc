@@ -48,6 +48,9 @@ fun s:plugins()
 
     Plug 'mileszs/ack.vim' " use ag or ack
 
+    " Use Readline in command mode and insert mode
+    Plug 'tpope/vim-rsi'
+
     " LSP support
     Plug 'prabirshrestha/vim-lsp', { 'tag': 'v0.1.4' }
     Plug 'mattn/vim-lsp-settings'
