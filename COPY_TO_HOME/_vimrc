@@ -637,7 +637,7 @@ function s:Main()
     match ExtraWhitespace /\s\+$/
 
     " ------------------------- GUI settings -------------------------
-    if has("gui_running")
+    if has("gui_running") and !has("ivim")
         set go-=T
         silent! colo PaperColor
         call s:ConfigureFont()
