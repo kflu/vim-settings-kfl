@@ -1,3 +1,16 @@
+if has('ivim')
+    isetekbd append {'buttons':[
+                               \{'keys':[
+                                        \{'title':'C',
+                                        \ 'type':'command',
+                                        \ 'contents':'normal "+y'},
+                                        \{'title':'P',
+                                        \ 'type':'command',
+                                        \ 'contents':'normal "+p'}],
+                               \ 'locations':[0,2]}]}
+endif
+
+
 " ###################################################################
 " # vimrc file
 " # by Kefei Lu
@@ -111,7 +124,6 @@ fun s:plugins()
 
     " Send to REPL
     Plug 'jpalardy/vim-slime'
-
     Plug 'roxma/vim-tmux-clipboard'
     Plug 'tmux-plugins/vim-tmux-focus-events'
 
