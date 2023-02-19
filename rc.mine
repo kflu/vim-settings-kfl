@@ -234,4 +234,28 @@ GOOG
 alias googi="goog -i"
 alias posix="googi posix"
 
+
+ircsend() {
+
+    USAGE="$(cat <<EOF
+    $(basename "$0") [-h] -m msg
+EOF
+    )"
+    while getopts 'hm:' opt; do case "$opt" in
+        m)    MSG="$OPTARG" ;;
+        h|*)  echo "$USAGE" >&2; return 1 ;;
+    esac done
+    shift $((OPTIND-1))
+
+    : "${MSG:?}"
+
+    set -x
+    nc irc.libera.chat 6667 <<EOF
+nick klunotif
+user klunotif . . .
+privmsg klu :$MSG
+quit bye
+EOF
+}
+
 # vim: ft=sh fdm=marker
