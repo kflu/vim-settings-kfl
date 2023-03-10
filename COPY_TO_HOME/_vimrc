@@ -866,6 +866,10 @@ function s:Main()
         echom 'Error configure BG ' .. v:exception
     endtry
 
+    " so that vim yanks to system clipboard via tmux loadb
+    " see https://github.com/roxma/vim-tmux-clipboard/pull/20
+    let g:vim_tmux_clipboard#loadb_option = '-w'
+
 endfunction " Main
 
 fun! s:ConfigureBG()
