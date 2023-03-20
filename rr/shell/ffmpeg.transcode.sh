@@ -8,15 +8,17 @@ It copies src to dest dir (create), transcodes mp4/MP4, then deletes the
 original video (in dest dir) upon success.
 EOF
 )"
-while getopts 'hs:d:' opt; do case "$opt" in
+while getopts 'hs:d:e:' opt; do case "$opt" in
     s)    SRC_DIR="$OPTARG" ;;
     d)    DEST_DIR="$OPTARG" ;;
+    e)    VID_ENCODER="$OPTARG" ;;
     h|*)  echo "$USAGE" >&2; exit 1 ;;
 esac done
 shift $((OPTIND-1))
 
 : "${SRC_DIR:?}"
 : "${DEST_DIR:?}"
+: "${VID_ENCODER:=h264_nvenc}"
 
 mkdir -p "$DEST_DIR"
 echo "Copying $SRC_DIR -> $DEST_DIR"
@@ -30,7 +32,7 @@ while read -r fn; do
     (
     cd "$(dirname "$fn")" || exit 1
     set -x
-    ffmpeg -nostdin -vc h264_nvenc -preset medium -hide_banner \
+    ffmpeg -nostdin -vc "$VID_ENCODER" -preset medium -hide_banner \
         -i "$(basename "$fn")" \
         "transcoded.$(basename "$fn")"
     ) \
