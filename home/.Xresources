@@ -10,7 +10,8 @@
 ! ------------------
 
 ! Use any fixed font. See https://askubuntu.com/a/161704/259343
-XTerm*faceName:     *-fixed-*-*-*-*-*
+! XTerm*faceName:     *-fixed-*-*-*-*-*
+XTerm*faceName:     terminus
 
 ! To make tmux c-b c-h go to prev window work:
 XTerm*ptyInitialErase:  true
