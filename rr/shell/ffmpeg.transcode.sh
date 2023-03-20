@@ -30,7 +30,7 @@ while read -r fn; do
     (
     cd "$(dirname "$fn")" || exit 1
     set -x
-    ffmpeg -nostdin -vc h264_nvenc -preset medium \
+    ffmpeg -nostdin -vc h264_nvenc -preset medium -hide_banner \
         -i "$(basename "$fn")" \
         "transcoded.$(basename "$fn")"
     ) \
