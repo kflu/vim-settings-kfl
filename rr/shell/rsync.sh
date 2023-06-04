@@ -40,6 +40,10 @@ sync_dir="${sync_dir%/}"
 
 (
 set -x
-rsync -avz --bwlimit="$bw_limit" -e "ssh -p ${port}" --progress "$sync_dir" "$remote" "$@" \
-&& mv "$sync_dir" "$(dirname "$sync_dir")/U_$(basename "$sync_dir")"
+done_root="$(dirname "$sync_dir")/done"
+done_dir="${done_root}/$(basename "$sync_dir")"
+mkdir -p "$done_root"
+rsync -avz --bwlimit="$bw_limit" -e "ssh -p ${port}" --progress "$sync_dir" "$remote" "$@" &&
+mv "$sync_dir" "$done_dir" &&
+ln -sf "$done_dir" "$sync_dir"
 )
