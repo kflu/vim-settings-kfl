@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+"""
+Prefix a darktable style with a category (folder) 
+
+Usage: darktable_prefix_category <file.dtstyle> <category>
+
+Shell script:
+
+    for fn in *.dtstyle; do
+        darktable_prefix_category "$fn" "$( basename "$(pwd)" )"
+    done
+"""
+
+import xml.etree.ElementTree as ET
+import sys
+
+FILE = sys.argv[1]
+CATEGORY = sys.argv[2]
+
+tree = ET.parse(FILE)
+names = list(tree.iter('name'))
+if len(names) > 0:
+    name = names[0]
+    name.text = f"{CATEGORY}|{name.text}"
+    print(f"{FILE}: --> {name.text}")
+    tree.write(FILE, encoding="UTF-8", xml_declaration=True)
