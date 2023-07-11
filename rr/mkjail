@@ -119,7 +119,7 @@ init() {
         cp -L /etc/resolv.conf "$OVERLAYFS_MERGE_DIR"/etc/resolv.conf
     else
         echo "[W] Skip initializing $OVERLAYFS_MERGE_DIR/etc/resolv.conf"
-    fi
+    fi &&
 
     _write
 }
