@@ -1,0 +1,162 @@
+#!/bin/sh
+
+USAGE="$(cat <<EOF
+mkjail -a <action> -j <jail_dir> -r <root_dir> [-x <init_prog>] [-v]
+
+Actions:
+$(
+awk '/^ *# {{{ --- actions ---/,/^ *# }}} --- actions ---/' "$0" \
+| tail +2 \
+| awk 'NR>1{print buf}{buf = $0}'
+)
+    
+
+Environment Variables:
+$(<"$0" grep -F ': "${' | grep -v grep | sed 's/^  *//')
+
+
+EXAMPLES
+
+Create new jail:
+
+    mkjail -ai -j <new_jail_dir> -r <base_root_dir>
+
+Connect to jail:
+
+    mkjail -ai -j <jail_dir>
+    mkjail -ai -j <jail_dir> -x zsh
+    # or equivelently:
+    cd <jail_dir> && ./connect
+
+Purge jail:
+    
+    mkjail -ap -j <jail_dir> &&
+    sudo rm -fr <jail_dir>
+
+EOF
+)"
+
+
+_is_root_user() {
+    [ "$(whoami)" = root ]
+}
+
+: "${ATTEMPT_SUDO:=1}"
+if [ -n "$ATTEMPT_SUDO" ] && ! _is_root_user; then
+    if ! command -v sudo >/dev/null; then
+        echo "[E] sudo not available"
+        exit 1
+    fi
+    echo "[I] running current command using sudo ..."
+    sudo "$0" "$@"
+    exit $?
+fi
+
+
+while getopts 'ha:j:r:vx:' opt; do case "$opt" in
+    a)      ACTION="$OPTARG" ;;
+    j)      JAIL_DIR="$OPTARG" ;;
+    r)      ROOTFS_DIR="$OPTARG" ;;
+    v)      set -x;;
+    x)      INIT_PROG="$OPTARG" ;;
+    h|*)  echo "$USAGE" >&2; exit 1 ;;
+esac done
+shift $((OPTIND-1))
+
+
+: "${ACTION:=}"
+case "$ACTION" in
+    # {{{ --- actions ---
+    i|init)       ACTION=init  ;;
+    c|connect)    ACTION=connect ;;
+    p|purge)      ACTION=purge ;;
+    # }}} --- actions ---
+    *)
+        echo "[I] unknown action: $ACTION"
+        exit 1
+        ;;
+esac
+
+
+: "${CHECK_IS_ROOT:=1}"
+
+
+# Directory of the jail to be created
+: "${JAIL_DIR:?}"
+
+case "$ACTION" in
+    init)
+        # a directory containing the root of the base system
+        # this directory will not be modified
+        : "${ROOTFS_DIR:?}"
+        ;;
+esac
+
+: "${INIT_PROG:=}"
+
+: "${OVERLAYFS_DIR:=$JAIL_DIR/.overlayfs}"
+: "${OVERLAYFS_LOWER_DIR:=$ROOTFS_DIR}"
+: "${OVERLAYFS_UPPER_DIR:=$OVERLAYFS_DIR/upper}"
+: "${OVERLAYFS_WORK_DIR:=$OVERLAYFS_DIR/work}"
+: "${OVERLAYFS_MERGE_DIR:=$OVERLAYFS_DIR/merge}"
+
+
+init() {
+    mkdir -p \
+        "$JAIL_DIR" "$OVERLAYFS_DIR" "$OVERLAYFS_LOWER_DIR" \
+        "$OVERLAYFS_UPPER_DIR" "$OVERLAYFS_WORK_DIR" "$OVERLAYFS_MERGE_DIR" &&
+
+    mount -t overlay overlay \
+        -o lowerdir="$OVERLAYFS_LOWER_DIR",upperdir="$OVERLAYFS_UPPER_DIR",workdir="$OVERLAYFS_WORK_DIR" \
+        "$OVERLAYFS_MERGE_DIR" &&
+
+    mount --bind /sys "$OVERLAYFS_MERGE_DIR"/sys &&
+    mount --bind /proc "$OVERLAYFS_MERGE_DIR"/proc &&
+    mount --bind /dev "$OVERLAYFS_MERGE_DIR"/dev &&
+    mount --bind /dev/pts "$OVERLAYFS_MERGE_DIR"/dev/pts &&
+
+    if ! [ -f "$OVERLAYFS_MERGE_DIR"/etc/resolv.conf ]; then
+        cp -L /etc/resolv.conf "$OVERLAYFS_MERGE_DIR"/etc/resolv.conf
+    else
+        echo "[W] Skip initializing $OVERLAYFS_MERGE_DIR/etc/resolv.conf"
+    fi
+
+    _write
+}
+
+connect() {
+    if [ -n "$INIT_PROG" ]; then
+        chroot "$OVERLAYFS_MERGE_DIR" "$INIT_PROG"
+    else
+        chroot "$OVERLAYFS_MERGE_DIR"
+    fi
+}
+
+purge() {
+    umount "$OVERLAYFS_MERGE_DIR"/sys
+    umount "$OVERLAYFS_MERGE_DIR"/proc
+    umount "$OVERLAYFS_MERGE_DIR"/dev/pts
+    umount "$OVERLAYFS_MERGE_DIR"/dev
+    umount "$OVERLAYFS_MERGE_DIR"
+    echo "[I] You can now delete the jail: rm -fr \"$JAIL_DIR\""
+}
+
+
+_write() {
+    cat <<EOF >"$JAIL_DIR/connect"
+#!/bin/sh
+"$(realpath "$0")" -ac -j "$(realpath "$JAIL_DIR")" "\$@"
+EOF
+    chmod +x "$JAIL_DIR/connect"
+}
+
+
+main() {
+    if [ -n "$CHECK_IS_ROOT" ] && ! _is_root_user; then
+        echo "[E] Exit because you are not root"
+        exit 1
+    fi
+    "$ACTION" "$@"
+}
+
+main "$@"
