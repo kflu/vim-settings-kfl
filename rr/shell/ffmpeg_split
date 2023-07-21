@@ -3,10 +3,10 @@
 
 USAGE="$(cat <<EOF
 Preview generated commands:
-  cat <timestamp_file> | ffmpeg_split <to_be_split.mp4>
+  cat <timestamp_file> | ffmpeg_split -i <to_be_split.mp4>
 
 Execute generated commands:
-  cat <timestamp_file> | ffmpeg_split <to_be_split.mp4> | sh
+  cat <timestamp_file> | ffmpeg_split -i <to_be_split.mp4> | sh
 
 
 The timestamp_file must contain single-column rows with each row being start
@@ -23,13 +23,17 @@ shift $((OPTIND-1))
 
 : "${INPUT:?}"
 
+
+DURATION="$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "$INPUT")" ||
+    { 2>&1 echo "Cannot get duration"; exit 1; }
+
 grep . |
 awk '
     {
         starts[NR] = $0
     }
     END {
-        starts[NR+1] = "-0s"
+        starts[NR+1] = "'"$DURATION"'"
         for (i=1; i<=NR; i++) {
             printf("%s %s %s\n", i, starts[i], starts[i+1])
         }
@@ -41,6 +45,6 @@ while read -r index start end; do
     base_root="${base%.*}"
     base_ext="${base##*.}"
     cat <<CMDS
-ffmpeg -i "$INPUT" -acodec copy -ss "$start" -to "$end" "${dir}/${base_root}.part_${index}.${base_ext}"
+ffmpeg -nostdin -hide_banner -i "$INPUT" -acodec copy -ss "$start" -to "$end" "${dir}/${base_root}.part_${index}.${base_ext}"
 CMDS
 done
