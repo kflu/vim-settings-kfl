@@ -35,4 +35,14 @@ source_rc ~/rc.d/sh/post '*'
 
 bindkey -e
 
+
+# (experimental) make zsh history more reliable
+# https://unix.stackexchange.com/a/575102/38968
+HISTSIZE=500000
+SAVEHIST=500000
+setopt appendhistory
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+
+
 # vim: set ft=sh:
