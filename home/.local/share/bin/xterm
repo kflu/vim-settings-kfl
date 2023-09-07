@@ -1,0 +1,31 @@
+#!/bin/sh
+
+nohup /usr/bin/xterm                             \
+    -xrm "allowWindowOps: true"                  \
+    -xrm "xterm*metaSendsEscape: true"           \
+    -xrm "xterm*faceSize: 12"                    \
+    -xrm "xterm*renderFont:   true"              \
+    -xrm "xterm*faceName: DejaVuSansMono,mono"   \
+    -xrm "xterm*termName: xterm-256color"        \
+    $(: ---- Color Theme ---- )                  \
+    -xrm "xterm*foreground:  #f8f8f8"            \
+    -xrm "xterm*background:  #1b1d1e"            \
+    -xrm "xterm*cursorColor: #fc971f"            \
+    -xrm "xterm*color0:      #1b1d1e"            \
+    -xrm "xterm*color8:      #505354"            \
+    -xrm "xterm*color1:      #f92672"            \
+    -xrm "xterm*color9:      #ff5995"            \
+    -xrm "xterm*color2:      #4df840"            \
+    -xrm "xterm*color10:     #b6e354"            \
+    -xrm "xterm*color3:      #f4fd22"            \
+    -xrm "xterm*color11:     #feed6c"            \
+    -xrm "xterm*color4:      #2757d6"            \
+    -xrm "xterm*color12:     #3f78ff"            \
+    -xrm "xterm*color5:      #8c54fe"            \
+    -xrm "xterm*color13:     #9e6ffe"            \
+    -xrm "xterm*color6:      #38c8b5"            \
+    -xrm "xterm*color14:     #23cfd5"            \
+    -xrm "xterm*color7:      #ccccc6"            \
+    -xrm "xterm*color15:     #f8f8f2"            \
+    -xrm "xterm*colorBD:     #ffffff"            \
+    "$@" >/dev/null 2>&1 &
