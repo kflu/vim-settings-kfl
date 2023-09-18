@@ -1,7 +1,7 @@
 #!/bin/sh
 
-nohup /usr/bin/xterm                             \
-    -xrm "allowWindowOps: true"                  \
+/usr/bin/xterm                             \
+    -xrm "xterm*allowWindowOps: true"                  \
     -xrm "xterm*metaSendsEscape: true"           \
     -xrm "xterm*faceSize: 12"                    \
     -xrm "xterm*renderFont:   true"              \
@@ -28,4 +28,5 @@ nohup /usr/bin/xterm                             \
     -xrm "xterm*color7:      #ccccc6"            \
     -xrm "xterm*color15:     #f8f8f2"            \
     -xrm "xterm*colorBD:     #ffffff"            \
-    "$@" >/dev/null 2>&1 &
+    -class "xterm_sh" \
+    "$@"
