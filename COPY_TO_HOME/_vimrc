@@ -127,6 +127,8 @@ fun s:plugins()
     Plug 'roxma/vim-tmux-clipboard'
     Plug 'tmux-plugins/vim-tmux-focus-events'
 
+    Plug 'gpanders/vim-oldfiles'
+
     if has('nvim')
         " NeoVim specific plugins
     endif
