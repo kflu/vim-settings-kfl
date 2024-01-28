@@ -50,7 +50,7 @@ fun s:plugins()
     Plug 'scrooloose/nerdtree'
     " Plug 'kien/ctrlp.vim' " fuzzy search
     " Plug 'scrooloose/syntastic' " Syntax checking (lint) framework
-    Plug 'neomake/neomake'
+    " Plug 'neomake/neomake'
     Plug 'nathanaelkane/vim-indent-guides' " Show visual indication of indentation <Leader>ig
     Plug 'terryma/vim-expand-region' " expand selection progressively. use +/_ to expand/reduce selection
     Plug 'tpope/vim-dispatch'
@@ -126,6 +126,8 @@ fun s:plugins()
     Plug 'jpalardy/vim-slime'
     Plug 'roxma/vim-tmux-clipboard'
     Plug 'tmux-plugins/vim-tmux-focus-events'
+
+    Plug 'gpanders/vim-oldfiles'
 
     if has('nvim')
         " NeoVim specific plugins
@@ -820,7 +822,7 @@ function s:Main()
     endif
 
     if executable('ag') " use ag and fallback to ack
-        let g:ackprg = 'ag --vimgrep'
+        let g:ackprg = 'ag -f --vimgrep'
     endif
 
     " Don't pop up errors when checkers return non-zero code
@@ -920,6 +922,10 @@ function s:ConfigureVimLsp()
 
     " Do not prompt for installing LSP servers
     let g:lsp_settings_enable_suggestions = 0
+
+    let g:lsp_settings = {
+    \  'efm-langserver': {'disabled': v:false}
+    \}
 
     augroup lsp_install
         au!
