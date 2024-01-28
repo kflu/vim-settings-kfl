@@ -46,7 +46,7 @@ fun s:plugins()
     Plug 'tpope/vim-fugitive', { 'tag': 'v3.0' }
     Plug 'kflu/vim-mercenary'
 
-    Plug 'vim-airline/vim-airline', { 'tag': 'v0.11' } " status line
+    " Plug 'vim-airline/vim-airline', { 'tag': 'v0.11' } " status line
     Plug 'scrooloose/nerdtree'
     " Plug 'kien/ctrlp.vim' " fuzzy search
     " Plug 'scrooloose/syntastic' " Syntax checking (lint) framework
@@ -1102,6 +1102,11 @@ fun s:ft_note()
     augroup END
 endfun
 call s:ft_note()
+
+augroup makefile
+    au!
+    au FileType make setl ts=8 sw=8 noexpandtab
+augroup END
 
 " 
 " Experimental: Tue May 17 10:41:51 PDT 2022
