@@ -1176,3 +1176,5 @@ fun s:ConfigureHgFilesMode()
   endfun
 
 endfun | call s:ConfigureHgFilesMode()
+
+silent! so ~/.vimrc.local
