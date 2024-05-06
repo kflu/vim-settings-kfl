@@ -109,7 +109,7 @@ fun s:plugins()
     Plug 'kflu/a.vim'
     Plug 'kflu/paste_mode.vim'
 
-    Plug 'MattesGroeger/vim-bookmarks'
+    Plug 'kflu/vim-bookmarks'
 
 
     " ----- Themes -----
@@ -854,11 +854,13 @@ function s:Main()
     call s:ConfigureVimMark()
 
     " vim-bookmarks
-    let g:bookmark_auto_save = 1
+    " let g:bookmark_auto_save = 1
     let g:bookmark_no_default_key_mappings = 1
-    cnoreabbrev bml BookmarkShowAll
-    cnoreabbrev bma BookmarkAnnotate
-    cnoreabbrev bmm BookmarkToggle
+    command Bmlist BookmarkShowAll
+    command Bmshow BookmarkShowAll
+    command Bmadd BookmarkAnnotate
+    command Bmtoggle BookmarkToggle
+    command -nargs=1 -complete=file Bmload BookmarkLoad <args>
 
     command DT r !date
 
