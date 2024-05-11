@@ -350,9 +350,21 @@ function s:ConfigureJavascript()
     let g:syntastic_javascript_checkers = ['eslint']
 endfunction
 
-function s:ConfigCoding()
-    set sw=4 ts=4 smarttab expandtab autoindent
-endfunction
+
+fun s:ConfigureIndentation()
+
+    function s:UseDefaultIndentation()
+        set sw& ts& smarttab& expandtab& autoindent&
+    endfunction
+
+    function s:UseSpaceIndentation()
+        set sw=4 ts=4 smarttab expandtab autoindent
+    endfunction
+
+    command -nargs=0 IndentationSpace call s:UseSpaceIndentation()
+    command -nargs=0 IndentationTab call s:UseDefaultIndentation()
+
+endfun | call s:ConfigureIndentation()
 
 function s:ConfigurePython()
     " For python doc string (triple quotes), see
@@ -833,7 +845,7 @@ function s:Main()
     let g:syntastic_mode_map = { "mode": "passive" }
 
     " By default use coding tab setting
-    call s:ConfigCoding()
+    call s:UseSpaceIndentation()
     
     let g:rainbow_active = 1
     nnoremap j gj
