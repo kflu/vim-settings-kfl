@@ -69,6 +69,7 @@ fun s:plugins()
     Plug 'mattn/vim-lsp-settings'
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    Plug 'skywind3000/asyncrun.vim'
 
     " ----- language support -----
     Plug 'plasticboy/vim-markdown'
@@ -1179,5 +1180,10 @@ fun s:ConfigureHgFilesMode()
   endfun
 
 endfun | call s:ConfigureHgFilesMode()
+
+
+fun s:ConfigureAsyncRun()
+    let g:asyncrun_open = 8
+endfun | call s:ConfigureAsyncRun()
 
 silent! so ~/.vimrc.local
