@@ -64,6 +64,9 @@ fun s:plugins()
     " Use Readline in command mode and insert mode
     Plug 'tpope/vim-rsi'
 
+    " Swap two windows
+    Plug 'wesQ3/vim-windowswap'
+
     " LSP support
     Plug 'prabirshrestha/vim-lsp', { 'tag': 'v0.1.4' }
     Plug 'mattn/vim-lsp-settings'
