@@ -1037,9 +1037,7 @@ endfun
 fun <SID>CopyFileName()
     let fn = expand("%:p")
     let @* = fn
-    if exists('*OSCYankString')
-        call OSCYankString(fn)
-    endif
+    silent! call OSCYank(fn)
     if executable('tmux')
         call system('tmux loadb -', fn)
     endif
@@ -1202,3 +1200,5 @@ fun s:ConfigureAsyncRun()
 endfun | call s:ConfigureAsyncRun()
 
 silent! so ~/.vimrc.local
+
+set termwinscroll=500000
