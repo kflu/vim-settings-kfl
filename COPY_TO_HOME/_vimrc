@@ -1195,3 +1195,14 @@ endfun | call s:ConfigureAsyncRun()
 set termwinscroll=500000
 
 silent! so ~/.vimrc.local
+
+
+function! EnterNormalMode()
+    if &buftype == 'terminal' && mode('') == 't'
+        call feedkeys("\<c-w>N")
+        call feedkeys("\<c-y>")
+        map <buffer> <silent> <RightMouse> :call ExitNormalMode()<CR>
+    endif
+endfunction
+
+tmap <silent> <ScrollWheelUp> <c-w>:call EnterNormalMode()<CR>
