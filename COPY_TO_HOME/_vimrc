@@ -1028,9 +1028,7 @@ endfun
 fun <SID>CopyFileName()
     let fn = expand("%:p")
     let @* = fn
-    if exists('*OSCYankString')
-        call OSCYankString(fn)
-    endif
+    silent! call OSCYank(fn)
     if executable('tmux')
         call system('tmux loadb -', fn)
     endif
@@ -1197,12 +1195,17 @@ set termwinscroll=500000
 silent! so ~/.vimrc.local
 
 
-function! EnterNormalMode()
-    if &buftype == 'terminal' && mode('') == 't'
-        call feedkeys("\<c-w>N")
-        call feedkeys("\<c-y>")
-        map <buffer> <silent> <RightMouse> :call ExitNormalMode()<CR>
-    endif
-endfunction
+fun s:ConfigureTerminalMode()
+    function! EnterNormalMode()
+        if &buftype == 'terminal' && mode('') == 't'
+            call feedkeys("\<c-w>N")
+            call feedkeys("\<c-y>")
+            map <buffer> <silent> <RightMouse> :call ExitNormalMode()<CR>
+        endif
+    endfunction
 
-tmap <silent> <ScrollWheelUp> <c-w>:call EnterNormalMode()<CR>
+    tmap <silent> <ScrollWheelUp> <c-w>:call EnterNormalMode()<CR>
+endfunc | call s:ConfigureTerminalMode()
+
+
+set termwinscroll=500000
