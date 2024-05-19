@@ -1209,3 +1209,14 @@ endfunc | call s:ConfigureTerminalMode()
 
 
 set termwinscroll=500000
+
+
+fun s:MonitorTmux(target)
+    python3 <<EOF
+import os, vim
+target = vim.eval("a:target")
+os.system(f"mkfifo ~/.monitor_tmux 2>/dev/null; tmux pipe-pane -t {target} 'cat >~/.monitor_tmux'")
+vim.command("redraw!")
+EOF
+endfun
+command -nargs=1 MonitorTmux call s:MonitorTmux(<q-args>) | ter ++shell cat ~/.monitor_tmux
