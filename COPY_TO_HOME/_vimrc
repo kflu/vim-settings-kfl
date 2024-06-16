@@ -36,7 +36,7 @@ fun s:plugins()
     Plug '~/work/osc_yank_regmon'
 
     " Disable tagbar - very slow when loading file in some folders
-    Plug 'majutsushi/tagbar' " Right hand side nav bar for code
+    Plug 'preservim/tagbar' " Right hand side nav bar for code
     Plug 'kflu/vim-mark' " mark keywords with colors
     " delimitMate turns out quite annoying. Try disable it (20190106)
     " Plug 'Raimondi/delimitMate' " parenthesis auto closing and jumping
@@ -71,7 +71,7 @@ fun s:plugins()
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
     " ----- language support -----
-    Plug 'plasticboy/vim-markdown'
+    Plug 'preservim/vim-markdown'
     Plug 'ferrine/md-img-paste.vim' " Paste images in markdown 
     Plug 'kchmck/vim-coffee-script' " syntax, tasks, linting (via syntactic & coffeelint)
     Plug 'chrisbra/csv.vim'
@@ -118,6 +118,7 @@ fun s:plugins()
     Plug 'kflu/vim-colors-solarized'
     Plug 'NLKNguyen/papercolor-theme'
     Plug 'junegunn/goyo.vim'  " Distraction free writing
+    Plug 'junegunn/limelight.vim'  " Hyperfocus-writing
     Plug 'dhruvasagar/vim-table-mode'
 
     Plug 'luochen1990/rainbow'
@@ -491,7 +492,6 @@ endfunction
 function s:ConfigureMarkdown()
     
     setlocal wrap tw=0
-    let g:vim_markdown_folding_disabled = 1
 
     " Disable comments formatting. *, - are treated as comments and interfer
     " with markdown list formatting Since markdown doesn't have comments, this
@@ -509,6 +509,10 @@ function s:ConfigureMarkdown()
 
     " vim-markdown settings:
     let g:vim_markdown_conceal_code_blocks = 0  " do not hide code block marks
+    let g:vim_markdown_folding_disabled = 1
+    let g:vim_markdown_auto_insert_bullets = 0
+    let g:vim_markdown_new_list_item_indent = 0
+
 
 endfunction
 
@@ -1000,6 +1004,10 @@ endfun
 fun s:ConfigureTagbar()
     set updatetime=500
     let g:tagbar_sort=0
+    if executable('universal-ctags')
+        let g:tagbar_ctags_bin = 'universal-ctags'
+    endif
+    nnoremap <leader>t <esc>:Tagbar<cr>
 endfun
 
 fun s:SourceSite()
