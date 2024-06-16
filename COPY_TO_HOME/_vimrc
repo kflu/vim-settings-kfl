@@ -64,11 +64,15 @@ fun s:plugins()
     " Use Readline in command mode and insert mode
     Plug 'tpope/vim-rsi'
 
+    " Swap two windows
+    Plug 'wesQ3/vim-windowswap'
+
     " LSP support
     Plug 'prabirshrestha/vim-lsp', { 'tag': 'v0.1.4' }
     Plug 'mattn/vim-lsp-settings'
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    Plug 'skywind3000/asyncrun.vim'
 
     " ----- language support -----
     Plug 'preservim/vim-markdown'
@@ -109,7 +113,7 @@ fun s:plugins()
     Plug 'kflu/a.vim'
     Plug 'kflu/paste_mode.vim'
 
-    Plug 'MattesGroeger/vim-bookmarks'
+    Plug 'kflu/vim-bookmarks'
 
 
     " ----- Themes -----
@@ -350,9 +354,21 @@ function s:ConfigureJavascript()
     let g:syntastic_javascript_checkers = ['eslint']
 endfunction
 
-function s:ConfigCoding()
-    set sw=4 ts=4 smarttab expandtab autoindent
-endfunction
+
+fun s:ConfigureIndentation()
+
+    function s:UseDefaultIndentation()
+        set sw& ts& smarttab& expandtab& autoindent&
+    endfunction
+
+    function s:UseSpaceIndentation()
+        set sw=4 ts=4 smarttab expandtab autoindent
+    endfunction
+
+    command -nargs=0 IndentationSpace call s:UseSpaceIndentation()
+    command -nargs=0 IndentationTab call s:UseDefaultIndentation()
+
+endfun | call s:ConfigureIndentation()
 
 function s:ConfigurePython()
     " For python doc string (triple quotes), see
@@ -836,7 +852,7 @@ function s:Main()
     let g:syntastic_mode_map = { "mode": "passive" }
 
     " By default use coding tab setting
-    call s:ConfigCoding()
+    call s:UseSpaceIndentation()
     
     let g:rainbow_active = 1
     nnoremap j gj
@@ -858,11 +874,13 @@ function s:Main()
     call s:ConfigureVimMark()
 
     " vim-bookmarks
-    let g:bookmark_auto_save = 1
+    " let g:bookmark_auto_save = 1
     let g:bookmark_no_default_key_mappings = 1
-    cnoreabbrev bml BookmarkShowAll
-    cnoreabbrev bma BookmarkAnnotate
-    cnoreabbrev bmm BookmarkToggle
+    command Bmlist BookmarkShowAll
+    command Bmshow BookmarkShowAll
+    command Bmadd BookmarkAnnotate
+    command Bmtoggle BookmarkToggle
+    command -nargs=1 -complete=file Bmload BookmarkLoad <args>
 
     command DT r !date
 
@@ -912,9 +930,10 @@ fun! s:ConfigureBG()
 endfun
 
 function s:ConfigureVimLsp()
-    " Only enable logging when debugging - this causes lag in insert mode:
-    " call mkdir('/tmp/vim-lsp', 'p')
-    " let g:lsp_log_file = expand('/tmp/vim-lsp/vim-lsp.' . getpid() . '.log')
+    """ " Only enable logging when debugging - this causes lag in insert mode:
+    """ call mkdir('/tmp/vim-lsp', 'p')
+    """ let g:lsp_log_verbose = 1
+    """ let g:lsp_log_file = expand('/tmp/vim-lsp/vim-lsp.' . getpid() . '.log')
 
     let g:lsp_diagnostics_echo_cursor = 1
     let g:lsp_diagnostics_echo_delay = 200
@@ -942,19 +961,10 @@ function s:ConfigureVimLsp()
         " Disable tagfunc so lsp can be used in addition to tags
         " if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
         nmap <buffer> gd <plug>(lsp-definition)
-        nmap <buffer> gs <plug>(lsp-document-symbol-search)
-        nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
         nmap <buffer> gr <plug>(lsp-references)
         nmap <buffer> gi <plug>(lsp-implementation)
         nmap <buffer> gp <plug>(lsp-peek-definition)
-        nmap <buffer> gt <plug>(lsp-type-definition)
-        nmap <buffer> <leader>rn <plug>(lsp-rename)
-        nmap <buffer> [g <plug>(lsp-previous-diagnostic)
-        nmap <buffer> ]g <plug>(lsp-next-diagnostic)
         nmap <buffer> gh <plug>(lsp-hover)
-        nmap <buffer> <leader>d <plug>(lsp-document-diagnostics) <bar> <c-w><c-p>
-        inoremap <buffer> <expr><c-f> lsp#scroll(+4)
-        inoremap <buffer> <expr><c-d> lsp#scroll(-4)
     endfunction
 
 endfunction
@@ -1026,9 +1036,7 @@ endfun
 fun <SID>CopyFileName()
     let fn = expand("%:p")
     let @* = fn
-    if exists('*OSCYankString')
-        call OSCYankString(fn)
-    endif
+    silent! call OSCYank(fn)
     if executable('tmux')
         call system('tmux loadb -', fn)
     endif
@@ -1185,4 +1193,38 @@ fun s:ConfigureHgFilesMode()
 
 endfun | call s:ConfigureHgFilesMode()
 
+
+fun s:ConfigureAsyncRun()
+    let g:asyncrun_open = 8
+endfun | call s:ConfigureAsyncRun()
+
+set termwinscroll=500000
+
 silent! so ~/.vimrc.local
+
+
+fun s:ConfigureTerminalMode()
+    function! EnterNormalMode()
+        if &buftype == 'terminal' && mode('') == 't'
+            call feedkeys("\<c-w>N")
+            call feedkeys("\<c-y>")
+            map <buffer> <silent> <RightMouse> :call ExitNormalMode()<CR>
+        endif
+    endfunction
+
+    tmap <silent> <ScrollWheelUp> <c-w>:call EnterNormalMode()<CR>
+endfunc | call s:ConfigureTerminalMode()
+
+
+set termwinscroll=500000
+
+
+fun s:MonitorTmux(target)
+    python3 <<EOF
+import os, vim
+target = vim.eval("a:target")
+os.system(f"mkfifo ~/.monitor_tmux 2>/dev/null; tmux pipe-pane -t {target} 'cat >~/.monitor_tmux'")
+vim.command("redraw!")
+EOF
+endfun
+command -nargs=1 MonitorTmux call s:MonitorTmux(<q-args>) | ter ++shell cat ~/.monitor_tmux
