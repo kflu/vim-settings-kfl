@@ -699,17 +699,6 @@ function s:Main()
         au BufWinEnter quickfix call <SID>onEnterQuickfixWin()
     endif
 
-    " ------------------------- OMNI COMPLETION SETTINGS -------------------------
-    if has('autocmd')
-
-        set pumheight=8 " set completion window height
-        " the following lines close the preview window after a completion
-        autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-        autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
-    endif
-    " ------------------------- OMNI COMPLETION SETTINGS -------------------------
-
     " ------------------------- KEY MAPPINGS -------------------------
     " Danger: quit without saving
     map XX :qa!<Enter>
