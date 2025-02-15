@@ -76,7 +76,7 @@ fun s:plugins()
 
     " ----- language support -----
     Plug 'preservim/vim-markdown'
-    Plug 'ferrine/md-img-paste.vim' " Paste images in markdown 
+    " Plug 'ferrine/md-img-paste.vim' " Paste images in markdown 
     Plug 'kchmck/vim-coffee-script' " syntax, tasks, linting (via syntactic & coffeelint)
     Plug 'chrisbra/csv.vim'
     Plug 'Vimjas/vim-python-pep8-indent'
@@ -720,7 +720,7 @@ function s:Main()
     nnoremap <c-x><c-s> :w<cr>
 
     " FZF command palette
-    nnoremap <Leader>p :Commands<cr>
+    nnoremap <nowait> <buffer> <Leader>p :Commands<cr>
     nnoremap <Leader>f :Files<cr>
     nnoremap <Leader>b :Buffers<cr>
     let g:fzf_preview_window = [] " disable fzf preview window
@@ -1228,3 +1228,6 @@ vim.command("redraw!")
 EOF
 endfun
 command -nargs=1 MonitorTmux call s:MonitorTmux(<q-args>) | ter ++shell cat ~/.monitor_tmux
+
+nnoremap DD :r!date<enter>
+command TODO NERDTree ~/todo | normal PO
