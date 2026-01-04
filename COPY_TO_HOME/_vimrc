@@ -68,7 +68,7 @@ fun s:plugins()
     Plug 'wesQ3/vim-windowswap'
 
     " LSP support
-    Plug 'prabirshrestha/vim-lsp', { 'tag': 'v0.1.4' }
+    Plug 'prabirshrestha/vim-lsp', { 'commit': 'cdd07e0ef79949c65a182eab2f2120c9e91c25aa' }
     Plug 'mattn/vim-lsp-settings'
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
@@ -125,7 +125,7 @@ fun s:plugins()
     Plug 'junegunn/limelight.vim'  " Hyperfocus-writing
     Plug 'dhruvasagar/vim-table-mode'
 
-    Plug 'luochen1990/rainbow'
+    " Plug 'luochen1990/rainbow'
 
     " Send to REPL
     Plug 'jpalardy/vim-slime'
