@@ -330,6 +330,7 @@ endfunction
 function s:ConfigureTags()
     set tags=
                 \tags,
+                \./tags,
                 \../tags,
                 \../../tags,
                 \../../../tags,
@@ -1006,7 +1007,7 @@ fun s:ConfigureTagbar()
     if executable('universal-ctags')
         let g:tagbar_ctags_bin = 'universal-ctags'
     endif
-    nnoremap <leader>t <esc>:Tagbar<cr>
+    nnoremap <leader>tt <esc>:Tagbar<cr>
 endfun
 
 fun s:SourceSite()
@@ -1220,3 +1221,21 @@ command -nargs=1 MonitorTmux call s:MonitorTmux(<q-args>) | ter ++shell cat ~/.m
 
 nnoremap DD :r!date<enter>
 command TODO NERDTree ~/todo | normal PO
+
+if executable('ty')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'ty',
+        \ 'cmd': {server_info->['ty', 'server']},
+        \ 'allowlist': ['python'],
+        \ 'workspace_config': {},
+        \ })
+endif
+
+if executable('ruff')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'ruff',
+        \ 'cmd': {server_info->['ruff', 'server']},
+        \ 'allowlist': ['python'],
+        \ 'workspace_config': {},
+        \ })
+endif
