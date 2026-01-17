@@ -68,7 +68,9 @@ fun s:plugins()
     Plug 'wesQ3/vim-windowswap'
 
     " LSP support
-    Plug 'prabirshrestha/vim-lsp', { 'commit': 'cdd07e0ef79949c65a182eab2f2120c9e91c25aa' }
+    " https://github.com/prabirshrestha/vim-lsp/issues/1639
+    " Plug 'prabirshrestha/vim-lsp', { 'commit': 'cdd07e0ef79949c65a182eab2f2120c9e91c25aa' }
+    Plug 'prabirshrestha/vim-lsp', { 'tag': 'v0.1.4' }
     Plug 'mattn/vim-lsp-settings'
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
