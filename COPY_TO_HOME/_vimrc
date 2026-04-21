@@ -67,11 +67,13 @@ fun s:plugins()
     " Swap two windows
     Plug 'wesQ3/vim-windowswap'
 
+    if !has('nvim')
     " LSP support
     " https://github.com/prabirshrestha/vim-lsp/issues/1639
     " Plug 'prabirshrestha/vim-lsp', { 'commit': 'cdd07e0ef79949c65a182eab2f2120c9e91c25aa' }
     Plug 'prabirshrestha/vim-lsp', { 'tag': 'v0.1.4' }
     Plug 'mattn/vim-lsp-settings'
+    endif
     Plug 'prabirshrestha/asyncomplete.vim'
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
     Plug 'skywind3000/asyncrun.vim'
@@ -138,6 +140,7 @@ fun s:plugins()
 
     if has('nvim')
         " NeoVim specific plugins
+        Plug 'neovim/nvim-lspconfig'
     endif
 
     call plug#end()
@@ -1224,20 +1227,51 @@ command -nargs=1 MonitorTmux call s:MonitorTmux(<q-args>) | ter ++shell cat ~/.m
 nnoremap DD :r!date<enter>
 command TODO NERDTree ~/todo | normal PO
 
-if executable('ty')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'ty',
-        \ 'cmd': {server_info->['ty', 'server']},
-        \ 'allowlist': ['python'],
-        \ 'workspace_config': {},
-        \ })
-endif
+" Realign table under cursor (works without enabling table mode)
+nnoremap <Leader>tr :TableModeRealign<CR>
+" Realign all tables in the buffer
+fun! s:TableModeRealignAll()
+    let save_cursor = getpos('.')
+    let lnum = 1
+    while lnum <= line('$')
+        if tablemode#table#IsTable(lnum)
+            call tablemode#table#Realign(lnum)
+            " Skip past this table to avoid re-processing
+            while lnum <= line('$') && tablemode#table#IsTable(lnum)
+                let lnum += 1
+            endwhile
+        else
+            let lnum += 1
+        endif
+    endwhile
+    call setpos('.', save_cursor)
+endfun
+command! TableModeRealignAll call s:TableModeRealignAll()
+nnoremap <Leader>tR :TableModeRealignAll<CR>
+" if executable('ty')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'ty',
+"         \ 'cmd': {server_info->['ty', 'server']},
+"         \ 'allowlist': ['python'],
+"         \ 'workspace_config': {},
+"         \ })
+" endif
+" 
+" if executable('ruff')
+"     au User lsp_setup call lsp#register_server({
+"         \ 'name': 'ruff',
+"         \ 'cmd': {server_info->['ruff', 'server']},
+"         \ 'allowlist': ['python'],
+"         \ 'workspace_config': {},
+"         \ })
+" endif
 
-if executable('ruff')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'ruff',
-        \ 'cmd': {server_info->['ruff', 'server']},
-        \ 'allowlist': ['python'],
-        \ 'workspace_config': {},
-        \ })
+if has('nvim')
+    lua <<EOF
+
+
+vim.lsp.enable('ty')
+
+
+EOF
 endif
