@@ -740,7 +740,7 @@ function s:Main()
 
     " ------------------------- CUSTOM COMMANDS -------------------------
     " copy file name to system clipboard (verified on Windows)
-    command Cpfn call <SID>CopyFileName()
+    command Cpfn silent! call <SID>CopyFileName()
     command Hsbar call s:ToggleHorizontalScrollbar()
     command CD cd %:p:h
     command LCD lcd %:p:h
