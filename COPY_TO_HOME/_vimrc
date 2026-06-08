@@ -950,14 +950,10 @@ function s:ConfigureVimLsp()
     augroup lsp_install
         au!
         autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-        " jedi-language-server's textDocument/codeAction is pathologically slow
-        " (~9s on large files) and jedi serves requests serially, so vim-lsp's
-        " code action signs feature blocks goto-definition behind it. Strip
-        " jedi's codeAction capability at init so vim-lsp never sends it one.
-        " (Capabilities dict is returned by reference, so remove() persists.)
         autocmd User lsp_server_init call s:disable_jedi_code_action()
     augroup END
 
+    " https://github.com/prabirshrestha/vim-lsp/issues/1639
     function! s:disable_jedi_code_action() abort
         for l:name in lsp#get_server_names()
             if l:name =~? 'jedi'
