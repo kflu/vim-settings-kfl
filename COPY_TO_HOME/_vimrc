@@ -155,12 +155,53 @@ catch /.*/
     echom 'Error loading plugins: ' .. v:exception
 endtry
 
-" vim-tmux-clipboard: drop its FocusGained/FocusLost pull (s:update_from_tmux),
-" which shells out to tmux synchronously 2-3x per focus and freezes terminal vim.
-" Keeps the TextYankPost push (vim yank -> tmux buffer) intact.
-" Deferred to VimEnter: the plugin registers these autocmds after this vimrc
-" runs, so clearing them inline would be a no-op.
-autocmd VimEnter * augroup vimtmuxclipboard | autocmd! FocusGained | autocmd! FocusLost | augroup END
+" vim-tmux-clipboard: replace its blocking system() tmux calls with async
+" job_start(), so a yank / focus / startup never stalls vim on a contended host.
+" (Sync system() to a busy tmux/host is what caused both the FocusGained hang and
+" the multi-second startup spikes.) Full vim<->tmux copy/paste is preserved.
+" Installed at VimEnter because the plugin registers its own autocmds after this
+" vimrc is sourced.
+if has('job') && has('channel')
+    function! s:TmuxPushAsync(text) abort
+        if $TMUX ==# '' || !executable('tmux') | return | endif
+        let l:opt = split(get(g:, 'vim_tmux_clipboard#loadb_option', ''))
+        let s:tmux_push_job = job_start(['tmux', 'loadb'] + l:opt + ['-'])
+        let l:ch = job_getchannel(s:tmux_push_job)
+        if ch_status(l:ch) ==# 'open'
+            call ch_sendraw(l:ch, a:text)
+            call ch_close_in(l:ch)
+        endif
+    endfunction
+
+    let s:tmux_pull_out = []
+    function! s:TmuxPullDone(ch) abort
+        let @" = join(s:tmux_pull_out, '')
+    endfunction
+    function! s:TmuxPullAsync() abort
+        if $TMUX ==# '' || !executable('tmux') | return | endif
+        if exists('s:tmux_pull_job') && job_status(s:tmux_pull_job) ==# 'run' | return | endif
+        let s:tmux_pull_out = []
+        let s:tmux_pull_job = job_start(['tmux', 'show-buffer'], {
+            \ 'out_mode': 'raw',
+            \ 'out_cb': {ch, msg -> add(s:tmux_pull_out, msg)},
+            \ 'close_cb': function('s:TmuxPullDone'),
+            \ })
+    endfunction
+
+    function! s:SetupTmuxClipboardAsync() abort
+        " Drop the plugin's blocking autocmds (sync system() on yank/focus).
+        silent! autocmd! vimtmuxclipboard
+        augroup vimtmuxclipboard_async
+            autocmd!
+            autocmd TextYankPost * call s:TmuxPushAsync(join(v:event['regcontents'], "\n"))
+            " Live tmux->vim pull on focus, async (no hang). Uncomment to enable:
+            " autocmd FocusGained * call s:TmuxPullAsync()
+        augroup END
+        call s:TmuxPullAsync()   " one-time startup pull, non-blocking
+    endfunction
+
+    autocmd VimEnter * call s:SetupTmuxClipboardAsync()
+endif
 
 
 " ------------------------- EXAMPLE SETTINGS -------------------------
@@ -1039,7 +1080,7 @@ endfun
 
 fun s:SourceSite()
     let dir = expand('$HOME/.vim/rc')
-    call system('mkdir -p '.dir)
+    if !isdirectory(dir) | call mkdir(dir, 'p') | endif
     for rc in glob(dir.'/*', 0, 1)
         exec 'source '.rc
     endfor
