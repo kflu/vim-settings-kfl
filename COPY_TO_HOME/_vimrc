@@ -155,6 +155,13 @@ catch /.*/
     echom 'Error loading plugins: ' .. v:exception
 endtry
 
+" vim-tmux-clipboard: drop its FocusGained/FocusLost pull (s:update_from_tmux),
+" which shells out to tmux synchronously 2-3x per focus and freezes terminal vim.
+" Keeps the TextYankPost push (vim yank -> tmux buffer) intact.
+" Deferred to VimEnter: the plugin registers these autocmds after this vimrc
+" runs, so clearing them inline would be a no-op.
+autocmd VimEnter * augroup vimtmuxclipboard | autocmd! FocusGained | autocmd! FocusLost | augroup END
+
 
 " ------------------------- EXAMPLE SETTINGS -------------------------
 if v:progname =~? "evim"
