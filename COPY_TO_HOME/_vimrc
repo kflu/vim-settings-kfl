@@ -996,6 +996,9 @@ function s:ConfigureVimLsp()
     \  'efm-langserver': {'disabled': v:false}
     \}
 
+    " Prefer ty when available, otherwise fall back to jedi.
+    let g:lsp_settings_filetype_python = [{-> executable('ty') ? 'ty' : 'jedi-language-server'}]
+
     augroup lsp_install
         au!
         autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
