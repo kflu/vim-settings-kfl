@@ -43,7 +43,10 @@ fun s:plugins()
     Plug 'tpope/vim-surround' " surrounding text blocks with parenthesis
     Plug 'tpope/vim-repeat' " use . to repeat plugin ops, like the ones in surround
     Plug 'easymotion/vim-easymotion'
-    Plug 'tpope/vim-fugitive', { 'tag': 'v3.0' }
+    " Plug 'tpope/vim-fugitive', { 'tag': 'v3.0' }
+    Plug 'tpope/vim-fugitive'
+    Plug 'rbong/vim-flog'
+    Plug 'junegunn/gv.vim'
     Plug 'kflu/vim-mercenary'
 
     " Plug 'vim-airline/vim-airline', { 'tag': 'v0.11' } " status line
