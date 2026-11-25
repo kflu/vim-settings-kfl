@@ -97,6 +97,8 @@ fun s:plugins()
     " Plug 'fsharp/vim-fsharp'
     " Plug 'OrangeT/vim-csharp' " Disable csharp as it errors when running under console (vim)
     Plug 'solarnz/thrift.vim'
+    Plug 'rust-lang/rust.vim'
+    Plug 'ionide/Ionide-vim'
 
     " Disable gitgutter - after update it asks to get the gitgutter_grep which I
     " don't want to.
