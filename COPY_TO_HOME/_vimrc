@@ -75,7 +75,8 @@ fun s:plugins()
     " https://github.com/prabirshrestha/vim-lsp/issues/1639
     " Plug 'prabirshrestha/vim-lsp', { 'commit': 'cdd07e0ef79949c65a182eab2f2120c9e91c25aa' }
     " Plug 'prabirshrestha/vim-lsp', { 'tag': 'v0.1.4' }
-    Plug 'prabirshrestha/vim-lsp'
+    " lsp#get_server_pid(), until prabirshrestha/vim-lsp merges it.
+    Plug 'kflu/vim-lsp', { 'branch': 'get-server-pid' }
     Plug 'mattn/vim-lsp-settings'
     Plug 'rhysd/vim-healthcheck'
     endif
