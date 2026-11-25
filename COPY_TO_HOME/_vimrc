@@ -77,7 +77,8 @@ fun s:plugins()
     " Plug 'prabirshrestha/vim-lsp', { 'tag': 'v0.1.4' }
     " lsp#get_server_pid(), until prabirshrestha/vim-lsp merges it.
     Plug 'kflu/vim-lsp', { 'branch': 'get-server-pid' }
-    Plug 'mattn/vim-lsp-settings'
+    " Detailed :LspSettingsStatus, until mattn/vim-lsp-settings merges it.
+    Plug 'kflu/vim-lsp-settings', { 'branch': 'status-details' }
     Plug 'rhysd/vim-healthcheck'
     endif
     Plug 'prabirshrestha/asyncomplete.vim'
