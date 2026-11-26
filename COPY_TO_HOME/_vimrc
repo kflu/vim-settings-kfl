@@ -1041,10 +1041,26 @@ function s:ConfigureVimLsp()
 
 endfunction
 
+" Start rust-analyzer (rustup's proxy) in the buffer's nearest Cargo.toml dir,
+" so rustup finds that project's rust-toolchain.toml; else Vim's cwd.
+" One server per Vim session: the first Rust buffer picks the toolchain.
+function! RustAnalyzerCargoCmd(...) abort
+    let l:server = lsp_settings#exec_path('rust-analyzer')
+    if empty(l:server)
+        return []
+    endif
+    let l:dir = lsp#utils#find_nearest_parent_file_directory(
+        \ lsp#utils#get_buffer_path(), 'Cargo.toml')
+    if empty(l:dir)
+        return [l:server]
+    endif
+    return ['/bin/sh', '-c', 'cd ' . shellescape(l:dir) . ' && exec ' . shellescape(l:server)]
+endfunction
+
 " Returned object will be set to g:lsp_settings['rust-analyzer']. This
 " function can be customized by other vimrc segments like ~/.vimrc.local
 function! RustAnalyzerLspSettings() abort
-    return {}
+    return {'cmd': function('RustAnalyzerCargoCmd')}
 endfunction
 
 
