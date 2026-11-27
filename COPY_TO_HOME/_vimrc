@@ -68,6 +68,8 @@ fun s:plugins()
     Plug 'tpope/vim-rsi'
 
     " Swap two windows
+    " Disable default maps: its <leader>pw makes <leader>p wait for timeoutlen
+    let g:windowswap_map_keys = 0
     Plug 'wesQ3/vim-windowswap'
 
     if !has('nvim')
@@ -773,7 +775,8 @@ function s:Main()
     nnoremap <c-x><c-s> :w<cr>
 
     " FZF command palette
-    nnoremap <nowait> <buffer> <Leader>p :Commands<cr>
+    nnoremap <Leader>p :Commands<cr>
+    nnoremap <silent> <Leader>ww :call WindowSwap#EasyWindowSwap()<CR>
     nnoremap <Leader>f :Files<cr>
     nnoremap <Leader>b :Buffers<cr>
     let g:fzf_preview_window = [] " disable fzf preview window
